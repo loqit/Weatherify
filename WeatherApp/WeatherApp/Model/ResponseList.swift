@@ -1,19 +1,20 @@
 import Foundation
 
-struct ResponseList: Codable {
-    let dt: Int
+struct ResponseList: Codable, Identifiable {
+    let id: Double
     let main: MainData
-    let weather: [String]
-    let clouds: String
-    let wind: String
+    let weather: [WeatherData]
+    let clouds: CloudsData
+    let wind: WindData
     let visibility: Int
     let pop: Double
-    let rain: String?
-    let sys: String
+    let rain: RainData?
+    let sys: SysData
     let dtTxt: String
 
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather, clouds, wind, visibility, pop, rain, sys
+        case id = "dt"
+        case main, weather, clouds, wind, visibility, pop, rain, sys
         case dtTxt = "dt_txt"
     }
 }
