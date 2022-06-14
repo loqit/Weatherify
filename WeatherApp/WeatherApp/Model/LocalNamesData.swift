@@ -1,13 +1,14 @@
 import Foundation
 
+// swiftlint:disable identifier_name
 struct LocalNamesData: Codable {
     let af, ar: String?
-    let ascii: String
+    let ascii: String?
     let az, bg, ca, da: String?
     let de, el: String?
     let en: String
     let eu, fa: String?
-    let featureName: String
+    let featureName: String?
     let fi, fr, gl, he: String?
     let hi, hr, hu, id: String?
     let it, ja, la, lt: String?

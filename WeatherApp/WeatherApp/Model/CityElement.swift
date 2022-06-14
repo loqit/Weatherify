@@ -1,8 +1,9 @@
 import Foundation
 
-struct CityElement: Codable {
+struct CityElement: Codable, Identifiable {
+    var id: String { name }
     let name: String
-    let localNames: LocalNamesData
+    let localNames: LocalNamesData?
     let lat, lon: Double
     let country: String
     let state: String?
