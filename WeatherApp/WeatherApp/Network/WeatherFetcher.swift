@@ -12,7 +12,7 @@ class WeatherFetcher {
     func getCitiesData(of cityName: String) async throws -> [CityElement] {
         // swiftlint:disable line_length
         guard let url = URL(
-            string: "https://api.openweathermap.org/geo/1.0/direct?q=\(cityName)&limit=5&appid=\(NetworkConstants.apiKey.rawValue)")
+            string: "\(NetworkConstants.geoUrl)?q=\(cityName)&limit=5&appid=\(NetworkConstants.apiKey)")
         else {
             throw NetworkError.invalidUrl
         }
@@ -22,7 +22,7 @@ class WeatherFetcher {
     
     func fetchWeatherData(by cityElement: CityElement) async throws -> ResponseBody {
         let coordinate = Coordinate(lat: cityElement.lat, lon: cityElement.lon)
-        guard let url = URL(string: "\(NetworkConstants.baseUrl.rawValue)?lat=\(coordinate.lat)&lon=\(coordinate.lon)&appid=\(NetworkConstants.apiKey.rawValue)&units=metric")
+        guard let url = URL(string: "\(NetworkConstants.baseUrl)?lat=\(coordinate.lat)&lon=\(coordinate.lon)&appid=\(NetworkConstants.apiKey)&units=metric")
         else {
             throw NetworkError.invalidUrl
         }
