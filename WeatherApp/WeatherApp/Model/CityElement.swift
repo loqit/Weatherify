@@ -1,7 +1,7 @@
 import Foundation
 
 struct CityElement: Codable, Identifiable {
-    var id: String { name }
+    var id: UUID { UUID() }
     let name: String
     let localNames: LocalNamesData?
     let lat, lon: Double
