@@ -6,7 +6,7 @@ class WeatherViewModel: ObservableObject {
     
     @Published private(set) var weatherData: ResponseBody?
     @Published private(set) var isSearching = false
-    private let weatherFetcher = WeatherFetcher()
+    private let weatherFetcher = DataFetcher()
     
     private var searchTask: Task<Void, Never>?
 

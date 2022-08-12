@@ -6,7 +6,7 @@ class CitiesViewModel: ObservableObject {
     @Published private(set) var cities: [CityElement] = []
     @Published private(set) var isSearching = false
     @Published var searchTerm: String = ""
-    private let weatherFetcher = WeatherFetcher()
+    private let weatherFetcher = DataFetcher()
     
     private var searchTask: Task<Void, Never>?
     
