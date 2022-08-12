@@ -23,7 +23,7 @@ class DataFetcher {
         return try await getData(from: urlStr)
     }
     
-    func getContriesList() async throws -> CountryElement {
+    func getContriesList() async throws -> [CountryElement] {
         let urlStr = "https://restcountries.com/v3.1/all"
         return try await getData(from: urlStr)
     }
