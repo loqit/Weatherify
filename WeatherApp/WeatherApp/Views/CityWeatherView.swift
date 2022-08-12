@@ -8,34 +8,47 @@ struct CityWeatherView: View {
         VStack {
             Spacer()
             Text(cityElement.name)
-            if !viewModel.weatherData.isEmpty {
-                Text("\(Int(viewModel.weatherData[0].main.temp))°")
+            if let weatherData = viewModel.weatherData {
+                Text("\(Int(weatherData.current.temp))°")
             }
             Spacer()
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(viewModel.weatherData) { hourly in
-                        WeatherCard(temp: String(Int(hourly.main.temp)), icon: nil, time: timeFromDate(hourly.id))
-                    }
-                }
+            ScrollView(.vertical, showsIndicators: false) {
+                currentWeatherView
+                dailyWeatherViwe
             }
-            .padding()
             Spacer()
             Spacer()
         }
         .task {
-            
             await viewModel.load(for: cityElement)
         }
     }
     
-    private func timeFromDate(_ dateInterval: Double) -> String {
-        let date = Date(timeIntervalSince1970: dateInterval)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        dateFormatter.locale = Locale.current
-        return dateFormatter.string(from: date)
-        
+    private var currentWeatherView: some View {
+        return AnyView(
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(viewModel.weatherData?.hourly ?? []) { hourly in
+                        WeatherCard(temp: String(Int(hourly.temp)),
+                                    iconName: hourly.weather[0].icon,
+                                    time: DateFormatService.timeFromDate(hourly.dt))
+                        
+                    }
+                }
+            }
+            .padding()
+        )
+    }
+    
+    private var dailyWeatherViwe: some View {
+        return AnyView(
+            VStack {
+                ForEach(viewModel.weatherData?.daily ?? []) { daily in
+                    DailyWeather(date: DateFormatService.shortDate(daily.dt),
+                                 temp: daily.temp,
+                                 iconName: daily.weather[0].icon)
+                }
+            }
+        )
     }
 }
