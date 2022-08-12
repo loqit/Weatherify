@@ -1,8 +1,17 @@
 import Foundation
 
 struct ResponseBody: Codable {
-    let cod: String
-    let message, cnt: Int
-    let list: [ResponseList]
-    let city: City
+    let lat, lon: Double
+    let timezone: String
+    let timezoneOffset: Int
+    let current: Current
+    let minutely: [Minutely]
+    let hourly: [Current]
+    let daily: [Daily]
+
+    enum CodingKeys: String, CodingKey {
+        case lat, lon, timezone
+        case timezoneOffset = "timezone_offset"
+        case current, minutely, hourly, daily
+    }
 }
