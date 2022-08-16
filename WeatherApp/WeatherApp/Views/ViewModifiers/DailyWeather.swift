@@ -12,7 +12,7 @@ struct DailyWeather: View {
             Spacer()
             Text("\(Int(temp.min))°/\(Int(temp.max))°")
                 .fontWeight(.light)
-            AsyncImage(url: URL(string: "\(NetworkConstants.iconUrl)\(iconName).png")) { image in
+            AsyncImage(url: OpenWeatherEndpoint.iconUrl(iconName).url) { image in
                 image
                     .resizable()
             } placeholder: {

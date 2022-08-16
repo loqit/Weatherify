@@ -10,7 +10,7 @@ struct WeatherCard: View {
             Text("\(temp)°")
                 .font(.caption)
                 .fontWeight(.medium)
-            AsyncImage(url: URL(string: "\(NetworkConstants.iconUrl)\(iconName).png")) { image in
+            AsyncImage(url: OpenWeatherEndpoint.iconUrl(iconName).url) { image in
                 image
                     .resizable()
             } placeholder: {
