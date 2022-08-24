@@ -6,9 +6,17 @@ class CitiesViewModel: ObservableObject {
     @Published private(set) var cities: [CityElement] = []
     @Published private(set) var isSearching = false
     @Published var searchTerm: String = ""
-    private let weatherFetcher = DataFetcher()
-    
     private var searchTask: Task<Void, Never>?
+    
+    private let citiesFetcher: CityServiceProtocol
+    
+    init(service: CityServiceProtocol) {
+        citiesFetcher = service
+    }
+    
+    init() {
+        citiesFetcher = CityService(service: NetworkService())
+    }
     
     @MainActor
     func executeQuery() async {
@@ -28,7 +36,7 @@ class CitiesViewModel: ObservableObject {
     
     private func searchCities(by name: String) async -> [CityElement] {
         do {
-            let cities: [CityElement] = try await weatherFetcher.getCitiesData(of: name)
+            let cities: [CityElement] = try await citiesFetcher.getCitiesData(of: name)
             return cities
         } catch {
             print(error.localizedDescription)
