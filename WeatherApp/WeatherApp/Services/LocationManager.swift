@@ -3,15 +3,13 @@ import CoreLocation
 import Combine
 import MapKit
 
-struct Marker: Identifiable {
-    let id = UUID()
-    var location: CLLocationCoordinate2D
-}
-
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var lastLocation: CLLocation?
+    @Published var location: CLLocationCoordinate2D?
+    
+    private(set) var currentLocation = CLLocationCoordinate2D()
 
     override init() {
         super.init()
@@ -19,6 +17,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+    }
+    
+    func requestLocation() {
+        locationManager.requestLocation()
     }
 
     var statusString: String {
@@ -44,15 +46,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationStatus = status
-        print(#function, statusString)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
-            return
-        }
-        lastLocation = location
-        print(#function, location)
+        location = locations.first?.coordinate
     }
 
     func loadMap(by name: String) async throws -> MKLocalSearch.Response? {
@@ -67,5 +64,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         searchRequest.naturalLanguageQuery = name
         let search = MKLocalSearch(request: searchRequest)
         search.start(completionHandler: completion)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+         print("error:: \(error)")
     }
 }

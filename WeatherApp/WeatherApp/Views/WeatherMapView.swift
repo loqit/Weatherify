@@ -6,7 +6,6 @@ struct WeatherMapView: View {
 
     var name: String
     @State var mapView = MapView()
-    let coordinate = CLLocationCoordinate2D(latitude: 37.5407246, longitude: -77.4360481)
     
     var body: some View {
         mapView
@@ -21,14 +20,12 @@ struct MapView: UIViewRepresentable {
     typealias UIViewType = MKMapView
     
     var mapService = MapService(locationManager: LocationManager())
-    let coordinate = CLLocationCoordinate2D(latitude: 39.952583, longitude: -75.165222)
     
     func makeUIView(context: Context) -> MKMapView {
         return mapService.mapView
     }
     
     func drawRoute(by name: String) {
-        mapService.addAnnotation(coordinate)
         mapService.drawRoute(by: name)
     }
     

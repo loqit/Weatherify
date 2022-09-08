@@ -12,7 +12,6 @@ class MapService: NSObject, MKMapViewDelegate {
         self.requestService = MKRequestService()
         super.init()
         mapView.delegate = self
-        configureSourceLocation()
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -23,12 +22,15 @@ class MapService: NSObject, MKMapViewDelegate {
     }
     
     func configureSourceLocation() {
-        let source = CLLocationCoordinate2D(latitude: CLLocationDegrees(40.730610),
-                                            longitude: CLLocationDegrees(-73.935242))
+        guard let source = locationManager.location else {
+            return
+        }
         self.addAnnotation(source)
     }
     
     func drawRoute(by name: String) {
+        locationManager.requestLocation()
+        configureSourceLocation()
         locationManager.loadMap(by: name) { response, _ in
             guard let response = response else {
                 return
