@@ -8,7 +8,7 @@ struct CountriesView: View {
         let countries = viewModel.countries
         NavigationView {
             List(countries) { country in
-                NavigationLink(destination: MapView(name: country.name.common)) {
+                NavigationLink(destination: WeatherMapView(name: country.capital[0])) {
                     CountryCard(countryName: country.name.common, countryFlag: country.flags.png)
                 }
             }

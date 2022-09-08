@@ -30,6 +30,5 @@ struct CountryCard: View {
 struct CountryCard_Previews: PreviewProvider {
     static var previews: some View {
         CountryCard(countryName: "Italy", countryFlag: URL(string: "https://flagcdn.com/w320/it.png"))
-            .previewInterfaceOrientation(.landscapeRight)
     }
 }
