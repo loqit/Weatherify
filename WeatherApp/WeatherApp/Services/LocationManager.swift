@@ -6,7 +6,6 @@ import MapKit
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
     @Published var locationStatus: CLAuthorizationStatus?
-    @Published var lastLocation: CLLocation?
     @Published var location: CLLocationCoordinate2D?
     
     private(set) var currentLocation = CLLocationCoordinate2D()
@@ -21,27 +20,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     func requestLocation() {
         locationManager.requestLocation()
-    }
-
-    var statusString: String {
-        guard let status = locationStatus else {
-            return "unknown"
-        }
-        
-        switch status {
-        case .notDetermined:
-            return "notDetermined"
-        case .authorizedWhenInUse:
-            return "authorizedWhenInUse"
-        case .authorizedAlways:
-            return "authorizedAlways"
-        case .restricted:
-            return "restricted"
-        case .denied:
-            return "denied"
-        default:
-            return "unknown"
-        }
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
