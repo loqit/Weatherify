@@ -1,6 +1,7 @@
 import Foundation
 
 protocol WeatherServiceProtocol {
+    init(service: NetworkServiceProtocol)
     func fetchWeatherData(by cityElement: CityElement) async throws -> ResponseBody
 }
 
@@ -8,7 +9,7 @@ class WeatherService: WeatherServiceProtocol {
 
     private let networkService: NetworkServiceProtocol
     
-    init(service: NetworkServiceProtocol) {
+    required init(service: NetworkServiceProtocol) {
         networkService = service
     }
 

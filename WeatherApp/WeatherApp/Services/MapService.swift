@@ -1,18 +1,25 @@
 import Foundation
 import MapKit
 
-class MapService: NSObject, MKMapViewDelegate {
+protocol MapServiceType: MKMapViewDelegate {
+    var locationManager: LocationManager { get set }
+    func configureDestinationLocation(by coordinate: CLLocationCoordinate2D)
+    func drawRoute()
+}
+
+class MapService: NSObject, MapServiceType {
     
     private(set) var mapView = MKMapView()
     private var requestService: MKRequestServiceProtocol
     var locationManager: LocationManager
     
+    private var sourceLocation = CLLocationCoordinate2D()
+    private var destinationLocation = CLLocationCoordinate2D()
+    
     struct Constants {
         static let delta: Double = 5000
     }
-    
-    private(set) var isDrawing = false
-    
+
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
         self.requestService = MKRequestService()
@@ -57,22 +64,19 @@ class MapService: NSObject, MKMapViewDelegate {
 
     func addAnnotation(_ coordinate: CLLocationCoordinate2D,
                        _ title: String? = nil) {
-      //  let ann = MKPlacemark(coordinate: coordinate)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         annotation.title = title
         mapView.addAnnotation(annotation)
     }
 
-    func drawRoute() { // [MapItem]
-        isDrawing = true
+    func drawRoute() {
         configureSourceLocation()
-        for index in 0..<mapView.annotations.count - 1 {
-            let direction = requestService.configureDirectionRequest(from: mapView.annotations[index],
-                                                                     to: mapView.annotations[index + 1],
-                                                                     using: .automobile)
-            calculateRoute(using: direction)
-        }
+        let direction = requestService.configureDirectionRequest(from: sourceLocation,
+                                                                 to: destinationLocation,
+                                                                 using: .automobile)
+        calculateRoute(using: direction)
+        
     }
 
     private func calculateRoute(using directions: MKDirections) {
@@ -84,7 +88,6 @@ class MapService: NSObject, MKMapViewDelegate {
             self.mapView.setVisibleMapRect(route.polyline.boundingMapRect,
                                            edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20),
                                            animated: true)
-            self.isDrawing = false
         }
     }
 }

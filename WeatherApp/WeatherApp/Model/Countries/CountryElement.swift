@@ -4,7 +4,7 @@ import CoreLocation
 struct CountryElement: Codable, Identifiable {
     var id: UUID { UUID() }
     let name: Name
-    let flags, coatOfArms: CoatOfArms
+    let flags: CoatOfArms
     let capital: [String]
     let latlng: [Double]
     
