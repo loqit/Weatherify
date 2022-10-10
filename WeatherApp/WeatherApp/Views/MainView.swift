@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MainView: View {
-    @StateObject private var viewModel: CitiesViewModel = CitiesViewModel()
+    @StateObject private var viewModel: CitiesViewModel = CitiesViewModelCreator().factoryMethod(parser: NetworkParser())
     var body: some View {
         NavigationView {
             ScrollView {
@@ -14,7 +14,7 @@ struct MainView: View {
                 .searchable(text: $viewModel.searchTerm)
                 .onSubmit(of: .search) {
                     Task {
-                        await viewModel.executeQuery()
+                        await viewModel.load()
                     }
                 }
             }

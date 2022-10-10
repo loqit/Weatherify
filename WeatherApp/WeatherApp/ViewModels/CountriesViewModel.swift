@@ -1,6 +1,6 @@
 import Foundation
 
-class CountriesViewModel: ObservableObject {
+class CountriesViewModel: ViewModelProtocol {
     
     @Published private(set) var countries: [CountryElement] = []
     @Published private(set) var isSearching = false
@@ -12,13 +12,8 @@ class CountriesViewModel: ObservableObject {
     init(service: CountriesServiceProtocol) {
         dataFetcher = service
     }
-    
-    init() {
-        dataFetcher = CountryService(service: NetworkService())
-    }
-    
-    @MainActor
-    func loadCountriesList() async {
+
+    func load() async {
         loadTask?.cancel()
         let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
         if currentSearchCountry.isEmpty {

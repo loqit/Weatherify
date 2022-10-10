@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-struct CountryElement: Codable, Identifiable {
+struct CountryElement: Decodable, Identifiable {
     var id: UUID { UUID() }
     let name: Name
     let flags: CoatOfArms

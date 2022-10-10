@@ -17,6 +17,7 @@ extension Mockable {
         do {
             let data = try Data(contentsOf: path)
             let decodedObject = try JSONDecoder().decode(T.self, from: data)
+            print("Decoded object", decodedObject)
             return decodedObject
         } catch {
             print(error)

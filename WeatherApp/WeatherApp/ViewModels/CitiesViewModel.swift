@@ -1,9 +1,9 @@
 import Foundation
 import Combine
 
-class CitiesViewModel: ObservableObject {
+class CitiesViewModel: ViewModelProtocol {
     
-    @Published private(set) var cities: [CityElement] = []
+    @Published private(set) var cities: [City] = []
     @Published private(set) var isSearching = false
     @Published var searchTerm: String = ""
     private var searchTask: Task<Void, Never>?
@@ -13,13 +13,8 @@ class CitiesViewModel: ObservableObject {
     init(service: CityServiceProtocol) {
         citiesFetcher = service
     }
-    
-    init() {
-        citiesFetcher = CityService(service: NetworkService())
-    }
-    
-    @MainActor
-    func executeQuery() async {
+
+    func load() async {
         searchTask?.cancel()
         let currentSearchCity = searchTerm.trimmingCharacters(in: .whitespaces)
         if currentSearchCity.isEmpty {
@@ -34,9 +29,9 @@ class CitiesViewModel: ObservableObject {
         }
     }
     
-    private func searchCities(by name: String) async -> [CityElement] {
+    private func searchCities(by name: String) async -> [City] {
         do {
-            let cities: [CityElement] = try await citiesFetcher.getCitiesData(of: name)
+            let cities: [City] = try await citiesFetcher.getCitiesData(of: name)
             return cities
         } catch {
             print(error.localizedDescription)

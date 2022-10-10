@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct CityWeatherView: View {
-    @StateObject private var viewModel: WeatherViewModel = WeatherViewModel()
-    var cityElement: CityElement
+    @StateObject private var viewModel: WeatherViewModel = WeatherViewModelCreator().factoryMethod(parser: NetworkParser())
+    var cityElement: City
 
     var body: some View {
         VStack {
@@ -14,13 +14,14 @@ struct CityWeatherView: View {
             Spacer()
             ScrollView(.vertical, showsIndicators: false) {
                 currentWeatherView
-                dailyWeatherViwe
+                dailyWeatherView
             }
             Spacer()
             Spacer()
         }
         .task {
-            await viewModel.load(for: cityElement)
+            self.viewModel.city = cityElement
+            await viewModel.load()
         }
     }
     
@@ -31,7 +32,7 @@ struct CityWeatherView: View {
                     ForEach(viewModel.weatherData?.hourly ?? []) { hourly in
                         WeatherCard(temp: String(Int(hourly.temp)),
                                     iconName: hourly.weather[0].icon,
-                                    time: DateFormatService.timeFromDate(hourly.dt))
+                                    time: DateFormatService.timeFromDate(hourly.daytime))
                         
                     }
                 }
@@ -40,11 +41,11 @@ struct CityWeatherView: View {
         )
     }
     
-    private var dailyWeatherViwe: some View {
+    private var dailyWeatherView: some View {
         return AnyView(
             VStack {
                 ForEach(viewModel.weatherData?.daily ?? []) { daily in
-                    DailyWeather(date: DateFormatService.shortDate(daily.dt),
+                    DailyWeather(date: DateFormatService.shortDate(daily.daytime),
                                  temp: daily.temp,
                                  iconName: daily.weather[0].icon)
                 }

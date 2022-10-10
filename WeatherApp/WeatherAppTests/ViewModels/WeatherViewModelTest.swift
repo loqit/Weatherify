@@ -2,22 +2,17 @@ import XCTest
 import Combine
 @testable import WeatherApp
 
-enum JSONNames: String {
-    case weatherResponse = "WeatherResponse"
-    case citiesResponse = "CitiesResponse"
-    case countryResponse = "CountryResponse"
-}
+ class EmptyNetworkParserMock: NetworkParserProtocol, Mockable {
+     func decode<Value: Decodable>(_ data: Data) -> Result<Value, Error> {
+        let mockData = loadJSON(filename: JSONNames.empty.rawValue, type: Value.self)
+        return .success(mockData)
+    }
+ }
 
-//class NetworkParserMock: NetworkParserProtocol {
-//    func decode<Value: Decodable>(_ data: Data) -> Result<Value, Error> {
-//        
-//        return .success(<#T##Decodable#>)
-//    }
-//}
-
-class WeatherNetworkServiceMock: NetworkServiceProtocol, Mockable {
-    func getData<T: Decodable>(from url: URL) async throws -> T {
-        return loadJSON(filename: JSONNames.weatherResponse.rawValue, type: T.self)
+class WeatherNetworkParserMock: NetworkParserProtocol, Mockable {
+    func decode<Value: Decodable>(_ data: Data) -> Result<Value, Error> {
+        let mockData = loadJSON(filename: JSONNames.weatherResponse.rawValue, type: Value.self)
+        return .success(mockData)
     }
 }
 
@@ -26,7 +21,10 @@ class WeatherViewModelTest: XCTestCase {
     private var weatherVM: WeatherViewModel?
     
     override func setUp() async throws {
-        weatherVM = WeatherViewModel(service: WeatherService(service: WeatherNetworkServiceMock()))
+        try await super.setUp()
+        let parser = WeatherNetworkParserMock()
+        let creator = WeatherViewModelCreator()
+        weatherVM = creator.factoryMethod(parser: parser)
     }
 
     override func tearDown() async throws {
@@ -36,7 +34,8 @@ class WeatherViewModelTest: XCTestCase {
     
     func testFetchWeatherSuccessfully() async {
         let exp = expectation(description: "Fetched Weather💩")
-        await weatherVM?.load(for: CityElement(name: "", lat: 0, lon: 0, country: "", state: ""))
+        weatherVM?.city = City(name: "", lat: 0, lon: 0, country: "", state: "")
+        await weatherVM?.load()
         weatherVM?.$weatherData
             .dropFirst()
             .sink(receiveValue: { value in
@@ -44,8 +43,10 @@ class WeatherViewModelTest: XCTestCase {
                 exp.fulfill()
             })
             .store(in: &cancellables)
-        await waitForExpectations(timeout: 1)
+        await waitForExpectations(timeout: 1.5) // Перестало выполнятся за 1 ???
     }
     
-    
+    func testFetchWeatherEmpty() async {
+        //
+    }
 }

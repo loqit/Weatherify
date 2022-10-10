@@ -2,7 +2,7 @@ import XCTest
 @testable import WeatherApp
 
 class CountryServiceTests: XCTestCase {
-    let countryService = CountryService(service: NetworkService())
+    let countryService = CountryService(service: NetworkService(parser: NetworkParser()))
     let countryMock = CountryElement(name: Name(common: "United States",
                                                 official: "United States of America"),
                                      flags: CoatOfArms(png: URL(string: "https://flagcdn.com/w320/us.png"),

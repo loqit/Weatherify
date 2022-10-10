@@ -1,12 +1,12 @@
 import Foundation
 
-struct ResponseBody: Codable {
+struct WeatherModel: Decodable {
     let lat, lon: Double
     let timezone: String
     let timezoneOffset: Int
-    let current: Current
-    let hourly: [Current]
-    let daily: [Daily]
+    let current: CurrentWeather
+    let hourly: [CurrentWeather]
+    let daily: [DailyWeatherModel]
 
     enum CodingKeys: String, CodingKey {
         case lat, lon, timezone

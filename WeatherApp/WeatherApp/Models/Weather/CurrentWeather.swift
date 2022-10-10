@@ -1,11 +1,11 @@
 import Foundation
 
-struct Current: Codable, Identifiable {
+struct CurrentWeather: Decodable, Identifiable {
     var id: UUID { UUID() }
-    let dt: Double
+    let daytime: Double
     let sunrise, sunset: Int?
     let temp, feelsLike: Double
-    let pressure, humidity: Int
+    let pressure: Int
     let dewPoint, uvi: Double
     let clouds, visibility: Int
     let windSpeed: Double
@@ -14,9 +14,10 @@ struct Current: Codable, Identifiable {
     let windGust, pop: Double?
 
     enum CodingKeys: String, CodingKey {
-        case dt, sunrise, sunset, temp
+        case daytime = "dt"
+        case sunrise, sunset, temp
         case feelsLike = "feels_like"
-        case pressure, humidity
+        case pressure
         case dewPoint = "dew_point"
         case uvi, clouds, visibility
         case windSpeed = "wind_speed"

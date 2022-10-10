@@ -2,8 +2,8 @@ import XCTest
 @testable import WeatherApp
 
 class CityServiceTests: XCTestCase {
-    let cityService = CityService(service: NetworkService())
-    let cityMock = CityElement(name: "Boston", lat: 42.3554334, lon: -71.060511, country: "US", state: "Massachusetts")
+    let cityService = CityService(service: NetworkService(parser: NetworkParser()))
+    let cityMock = City(name: "Boston", lat: 42.3554334, lon: -71.060511, country: "US", state: "Massachusetts")
     
     func testService() async {
         guard let response = try? await cityService.getCitiesData(of: "Boston") else {

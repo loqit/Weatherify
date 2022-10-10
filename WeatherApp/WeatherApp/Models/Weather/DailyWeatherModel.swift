@@ -1,12 +1,12 @@
 import Foundation
 
-struct Daily: Codable, Identifiable {
+struct DailyWeatherModel: Decodable, Identifiable {
     var id: UUID { UUID() }
-    let dt: Double
+    let daytime: Double
     let sunrise, sunset, moonrise: Int
     let moonset: Int
     let moonPhase: Double
-    let temp: Temp
+    let temp: Temperature
     let feelsLike: FeelsLike
     let pressure, humidity: Int
     let dewPoint, windSpeed: Double
@@ -18,7 +18,8 @@ struct Daily: Codable, Identifiable {
     let rain: Double?
 
     enum CodingKeys: String, CodingKey {
-        case dt, sunrise, sunset, moonrise, moonset
+        case daytime = "dt"
+        case sunrise, sunset, moonrise, moonset
         case moonPhase = "moon_phase"
         case temp
         case feelsLike = "feels_like"

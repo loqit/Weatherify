@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CityCard: View {
 
-    let cityInfo: CityElement
+    let cityInfo: City
     
     var body: some View {
         HStack {

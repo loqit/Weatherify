@@ -2,10 +2,11 @@ import Foundation
 import Combine
 import SwiftUI
 
-class WeatherViewModel: ObservableObject {
+class WeatherViewModel: ViewModelProtocol {
     
-    @Published var weatherData: ResponseBody?
+    @Published var weatherData: WeatherModel?
     @Published private(set) var isSearching = false
+    var city: City?
     
     private var weatherFetcher: WeatherServiceProtocol
     
@@ -13,25 +14,23 @@ class WeatherViewModel: ObservableObject {
         weatherFetcher = service
     }
     
-    init() {
-        weatherFetcher = WeatherService(service: NetworkService())
-    }
-    
     private var searchTask: Task<Void, Never>?
 
-   // @MainActor
-    func load(for cityElement: CityElement) async {
+    func load() async {
         searchTask?.cancel()
+        guard let city = city else {
+            return
+        }
         searchTask = Task {
             isSearching = true
-            weatherData = await searchWeather(at: cityElement)
+            weatherData = await searchWeather(at: city)
             isSearching = Task.isCancelled
         }
     }
 
-    private func searchWeather(at city: CityElement) async -> ResponseBody? {
+    private func searchWeather(at city: City) async -> WeatherModel? {
         do {
-            let weatherResponse: ResponseBody = try await weatherFetcher.fetchWeatherData(by: city)
+            let weatherResponse: WeatherModel = try await weatherFetcher.fetchWeatherModel(by: city)
             print("Fetched response - ", weatherResponse.lat)
             return weatherResponse
         } catch {

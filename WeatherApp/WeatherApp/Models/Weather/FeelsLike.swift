@@ -1,5 +1,5 @@
 import Foundation
 
-struct FeelsLike: Codable {
+struct FeelsLike: Decodable {
     let day, night, eve, morn: Double
 }

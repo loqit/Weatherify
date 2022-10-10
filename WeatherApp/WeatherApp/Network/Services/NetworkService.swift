@@ -2,7 +2,10 @@ import Foundation
 
 protocol NetworkServiceProtocol {
     func getData<T: Decodable>(from url: URL) async throws -> T
+    func fetchResponse<T: Decodable>(from url: URL) async throws -> Result<T, Error>
 }
+
+// MARK: - Use marks
 
 class NetworkService: NetworkServiceProtocol {
     
@@ -22,15 +25,18 @@ class NetworkService: NetworkServiceProtocol {
         let (data, _) = try await URLSession.shared.data(from: url)
         return data
     }
-    
-    func fetchResponse<T: Decodable>(from url: URL) async throws -> T {
+
+    // TODO: Return Result insted of T
+    func fetchResponse<T: Decodable>(from url: URL) async throws -> Result<T, Error> {
         let data = try await getData(from: url)
         let result: Result<T, Error> = parser.decode(data)
-        switch result {
-        case .success(let data):
-            return data
-        case .failure(let error):
-            throw error
-        }
+        return result
+//        switch result {
+//        case .success(let data):
+//            print("💩", data)
+//            return data
+//        case .failure(let error):
+//            throw error
+//        }
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct CoatOfArms: Codable {
+struct CoatOfArms: Decodable {
     let png: URL?
     let svg: URL?
 }

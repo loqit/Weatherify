@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DailyWeather: View {
     let date: String
-    let temp: Temp
+    let temp: Temperature
     let iconName: String
     
     var body: some View {

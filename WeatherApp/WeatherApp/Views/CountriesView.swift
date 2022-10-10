@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CountriesView: View {
     
-    @StateObject private var viewModel: CountriesViewModel = CountriesViewModel()
+    @StateObject private var viewModel: CountriesViewModel = CountriesViewModelCreator().factoryMethod(parser: NetworkParser())
 
     var body: some View {
         let countries = viewModel.countries
@@ -15,12 +15,12 @@ struct CountriesView: View {
             .searchable(text: $viewModel.searchTerm)
             .onSubmit(of: .search) {
                 Task {
-                    await viewModel.loadCountriesList()
+                    await viewModel.load()
                 }
             }
             .onAppear {
                 Task {
-                    await viewModel.loadCountriesList()
+                    await viewModel.load()
                 }
             }
         }

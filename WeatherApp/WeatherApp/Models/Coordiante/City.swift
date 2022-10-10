@@ -1,6 +1,6 @@
 import Foundation
 
-struct CityElement: Codable, Identifiable {
+struct City: Decodable, Identifiable {
     var id: UUID { UUID() }
     let name: String
     let lat, lon: Double
