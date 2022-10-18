@@ -3,6 +3,8 @@ import SwiftUI
 struct CountriesView: View {
     
     @StateObject private var viewModel: CountriesViewModel = CountriesViewModelCreator().factoryMethod(parser: NetworkParser())
+    @State private var isError = false
+    @State private var isLoading = false
 
     var body: some View {
         let countries = viewModel.countries
@@ -12,19 +14,30 @@ struct CountriesView: View {
                     CountryCard(countryName: country.name.common, countryFlag: country.flags.png)
                 }
             }
+            .overlay(loadingOverlay)
             .searchable(text: $viewModel.searchTerm)
             .onSubmit(of: .search) {
                 Task {
                     await viewModel.load()
                 }
             }
-            .onAppear {
-                Task {
-                    await viewModel.load()
-                }
+            .onReceive(viewModel.$isSearching, perform: { value in
+                isLoading = value
+            })
+            .task {
+                await viewModel.load()
             }
+            .navigationTitle("Countries")
         }
-        .navigationTitle("Countries")
+        .alert("Failed to load Countries list", isPresented: self.$viewModel.isError) {
+            Button("Ok", role: .cancel, action: {})
+        }
+    }
+    
+    @ViewBuilder private var loadingOverlay: some View {
+        if isLoading {
+            ProgressView()
+        }
     }
 }
 

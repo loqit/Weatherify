@@ -1,7 +1,7 @@
 import Foundation
 
 protocol CityServiceProtocol {
-    func getCitiesData(of cityName: String) async throws -> [City]
+    func getCitiesData(of cityName: String) async throws -> Result<[City], Error>
 }
 
 class CityService: CityServiceProtocol {
@@ -12,8 +12,13 @@ class CityService: CityServiceProtocol {
         networkService = service
     }
 
-    func getCitiesData(of cityName: String) async throws -> [City] {
-        let url = OpenWeatherEndpoint.geoUrl(cityName).url
-        return try await networkService.getData(from: url)
+    func getCitiesData(of cityName: String) async throws -> Result<[City], Error> {
+        do {
+            let url = OpenWeatherEndpoint.geoUrl(cityName).url
+            let result: Result<[City], Error> = try await networkService.fetchResponse(from: url)
+            return result
+        } catch {
+            throw error
+        }
     }
 }

@@ -8,20 +8,23 @@ protocol ViewModelCreator {
 class WeatherViewModelCreator: ViewModelCreator {
     typealias ViewModel = WeatherViewModel
     func factoryMethod(parser: NetworkParserProtocol) -> ViewModel {
-        return WeatherViewModel(service: WeatherService(service: NetworkService(parser: parser)))
+        let networkService = NetworkService(parser: parser)
+        return WeatherViewModel(service: WeatherService(service: networkService))
     }
 }
 
 class CitiesViewModelCreator: ViewModelCreator {
     typealias ViewModel = CitiesViewModel
     func factoryMethod(parser: NetworkParserProtocol) -> ViewModel {
-        return CitiesViewModel(service: CityService(service: NetworkService(parser: parser)))
+        let networkService = NetworkService(parser: parser)
+        return CitiesViewModel(service: CityService(service: networkService))
     }
 }
 
 class CountriesViewModelCreator: ViewModelCreator {
     typealias ViewModel = CountriesViewModel
     func factoryMethod(parser: NetworkParserProtocol) -> ViewModel {
-        return CountriesViewModel(service: CountryService(service: NetworkService(parser: parser)))
+        let networkService = NetworkService(parser: parser)
+        return CountriesViewModel(service: CountryService(service: networkService))
     }
 }

@@ -6,6 +6,7 @@ class WeatherViewModel: ViewModelProtocol {
     
     @Published var weatherData: WeatherModel?
     @Published private(set) var isSearching = false
+    @Published private(set) var error: Error?
     var city: City?
     
     private var weatherFetcher: WeatherServiceProtocol
@@ -18,24 +19,34 @@ class WeatherViewModel: ViewModelProtocol {
 
     func load() async {
         searchTask?.cancel()
+        isSearching = true
         guard let city = city else {
             return
         }
         searchTask = Task {
-            isSearching = true
-            weatherData = await searchWeather(at: city)
-            isSearching = Task.isCancelled
+            await searchWeather(at: city)
         }
     }
+    
+    @MainActor
+    private func setWeather(with data: WeatherModel?, _ error: Error? = nil) {
+        weatherData = data
+        isSearching = false
+    }
 
-    private func searchWeather(at city: City) async -> WeatherModel? {
+    private func searchWeather(at city: City) async {
         do {
-            let weatherResponse: WeatherModel = try await weatherFetcher.fetchWeatherModel(by: city)
-            print("Fetched response - ", weatherResponse.lat)
-            return weatherResponse
+            let lat = city.lat
+            let lon = city.lon
+            let weatherResult: Result<WeatherModel, Error> = try await weatherFetcher.fetchWeatherModel(lat, lon)
+            switch weatherResult {
+            case .success(let data):
+                await setWeather(with: data)
+            case .failure(let error):
+                await setWeather(with: nil, error)
+            }
         } catch {
-            print(error.localizedDescription)
-            return nil
+            await setWeather(with: nil, error)
         }
     }
 }

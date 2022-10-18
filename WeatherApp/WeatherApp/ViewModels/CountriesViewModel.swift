@@ -3,6 +3,8 @@ import Foundation
 class CountriesViewModel: ViewModelProtocol {
     
     @Published private(set) var countries: [CountryElement] = []
+    @Published private(set) var error: Error?
+    @Published var isError = false
     @Published private(set) var isSearching = false
     @Published var searchTerm: String = ""
     private var loadTask: Task<Void, Never>?
@@ -15,36 +17,35 @@ class CountriesViewModel: ViewModelProtocol {
 
     func load() async {
         loadTask?.cancel()
+        isSearching = true
+        isError = false
         let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
-        if currentSearchCountry.isEmpty {
-            loadTask = Task {
-                countries = await getCountriesList()
-            }
-        } else {
-            loadTask = Task {
-                countries = await getCountry(by: currentSearchCountry) ?? []
-            }
-        }
-    }
-
-    private func getCountriesList() async -> [CountryElement] {
-        do {
-            let countries: [CountryElement] = try await dataFetcher.getContriesList()
-            return countries
-        } catch {
-            print(error)
-            print(error.localizedDescription)
-            return []
+        loadTask = Task {
+            await getCountry(by: currentSearchCountry)
         }
     }
     
-    private func getCountry(by name: String) async -> [CountryElement]? {
+    @MainActor
+    private func setCountries(with data: [CountryElement], _ error: Error? = nil) {
+        countries = data
+        isSearching = false
+        if error != nil {
+            self.error = error
+            isError = true
+        }
+    }
+
+    private func getCountry(by name: String) async {
         do {
-            let countries: [CountryElement]? = try await dataFetcher.getCountry(by: name)
-            return countries
+            let countriesResult = try await dataFetcher.getCountry(by: name)
+            switch countriesResult {
+            case .success(let data):
+                await setCountries(with: data ?? [])
+            case .failure(let error):
+                await setCountries(with: [], error)
+            }
         } catch {
-            print(error.localizedDescription)
-            return []
+            await setCountries(with: [], error)
         }
     }
 }

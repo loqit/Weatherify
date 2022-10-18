@@ -1,8 +1,7 @@
 import Foundation
 
 protocol CountriesServiceProtocol {
-    func getContriesList() async throws -> [CountryElement]
-    func getCountry(by name: String) async throws -> [CountryElement]?
+    func getCountry(by name: String) async throws -> Result<[CountryElement]?, Error>
 }
 
 class CountryService: CountriesServiceProtocol {
@@ -13,13 +12,18 @@ class CountryService: CountriesServiceProtocol {
         networkService = service
     }
 
-    func getContriesList() async throws -> [CountryElement] {
-        let url = CountriesEndpoint.all.url
-        return try await networkService.getData(from: url)
-    }
-    
-    func getCountry(by name: String) async throws -> [CountryElement]? {
-        let url = CountriesEndpoint.name(name).url
-        return try await networkService.getData(from: url)
+    func getCountry(by name: String) async throws -> Result<[CountryElement]?, Error> {
+        do {
+            var url: URL
+            if name.isEmpty {
+                url = CountriesEndpoint.all.url
+            } else {
+                url = CountriesEndpoint.name(name).url
+            }
+            let result: Result<[CountryElement]?, Error> = try await networkService.fetchResponse(from: url)
+            return result
+        } catch {
+            throw error
+        }
     }
 }

@@ -6,6 +6,7 @@ class CitiesViewModel: ViewModelProtocol {
     @Published private(set) var cities: [City] = []
     @Published private(set) var isSearching = false
     @Published var searchTerm: String = ""
+    @Published private(set) var error: Error?
     private var searchTask: Task<Void, Never>?
     
     private let citiesFetcher: CityServiceProtocol
@@ -16,26 +17,37 @@ class CitiesViewModel: ViewModelProtocol {
 
     func load() async {
         searchTask?.cancel()
+        isSearching = true
         let currentSearchCity = searchTerm.trimmingCharacters(in: .whitespaces)
         if currentSearchCity.isEmpty {
-            cities = []
-            isSearching = false
+            await setCities(with: [])
         } else {
             searchTask = Task {
-                isSearching = true
-                cities = await searchCities(by: searchTerm)
-                isSearching = Task.isCancelled
+                await searchCities(by: searchTerm)
             }
         }
     }
     
-    private func searchCities(by name: String) async -> [City] {
+    @MainActor
+    private func setCities(with data: [City], _ error: Error? = nil) {
+        cities = data
+        isSearching = false
+        if error != nil {
+            self.error = error
+        }
+    }
+    
+    private func searchCities(by name: String) async {
         do {
-            let cities: [City] = try await citiesFetcher.getCitiesData(of: name)
-            return cities
+            let citiesResult: Result<[City], Error> = try await citiesFetcher.getCitiesData(of: name)
+            switch citiesResult {
+            case .success(let data):
+                await setCities(with: data)
+            case .failure(let error):
+                await setCities(with: [], error)
+            }
         } catch {
-            print(error.localizedDescription)
-            return []
+            await setCities(with: [], error)
         }
     }
 }

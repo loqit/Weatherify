@@ -18,8 +18,10 @@ struct CountryCard: View {
             } placeholder: {
                 ProgressView()
             }
-                .imageScale(.small)
-                .frame(width: 40, height: 40)
+            .aspectRatio(contentMode: .fit)
+            .background(Color(.secondarySystemBackground))
+            .imageScale(.medium)
+            .frame(width: 40, height: 40)
         }
         .padding()
         .background(Color(.secondarySystemBackground))

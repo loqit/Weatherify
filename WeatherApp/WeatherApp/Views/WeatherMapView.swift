@@ -6,25 +6,18 @@ struct WeatherMapView: View {
 
     var coordinate: CLLocationCoordinate2D
     @State var mapView = MapView()
-    @State private var isDrawing = false
-    
+
     var body: some View {
-        if isDrawing {
-            ProgressView()
-        }
         mapView
             .edgesIgnoringSafeArea(.all)
             .onAppear {
                 mapView.updateMap(with: coordinate)
             }
         Button {
-            isDrawing = true
             mapView.drawRoute()
-            isDrawing = false
         } label: {
             Text("Draw Route")
         }
-  
     }
 }
 

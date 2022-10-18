@@ -5,7 +5,7 @@ struct CountryElement: Decodable, Identifiable {
     var id: UUID { UUID() }
     let name: Name
     let flags: CoatOfArms
-    let capital: [String]
+    let capital: [String]?
     let latlng: [Double]
     
     func coordinate() -> CLLocationCoordinate2D {

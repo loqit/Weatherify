@@ -1,7 +1,7 @@
 import Foundation
 
 protocol WeatherServiceProtocol {
-    func fetchWeatherModel(by cityElement: City) async throws -> WeatherModel
+    func fetchWeatherModel(_ lat: Double, _ lon: Double) async throws -> Result<WeatherModel, Error>
 }
 
 class WeatherService: WeatherServiceProtocol {
@@ -12,18 +12,13 @@ class WeatherService: WeatherServiceProtocol {
         networkService = service
     }
 
-    func fetchWeatherModel(by cityElement: City) async throws -> WeatherModel {
-        let lat = String(cityElement.lat)
-        let lon = String(cityElement.lon)
-        let url = OpenWeatherEndpoint.oneCallUrl(lat, lon).url
-        let result: Result<WeatherModel, Error> = try await networkService.fetchResponse(from: url)
-        switch result {
-        case .success(let data):
-            return data
-        case .failure(let error):
-            print(error)
+    func fetchWeatherModel(_ lat: Double, _ lon: Double) async throws -> Result<WeatherModel, Error> {
+        do {
+            let url = OpenWeatherEndpoint.oneCallUrl(lat, lon).url
+           // let result: Result<WeatherModel, Error> =
+            return try await networkService.fetchResponse(from: url)
+        } catch {
             throw error
         }
-      //  return try await networkService.fetchResponse(from: url)
     }
 }
