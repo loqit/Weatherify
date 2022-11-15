@@ -12,7 +12,7 @@ class CountryService: CountriesServiceProtocol {
         networkService = service
     }
 
-    func getCountry(by name: String) async throws -> Result<[CountryElement]?, Error> {
+    func getCountry(by name: String = "") async throws -> Result<[CountryElement]?, Error> {
         do {
             var url: URL
             if name.isEmpty {
@@ -20,8 +20,7 @@ class CountryService: CountriesServiceProtocol {
             } else {
                 url = CountriesEndpoint.name(name).url
             }
-            let result: Result<[CountryElement]?, Error> = try await networkService.fetchResponse(from: url)
-            return result
+            return try await networkService.fetchResponse(from: url)
         } catch {
             throw error
         }

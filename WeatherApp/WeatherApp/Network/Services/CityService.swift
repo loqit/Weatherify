@@ -15,8 +15,7 @@ class CityService: CityServiceProtocol {
     func getCitiesData(of cityName: String) async throws -> Result<[City], Error> {
         do {
             let url = OpenWeatherEndpoint.geoUrl(cityName).url
-            let result: Result<[City], Error> = try await networkService.fetchResponse(from: url)
-            return result
+            return try await networkService.fetchResponse(from: url)
         } catch {
             throw error
         }
