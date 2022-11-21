@@ -3,6 +3,8 @@ import Combine
 
 class CitiesViewModel: ViewModelProtocol {
   
+  // MARK: Properties
+  
   @Published private(set) var cities: [City] = []
   @Published private(set) var isSearching = false
   @Published var searchTerm: String = ""
@@ -14,8 +16,10 @@ class CitiesViewModel: ViewModelProtocol {
     citiesFetcher = service
   }
   
+  // MARK: Public
+  
   func load() async {
-    isSearching = true
+    await toggleSearch()
     let currentSearchCity = searchTerm.trimmingCharacters(in: .whitespaces)
     if currentSearchCity.isEmpty {
       await setCities(with: [])
@@ -24,10 +28,17 @@ class CitiesViewModel: ViewModelProtocol {
     }
   }
   
+  // MARK: Private
+  
+  @MainActor
+  private func toggleSearch() {
+    isSearching.toggle()
+  }
+  
   @MainActor
   private func setCities(with data: [City], _ error: Error? = nil) {
     cities = data
-    isSearching = false
+    toggleSearch()
     if error != nil {
       self.error = error
     }

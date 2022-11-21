@@ -2,11 +2,15 @@ import Foundation
 
 class CountriesViewModel: ViewModelProtocol {
   
+  // MARK: Properties
+  
   @Published private(set) var countries: [CountryElement] = []
   @Published private(set) var error: Error?
   @Published var isError = false
   @Published private(set) var isSearching = false
   @Published var searchTerm: String = ""
+  
+  private let reachability = NetworkReachability()
   
   private let dataFetcher: CountriesServiceProtocol
   
@@ -14,17 +18,30 @@ class CountriesViewModel: ViewModelProtocol {
     dataFetcher = service
   }
   
+  // MARK: Public
+  
   func load() async {
-    isSearching = true
+    await toggleSearch()
     isError = false
     let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
-    await getCountry(by: currentSearchCountry)
+    if reachability.isNetworkAvailable() {
+      await getCountry(by: currentSearchCountry)
+    } else {
+      
+    }
   }
-
+  
+  // MARK: Private
+  
+  @MainActor
+  private func toggleSearch() {
+    isSearching.toggle()
+  }
+  
   @MainActor
   private func setCountries(with data: [CountryElement], _ error: Error? = nil) {
     countries = data
-    isSearching = false
+    toggleSearch()
     if error != nil {
       self.error = error
       isError = true

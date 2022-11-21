@@ -3,6 +3,8 @@ import Combine
 
 class WeatherViewModel: ViewModelProtocol {
   
+  // MARK: Properties
+  
   @Published var weatherData: WeatherModel?
   @Published private(set) var isSearching = false
   @Published private(set) var error: Error?
@@ -14,18 +16,27 @@ class WeatherViewModel: ViewModelProtocol {
     weatherFetcher = service
   }
   
+  // MARK: Public
+  
   func load() async {
-    isSearching = true
+    await toggleSearch()
     guard let city = city else {
       return
     }
     await searchWeather(at: city)
   }
   
+  // MARK: Private
+  
+  @MainActor
+  private func toggleSearch() {
+    isSearching.toggle()
+  }
+  
   @MainActor
   private func setWeather(with data: WeatherModel?, _ error: Error? = nil) {
     weatherData = data
-    isSearching = false
+    toggleSearch()
     if error != nil {
       self.error = error
     }
