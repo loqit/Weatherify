@@ -1,10 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E230" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="CountryEntity" representedClassName="CountryEntity" syncable="YES" codeGenerationType="class">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CityEntity" representedClassName="CityEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="cityID" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="state" optional="YES" attributeType="String"/>
     </entity>
-    <elements>
-        <element name="CountryEntity" positionX="-63" positionY="-18" width="128" height="59"/>
-    </elements>
+    <entity name="CoatOfArmsEntity" representedClassName="CoatOfArmsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="png" optional="YES" attributeType="URI"/>
+        <attribute name="svg" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="CountryEntity" representedClassName="CountryEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="capital" optional="YES" attributeType="Transformable" customClassName="Array&lt;String&gt;"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="latlng" optional="YES" attributeType="Transformable" customClassName="Array&lt;Double&gt;"/>
+        <relationship name="coatOfArms" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoatOfArmsEntity"/>
+        <relationship name="name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CountryNameEntity"/>
+    </entity>
+    <entity name="CountryNameEntity" representedClassName="CountryNameEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="common" optional="YES" attributeType="String"/>
+        <attribute name="official" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CurrentWeatherEntity" representedClassName="CurrentWeatherEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="daytime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="weather" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WeatherEntity"/>
+    </entity>
+    <entity name="DailyWeatherEntity" representedClassName="DailyWeatherEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="daytime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="temp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="WeatherDataEntity" representedClassName="WeatherDataEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="current" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentWeatherEntity"/>
+        <relationship name="hourly" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentWeatherEntity"/>
+    </entity>
+    <entity name="WeatherEntity" representedClassName="WeatherEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+    </entity>
 </model>
