@@ -14,9 +14,9 @@
         <attribute name="svg" optional="YES" attributeType="URI"/>
     </entity>
     <entity name="CountryEntity" representedClassName="CountryEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="capital" optional="YES" attributeType="Transformable" customClassName="Array&lt;String&gt;"/>
+        <attribute name="capital" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="latlng" optional="YES" attributeType="Transformable" customClassName="Array&lt;Double&gt;"/>
+        <attribute name="latlng" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Any&gt;"/>
         <relationship name="coatOfArms" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoatOfArmsEntity"/>
         <relationship name="name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CountryNameEntity"/>
     </entity>

@@ -15,7 +15,6 @@ class CityCoreDataService {
   func save(_ model: City) {
     let city = CityEntity(context: dataController.context)
     // Set properties
-    
     city.name = model.name
     city.country = model.country
     city.id = model.id
@@ -29,23 +28,21 @@ class CityCoreDataService {
     dataController.saveContext()
   }
   
-  func fetch(by cityName: String) -> City? {
+  func fetch(by cityName: String) throws -> City {
     let fetchRequest = CityEntity.fetchRequest()
-    fetchRequest.predicate = NSPredicate(format: "name",
-                                                  cityName)
+    fetchRequest.predicate = NSPredicate(format: "name = %@", cityName)
     do {
-      let object = try dataController.context.fetch(fetchRequest).first!
-      let cityElement = City(name: object.name ?? "",
-                             lat: object.lat,
-                             lon: object.lon,
-                             country: object.country ?? "",
-                             state: object.state)
+      let object = try dataController.context.fetch(fetchRequest).first
+      let cityElement = City(name: object?.name ?? "",
+                             lat: object?.lat ?? 0,
+                             lon: object?.lon ?? 0,
+                             country: object?.country ?? "",
+                             state: object?.state ?? "")
       print("City 🏙️", cityElement)
       return cityElement
     } catch {
-      print(error)
+      throw error
     }
-    return nil
   }
   
   // MARK: Private

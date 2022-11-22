@@ -6,28 +6,25 @@ protocol NetworkServiceProtocol {
 
 class NetworkService: NetworkServiceProtocol {
   
+  // MARK: Properties
+  
   private let parser: NetworkParserProtocol
   private weak var task: URLSessionDataTask?
   private var loadTask: Task<Data, Error>?
   
+  private let coreDataService: WeatherDataService = WeatherDataService(dataController: DataController())
+  
   init(parser: NetworkParserProtocol) {
     self.parser = parser
   }
-
-  private func getData(from url: URL) async throws -> Data {
-      do {
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return data
-      } catch {
-        throw error
-      }
-  }
+  
+  // MARK: Public
   
   func fetchResponse<T: Decodable>(from url: URL) async throws -> Result<T, Error> {
     do {
       loadTask?.cancel()
       loadTask = Task { () -> Data in
-         return try await getData(from: url)
+        return try await getData(from: url)
       }
       
       let data = try await loadTask?.value ?? Data()
@@ -40,5 +37,19 @@ class NetworkService: NetworkServiceProtocol {
   
   func cancelRequest() {
     loadTask?.cancel()
+  }
+  
+  // MARK: Private
+  
+  private func getData(from url: URL) async throws -> Data {
+    do {
+      let (data, _) = try await URLSession.shared.data(from: url)
+      return data
+    } catch {
+      throw error
+      // URLError
+      // Check error
+      // Get data from db
+    }
   }
 }
