@@ -4,6 +4,8 @@ struct CityCard: View {
   
   let cityInfo: City
   
+  private let coreDataService = CityCoreDataService(dataController: DataController())
+  
   var body: some View {
     HStack {
       VStack {
@@ -16,6 +18,15 @@ struct CityCard: View {
       }
       .padding()
       Spacer()
+      Button(action: {},
+             label: { Text("Add")
+      })
+      .onTapGesture {
+          Task {
+            print("oops")
+            coreDataService.save(cityInfo)
+          }
+        }
     }
     .padding()
     .background(Color(.secondarySystemBackground))
