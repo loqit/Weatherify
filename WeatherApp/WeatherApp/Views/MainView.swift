@@ -4,18 +4,16 @@ struct MainView: View {
   @StateObject private var viewModel: CitiesViewModel = CitiesViewModelCreator().factoryMethod(parser: NetworkParser())
   var body: some View {
     NavigationView {
-      ScrollView {
-        ForEach(viewModel.cities) { city in
-          NavigationLink(destination: CityWeatherView(cityElement: city)) {
-            CityCard(cityInfo: city)
-          }
-          .foregroundColor(.black)
+      List(viewModel.cities) { city in
+        NavigationLink(destination: CityWeatherView(cityElement: city)) {
+          CityCard(cityInfo: city)
         }
-        .searchable(text: $viewModel.searchTerm)
-        .onSubmit(of: .search) {
-          Task {
-            await viewModel.load()
-          }
+        .foregroundColor(.black)
+      }
+      .searchable(text: $viewModel.searchTerm)
+      .onSubmit(of: .search) {
+        Task {
+          await viewModel.load()
         }
       }
       .navigationTitle("Search Weather")
