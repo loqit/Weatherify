@@ -1,6 +1,10 @@
 import Foundation
 
 struct Temperature: Decodable {
-  let day, min, max, night: Double
-  let eve, morn: Double
+  let min, max: Double
+  
+  init(_ model: TempEntity?) {
+    self.min = model?.min ?? 0
+    self.max = model?.max ?? 0
+  }
 }

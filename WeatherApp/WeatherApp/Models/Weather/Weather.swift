@@ -11,4 +11,11 @@ struct Weather: Decodable {
     case weatherDescription = "description"
     case icon
   }
+  
+  init(_ model: WeatherEntity?) {
+    self.id = Int(model?.id ?? 0)
+    self.main = model?.main ?? ""
+    self.weatherDescription = model?.weatherDescription ?? ""
+    self.icon = model?.icon ?? ""
+  }
 }
