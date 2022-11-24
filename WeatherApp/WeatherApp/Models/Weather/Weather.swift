@@ -18,4 +18,13 @@ struct Weather: Decodable {
     self.weatherDescription = model?.weatherDescription ?? ""
     self.icon = model?.icon ?? ""
   }
+  
+  func saveAsEntity(_ dataController: DataController) -> WeatherEntity {
+    let weatherEnity = WeatherEntity(context: dataController.context)
+    weatherEnity.id = Int64(self.id)
+    weatherEnity.main = self.main
+    weatherEnity.icon = self.icon
+    weatherEnity.weatherDescription = self.weatherDescription
+    return weatherEnity
+  }
 }

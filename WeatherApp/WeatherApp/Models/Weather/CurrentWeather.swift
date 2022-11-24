@@ -15,8 +15,14 @@ struct CurrentWeather: Decodable, Identifiable {
   init(_ model: CurrentWeatherEntity?) {
     self.daytime = model?.daytime ?? 0
     self.temp = model?.temp ?? 0
-    model?.weather.do { weather in
-      self.weather = weather.compactMap { Weather($0 as? WeatherEntity) }
-    }
+    self.weather = model?.weather?.compactMap { Weather($0 as? WeatherEntity) } ?? []
+  }
+  
+  func saveAsEntity(_ dataController: DataController) -> CurrentWeatherEntity {
+    let currentWeatherEntity = CurrentWeatherEntity(context: dataController.context)
+    currentWeatherEntity.daytime = self.daytime
+    currentWeatherEntity.temp = self.temp
+    currentWeatherEntity.weather = NSSet(array: self.weather.compactMap { $0.saveAsEntity(dataController) })
+    return currentWeatherEntity
   }
 }
