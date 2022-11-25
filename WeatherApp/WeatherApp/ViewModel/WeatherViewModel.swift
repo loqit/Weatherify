@@ -1,10 +1,10 @@
 import Foundation
 import Combine
+import SwiftUI
 
 class WeatherViewModel: ObservableObject {
     
-    @Published private(set) var weatherData: [ResponseList] = []
-    @Published private(set) var city: [City] = []
+    @Published private(set) var weatherData: ResponseBody?
     @Published private(set) var isSearching = false
     private let weatherFetcher = WeatherFetcher()
     
@@ -15,23 +15,18 @@ class WeatherViewModel: ObservableObject {
         searchTask?.cancel()
         searchTask = Task {
             isSearching = true
-            let cityData: City?
-            (weatherData, cityData) = await searchWeather(at: cityElement)
-            if let cityData = cityData {
-                city = []
-                city.append(cityData)
-            }
+            weatherData = await searchWeather(at: cityElement)
             isSearching = Task.isCancelled
         }
     }
 
-    private func searchWeather(at city: CityElement) async -> ([ResponseList], City?) {
+    private func searchWeather(at city: CityElement) async -> ResponseBody? {
         do {
             let weatherResponse: ResponseBody = try await weatherFetcher.fetchWeatherData(by: city)
-            return (weatherResponse.list, weatherResponse.city)
+            return weatherResponse
         } catch {
             print(error.localizedDescription)
-            return ([], nil)
+            return nil
         }
     }
 }

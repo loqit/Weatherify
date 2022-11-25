@@ -1,15 +1,17 @@
 import SwiftUI
 
-struct WeatherCard: View {
-    let temp: String
+struct DailyWeather: View {
+    let date: String
+    let temp: Temp
     let iconName: String
-    let time: String
     
     var body: some View {
-        VStack(spacing: 16) {
-            Text("\(temp)°")
-                .font(.caption)
+        HStack {
+            Text(date)
                 .fontWeight(.medium)
+            Spacer()
+            Text("\(Int(temp.min))°/\(Int(temp.max))°")
+                .fontWeight(.light)
             AsyncImage(url: URL(string: "\(NetworkConstants.iconUrl)\(iconName).png")) { image in
                 image
                     .resizable()
@@ -18,13 +20,11 @@ struct WeatherCard: View {
             }
                 .imageScale(.small)
                 .frame(width: 40, height: 40)
-            Text(time)
-                .font(.caption)
-                .fontWeight(.medium)
         }
-        .frame(width: 60, height: 90)
-        .padding()
+        .padding(.horizontal)
+        .padding(.vertical, 22)
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
     }
+    
 }

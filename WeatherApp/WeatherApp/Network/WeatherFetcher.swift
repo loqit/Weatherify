@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftUI
 
 class WeatherFetcher {
 
@@ -21,8 +22,7 @@ class WeatherFetcher {
     }
     
     func fetchWeatherData(by cityElement: CityElement) async throws -> ResponseBody {
-        let coordinate = Coordinate(lat: cityElement.lat, lon: cityElement.lon)
-        guard let url = URL(string: "\(NetworkConstants.baseUrl)?lat=\(coordinate.lat)&lon=\(coordinate.lon)&appid=\(NetworkConstants.apiKey)&units=metric")
+        guard let url = URL(string: "\(NetworkConstants.oneCallUrl)?lat=\(cityElement.lat)&lon=\(cityElement.lon)&exclude=alerts&appid=\(NetworkConstants.apiKey)&units=metric")
         else {
             throw NetworkError.invalidUrl
         }
