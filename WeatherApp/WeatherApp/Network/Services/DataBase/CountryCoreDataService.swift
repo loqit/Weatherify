@@ -2,17 +2,13 @@ import Foundation
 
 actor CountryCoreDataService {
   
-  let dataController: DataController?
+  let dataController: DataController
   
   init(dataController: DataController) {
     self.dataController = dataController
   }
   
   func save(_ model: CountryElement) {
-    guard let dataController = dataController else {
-      return
-    }
-    
     let country = CountryEntity(context: dataController.context)
     print("\(model.name.common) 🤢")
     
@@ -27,10 +23,6 @@ actor CountryCoreDataService {
   }
   
   func delete(by id: UUID) {
-    guard let dataController = dataController else {
-      return
-    }
-
     let fetchRequest = dataController.createFetchRequest(by: id)
     do {
       let objects = try dataController.context.fetch(fetchRequest)

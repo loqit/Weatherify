@@ -17,7 +17,7 @@ class DataController: ObservableObject {
     }
   }
   
-  func createFetchRequest<T: NSManagedObject>(by id: UUID) -> NSFetchRequest<T> { // 
+  func createFetchRequest<T: NSManagedObject>(by id: UUID) -> NSFetchRequest<T> {
     let fetchRequest: NSFetchRequest<T> = NSFetchRequest(entityName: NSStringFromClass(T.self))
     fetchRequest.predicate = NSPredicate(format: "id==\(id)")
     return fetchRequest
@@ -26,11 +26,16 @@ class DataController: ObservableObject {
   // MARK: - Private
   private static var container: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "WeatherApp")
-    container.loadPersistentStores { _, error in
-      if let error = error {
-        fatalError("Unable to load persistent stores: \(error)")
-      }
-    }
+    container.loadPersistentStores(completionHandler: DataController.completionBlock)
     return container
   }()
+  
+  static func get(error: Error) {
+    fatalError("Unable to load persistent stores: \(error)")
+  }
+  
+  static func completionBlock(desc: NSPersistentStoreDescription, error: Error?) {
+    error.do(DataController.get)
+  }
 }
+

@@ -11,7 +11,6 @@ struct CountriesView: View {
     NavigationView {
       List(countries) { country in
         NavigationLink(destination: WeatherMapView(coordinate: country.coordinate)) {
-          
           CountryCard(countryName: country.name.common, countryFlag: country.flags.png)
         }
       }

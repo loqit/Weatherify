@@ -19,14 +19,9 @@ struct CityCard: View {
       .padding()
       Spacer()
       Button(action: {},
-             label: { Text("Add")
-      })
-      .onTapGesture {
-          Task {
-            print("oops")
-            coreDataService.save(cityInfo)
-          }
-        }
+             label: { Image(systemName: "star") }
+      )
+      .onTapGesture { Task { coreDataService.save(cityInfo) } }
     }
     .padding()
     .background(Color(.secondarySystemBackground))

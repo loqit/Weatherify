@@ -30,15 +30,14 @@ struct CountryCard: View {
         Image(systemName: "square.and.arrow.down")
       })
       .onTapGesture {
-        Task {
-          await coreDataService.save(by: countryName, and: UUID())
-        }
+//        Task {
+//          await coreDataService.save()
+//        }
       }
     }
     .padding()
     .background(Color(.secondarySystemBackground))
     .cornerRadius(10)
-
   }
 }
 

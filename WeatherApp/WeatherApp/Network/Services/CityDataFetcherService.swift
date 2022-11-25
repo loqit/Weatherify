@@ -1,6 +1,10 @@
 import Foundation
 
-class DataFetcherService {
+protocol DataFetcherProtocol {
+  
+}
+
+class CityDataFetcherService {
   
   // MARK: Properties
   
@@ -12,10 +16,10 @@ class DataFetcherService {
   
   // MARK: Public
   
-  func fetchData<T: Decodable>(from url: URL, _ name: String) async -> Result<T, Error> {
+  func fetchData(from url: URL, _ name: String) async -> Result<[City], Error> {
     do {
       print("Start Fetching")
-      let data: Result<T, Error> = try await networkService.fetchResponse(from: url)
+      let data: Result<[City], Error> = try await networkService.fetchResponse(from: url)
       return data
     } catch {
       let errorCode = (error as NSError).code
@@ -25,7 +29,7 @@ class DataFetcherService {
       }
       
       do {
-        let data = try uploadFromDataBase(by: name) as T // Как сделать дженерик (разные параметры для запроса)
+        let data = try uploadFromDataBase(by: name)
         return .success(data)
       } catch {
         return .failure(error)
@@ -50,11 +54,11 @@ class DataFetcherService {
     }
   }
   
-  private func uploadFromDataBase<T: Decodable>(by name: String) throws -> T {
+  private func uploadFromDataBase(by name: String) throws -> [City] {
     let cityCoreDataService = CityCoreDataService(dataController: DataController())
     do {
-      let city = try cityCoreDataService.fetch(by: name) as? T
-      return city!
+      let city = try cityCoreDataService.fetch(by: name)
+      return city
     } catch {
       throw error
     }
