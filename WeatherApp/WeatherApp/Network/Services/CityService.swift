@@ -23,7 +23,7 @@ class CityService: CityServiceProtocol {
   
   func getCitiesData(of cityName: String) async throws -> Result<[City], Error> {
     let url = OpenWeatherEndpoint.geoUrl(cityName).url
-    let dataFetcher = DataFetcherService(networkService: networkService)
+    let dataFetcher = CityDataFetcherService(networkService: networkService)
     let data: Result<[City], Error> = await dataFetcher.fetchData(from: url, cityName)
     return data
   }
