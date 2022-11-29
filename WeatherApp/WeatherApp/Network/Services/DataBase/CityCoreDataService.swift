@@ -13,7 +13,8 @@ class CityCoreDataService {
   // MARK: Public
   
   func save(_ model: City) {
-    _ = model.saveAsEntity(dataController)
+    let cityEntity = CityEntity(context: dataController.context)
+    model.setUpEntity(cityEntity)
     dataController.saveContext()
   }
   
@@ -24,6 +25,7 @@ class CityCoreDataService {
     do {
       let objects = try dataController.context.fetch(fetchRequest)
       let cities = objects.compactMap { City($0) }
+      print("CityID", objects.map{ print($0.cityID) } )
       print("City 🏙️", cities)
       return cities
     } catch {

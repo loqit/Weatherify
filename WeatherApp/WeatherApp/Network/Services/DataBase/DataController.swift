@@ -13,6 +13,7 @@ class DataController: ObservableObject {
     do {
       try context.save()
     } catch {
+      print(error)
       print("Failed saving context 😧")
     }
   }
@@ -26,16 +27,12 @@ class DataController: ObservableObject {
   // MARK: - Private
   private static var container: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "WeatherApp")
-    container.loadPersistentStores(completionHandler: DataController.completionBlock)
+    
+    container.loadPersistentStores { _, error   in
+      error.do { error in
+        fatalError("Unable to load persistent stores: \(error)")
+      }
+    }
     return container
   }()
-  
-  static func get(error: Error) {
-    fatalError("Unable to load persistent stores: \(error)")
-  }
-  
-  static func completionBlock(desc: NSPersistentStoreDescription, error: Error?) {
-    error.do(DataController.get)
-  }
 }
-
