@@ -20,15 +20,16 @@ struct City: Decodable, Identifiable {
     self.state = model.state
   }
   
-  func saveAsEntity(_ dataController: DataController) -> CityEntity {
-    let cityEntity = CityEntity(context: dataController.context)
-    cityEntity.lat = self.lat
-    cityEntity.lon = self.lon
-    cityEntity.name = self.name
-    cityEntity.country = self.country
-    cityEntity.state = self.state
-    cityEntity.cityID = Int64(HashService.getHash(from: self.lat,
-                                                  and: self.lon))
-    return cityEntity
+  func setUpEntity(_ cityEntity: CityEntity) {
+    cityEntity.id = id
+    cityEntity.lat = lat.round(to: 3)
+    cityEntity.lon = lon.round(to: 3)
+    cityEntity.name = name
+    cityEntity.country = country
+    cityEntity.state = state
+    cityEntity.cityID = Int64(HashService.getHash(from: lat.round(to: 3),
+                                                  and: lon.round(to: 3)))
+    print(lat.round(to: 3), lon.round(to: 3))
+    print("City entity 🏙️", cityEntity.cityID)
   }
 }

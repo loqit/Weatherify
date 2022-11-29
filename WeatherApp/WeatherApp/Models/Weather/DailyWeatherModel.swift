@@ -1,6 +1,9 @@
 import Foundation
 
-struct DailyWeatherModel: Decodable, Identifiable {
+struct DailyWeatherModel: Decodable, Identifiable, EntityComparable {
+  
+  typealias Entity = DailyWeatherEntity
+  
   var id: UUID { UUID() }
   let daytime: Double
   let temp: Temperature
@@ -20,9 +23,10 @@ struct DailyWeatherModel: Decodable, Identifiable {
   
   func saveAsEntity(_ dataController: DataController) -> DailyWeatherEntity {
     let dailyEntity = DailyWeatherEntity(context: dataController.context)
-    dailyEntity.daytime = self.daytime
-    dailyEntity.temp = self.temp.saveAsEntity(dataController)
-    dailyEntity.weather = NSSet(array: self.weather.compactMap { $0.saveAsEntity(dataController) } )
+    dailyEntity.id = id
+    dailyEntity.daytime = daytime
+    dailyEntity.temp = temp.saveAsEntity(dataController)
+    dailyEntity.weather = NSSet(array: weather.compactMap { $0.saveAsEntity(dataController) })
     return dailyEntity
   }
 }

@@ -37,6 +37,7 @@
         <relationship name="weather" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherEntity"/>
     </entity>
     <entity name="TempEntity" representedClassName="TempEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="max" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="min" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>

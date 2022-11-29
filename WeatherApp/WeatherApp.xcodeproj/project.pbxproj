@@ -53,6 +53,7 @@
 		D2A0D8F428D9BF37008D883C /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0D8F328D9BF37008D883C /* Mockable.swift */; };
 		D2BDB5CE28E1B2160081C13D /* CitiesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BDB5CD28E1B2160081C13D /* CitiesViewModelTests.swift */; };
 		D2C14E03284FEFB900CDA398 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C14E02284FEFB800CDA398 /* NetworkError.swift */; };
+		D2C94B712936030100DF4355 /* EntityComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C94B702936030100DF4355 /* EntityComparable.swift */; };
 		D2DB250C292BA71200A48B1A /* CountryCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DB250B292BA71200A48B1A /* CountryCoreDataService.swift */; };
 		D2DB250E292BA94800A48B1A /* CityCoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DB250D292BA94800A48B1A /* CityCoreDataService.swift */; };
 		D2DB2510292BAB0E00A48B1A /* HashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DB250F292BAB0E00A48B1A /* HashService.swift */; };
@@ -136,6 +137,7 @@
 		D2A0D8F328D9BF37008D883C /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		D2BDB5CD28E1B2160081C13D /* CitiesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModelTests.swift; sourceTree = "<group>"; };
 		D2C14E02284FEFB800CDA398 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		D2C94B702936030100DF4355 /* EntityComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityComparable.swift; sourceTree = "<group>"; };
 		D2DB250B292BA71200A48B1A /* CountryCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCoreDataService.swift; sourceTree = "<group>"; };
 		D2DB250D292BA94800A48B1A /* CityCoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCoreDataService.swift; sourceTree = "<group>"; };
 		D2DB250F292BAB0E00A48B1A /* HashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashService.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				D22B04DA28A65DE000EFDD6C /* Countries */,
 				D22B04D928A65DD100EFDD6C /* Coordiante */,
 				D22B04D828A65DA500EFDD6C /* Weather */,
+				D2C94B702936030100DF4355 /* EntityComparable.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				D2EF8C0D28E6E50F00EBAD83 /* NetworkParser.swift in Sources */,
 				D212A76C284FE29600219C0B /* WeatherAppApp.swift in Sources */,
 				D2EA320F28F0314C000287AD /* ViewModelFabric.swift in Sources */,
+				D2C94B712936030100DF4355 /* EntityComparable.swift in Sources */,
 				D2804B8528CA09A0009FD6DC /* MKRequestService.swift in Sources */,
 				D2FC415828C0D1A70064EF01 /* LocationManager.swift in Sources */,
 				D2EA320D28F03096000287AD /* ViewModelProtocol.swift in Sources */,

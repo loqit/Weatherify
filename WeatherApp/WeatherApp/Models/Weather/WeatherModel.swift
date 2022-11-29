@@ -2,6 +2,9 @@ import Foundation
 import CoreLocation
 
 struct WeatherModel: Decodable {
+  
+ // typealias Entity = WeatherDataEntity
+  
   let lat, lon: Double
   let timezone: String
   let current: CurrentWeather
@@ -26,13 +29,20 @@ struct WeatherModel: Decodable {
     self.daily = model?.daily?.compactMap { DailyWeatherModel($0 as? DailyWeatherEntity) } ?? []
   }
   
-  func saveAsEntity(_ dataController: DataController) -> WeatherDataEntity {
+  func saveAsEntity(_ dataController: DataController, _ lat: Double, _ lon: Double) -> WeatherDataEntity {
     let weatherDataEntity = WeatherDataEntity(context: dataController.context)
-    weatherDataEntity.lat = self.lat
-    weatherDataEntity.lon = self.lon
-    weatherDataEntity.timezone = self.timezone
-    weatherDataEntity.hourly = NSSet(array: self.hourly.compactMap { $0.saveAsEntity(dataController) })
-    weatherDataEntity.daily = NSSet(array: self.daily.compactMap { $0.saveAsEntity(dataController) })
+    weatherDataEntity.id = UUID()
+    weatherDataEntity.lat = lat.round(to: 3)
+    weatherDataEntity.lon = lon.round(to: 3)
+    weatherDataEntity.timezone = timezone
+    weatherDataEntity.current = current.saveAsEntity(dataController)
+    weatherDataEntity.hourly = NSSet(array: hourly.compactMap { $0.saveAsEntity(dataController) })
+    weatherDataEntity.daily = NSSet(array: daily.compactMap { $0.saveAsEntity(dataController) })
+    weatherDataEntity.cityID = Int64(HashService.getHash(from: lat.round(to: 3),
+                                                         and: lon.round(to: 3)))
+    print(lat.round(to: 3), lon.round(to: 3))
+    print("weather entity 🌎", weatherDataEntity.cityID)
+    
     return weatherDataEntity
   }
 }

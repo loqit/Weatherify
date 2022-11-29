@@ -1,6 +1,8 @@
 import Foundation
 
-struct Weather: Decodable {
+struct Weather: Decodable, EntityComparable {
+  typealias Entity = WeatherEntity
+  
   let id: Int
   let main: String
   let weatherDescription: String
@@ -21,10 +23,10 @@ struct Weather: Decodable {
   
   func saveAsEntity(_ dataController: DataController) -> WeatherEntity {
     let weatherEnity = WeatherEntity(context: dataController.context)
-    weatherEnity.id = Int64(self.id)
-    weatherEnity.main = self.main
-    weatherEnity.icon = self.icon
-    weatherEnity.weatherDescription = self.weatherDescription
+    weatherEnity.id = Int64(id)
+    weatherEnity.main = main
+    weatherEnity.icon = icon
+    weatherEnity.weatherDescription = weatherDescription
     return weatherEnity
   }
 }
