@@ -10,10 +10,11 @@ struct CityWeatherView: View {
       Spacer()
       HStack {
         Text(cityElement.name)
-        Button(action: {},
+        Button(action: {
+          coreDataService.save(viewModel.weatherData, cityElement.lat, cityElement.lon)
+        },
                label: { Image(systemName: "star") }
         )
-        .onTapGesture { Task { coreDataService.save(viewModel.weatherData) } }
       }
       if let weatherData = viewModel.weatherData {
         Text("\(Int(weatherData.current.temp))°")
