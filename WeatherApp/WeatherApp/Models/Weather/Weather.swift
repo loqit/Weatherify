@@ -21,7 +21,7 @@ struct Weather: Decodable, EntityComparable {
     self.icon = model?.icon ?? ""
   }
   
-  func saveAsEntity(_ dataController: DataController) -> WeatherEntity {
+  func saveAsEntity(_ dataController: CoreDataController) -> WeatherEntity {
     let weatherEnity = WeatherEntity(context: dataController.context)
     weatherEnity.id = Int64(id)
     weatherEnity.main = main

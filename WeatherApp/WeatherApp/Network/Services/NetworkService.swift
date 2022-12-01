@@ -11,9 +11,7 @@ class NetworkService: NetworkServiceProtocol {
   private let parser: NetworkParserProtocol
   private weak var task: URLSessionDataTask?
   private var loadTask: Task<Data, Error>?
-  
-  private let coreDataService: WeatherDataService = WeatherDataService(dataController: DataController())
-  
+
   init(parser: NetworkParserProtocol) {
     self.parser = parser
   }
@@ -47,9 +45,6 @@ class NetworkService: NetworkServiceProtocol {
       return data
     } catch {
       throw error
-      // URLError
-      // Check error
-      // Get data from db
     }
   }
 }

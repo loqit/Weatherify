@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CountryCard: View {
   
-  let coreDataService = CountryCoreDataService(dataController: DataController())
+  let coreDataService = CountryCoreDataService(dataController: CoreDataController())
   
   let countryName: String
   let countryFlag: URL?

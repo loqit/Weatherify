@@ -21,7 +21,7 @@ struct DailyWeatherModel: Decodable, Identifiable, EntityComparable {
     self.weather = model?.weather?.compactMap { Weather($0 as? WeatherEntity) } ?? []
   }
   
-  func saveAsEntity(_ dataController: DataController) -> DailyWeatherEntity {
+  func saveAsEntity(_ dataController: CoreDataController) -> DailyWeatherEntity {
     let dailyEntity = DailyWeatherEntity(context: dataController.context)
     dailyEntity.id = id
     dailyEntity.daytime = daytime

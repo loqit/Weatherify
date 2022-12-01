@@ -2,9 +2,9 @@ import Foundation
 
 actor CountryCoreDataService {
   
-  let dataController: DataController
+  let dataController: CoreDataController
   
-  init(dataController: DataController) {
+  init(dataController: CoreDataController) {
     self.dataController = dataController
   }
   

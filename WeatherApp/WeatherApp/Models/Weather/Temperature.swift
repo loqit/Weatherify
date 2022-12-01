@@ -10,7 +10,7 @@ struct Temperature: Decodable, EntityComparable {
     self.max = model?.max ?? 0
   }
   
-  func saveAsEntity(_ dataController: DataController) -> TempEntity {
+  func saveAsEntity(_ dataController: CoreDataController) -> TempEntity {
     let tempEntity = TempEntity(context: dataController.context)
     tempEntity.id = UUID()
     tempEntity.min = min

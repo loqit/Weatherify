@@ -1,9 +1,5 @@
 import Foundation
 
-protocol DataFetcherProtocol {
-  
-}
-
 class CityDataFetcherService {
   
   // MARK: Properties
@@ -17,24 +13,24 @@ class CityDataFetcherService {
   // MARK: Public
   
   func fetchData(from url: URL, _ name: String) async -> Result<[City], Error> {
-//    do {
-//      print("Start Fetching")
-//      let data: Result<[City], Error> = try await networkService.fetchResponse(from: url)
-//      return data
-//    } catch {
-      let result = await fetchLocally(by: name)
+    do {
+      print("Start Fetching")
+      let data: Result<[City], Error> = try await networkService.fetchResponse(from: url)
+      return data
+    } catch {
+      let result = await fetchLocally(by: name, error)
       return result
-  //  }
+    }
   }
   
   // MARK: Private
   
-  private func fetchLocally(by name: String, _ error: Error? = nil) async -> Result<[City], Error> {
-//    let errorCode = (error as NSError).code
-//    castError(errorCode: errorCode)
-//    guard errorCode != URLError.cancelled.rawValue else {
-//      return .failure(error)
-//    }
+  private func fetchLocally(by name: String, _ error: Error) async -> Result<[City], Error> {
+    let errorCode = (error as NSError).code
+    castError(errorCode: errorCode)
+    guard errorCode != URLError.cancelled.rawValue else {
+      return .failure(error)
+    }
 
     do {
       let data = try uploadFromDataBase(by: name)
@@ -60,7 +56,7 @@ class CityDataFetcherService {
   }
   
   private func uploadFromDataBase(by name: String) throws -> [City] {
-    let cityCoreDataService = CityCoreDataService(dataController: DataController())
+    let cityCoreDataService = CityCoreDataService(dataController: CoreDataController())
     do {
       let city = try cityCoreDataService.fetch(by: name)
       return city

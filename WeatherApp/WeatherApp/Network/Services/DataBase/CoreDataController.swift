@@ -1,7 +1,7 @@
 import Foundation
 import CoreData
 
-class DataController: ObservableObject {
+class CoreDataController: ObservableObject {
   
   // MARK: - Properties
   var context: NSManagedObjectContext {

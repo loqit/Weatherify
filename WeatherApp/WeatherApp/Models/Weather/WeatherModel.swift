@@ -29,7 +29,7 @@ struct WeatherModel: Decodable {
     self.daily = model?.daily?.compactMap { DailyWeatherModel($0 as? DailyWeatherEntity) } ?? []
   }
   
-  func saveAsEntity(_ dataController: DataController, _ lat: Double, _ lon: Double) -> WeatherDataEntity {
+  func saveAsEntity(_ dataController: CoreDataController, _ lat: Double, _ lon: Double) -> WeatherDataEntity {
     let weatherDataEntity = WeatherDataEntity(context: dataController.context)
     weatherDataEntity.id = UUID()
     weatherDataEntity.lat = lat.round(to: 3)

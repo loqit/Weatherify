@@ -4,9 +4,9 @@ class CityCoreDataService {
 
   // MARK: Properties
   
-  private let dataController: DataController
+  private let dataController: CoreDataController
   
-  init(dataController: DataController) {
+  init(dataController: CoreDataController) {
     self.dataController = dataController
   }
   

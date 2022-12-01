@@ -4,7 +4,7 @@ struct CityCard: View {
   
   let cityInfo: City
   
-  private let coreDataService = CityCoreDataService(dataController: DataController())
+  private let coreDataService = CityCoreDataService(dataController: CoreDataController())
   
   var body: some View {
     HStack {

@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CityWeatherView: View {
   @StateObject private var viewModel: WeatherViewModel = WeatherViewModelCreator().factoryMethod(parser: NetworkParser())
-  private let coreDataService = WeatherCoreDataService(dataController: DataController())
+  private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
   var cityElement: City
   
   var body: some View {
@@ -60,14 +60,4 @@ struct CityWeatherView: View {
       }
     )
   }
-}
-
-extension Optional {
-    public func `do`(_ action: (Wrapped) -> Void) {
-        self.map(action)
-    }
-    
-    public func `do`(_ action: ((Wrapped) -> Void)?) {
-        action.do(self.do)
-    }
 }

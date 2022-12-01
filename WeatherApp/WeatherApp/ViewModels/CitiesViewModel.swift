@@ -36,7 +36,10 @@ class CitiesViewModel: ViewModelProtocol {
   }
   
   @MainActor
-  private func setCities(with data: [City], _ error: Error? = nil) {
+  private func setCities(with data: [City]?, _ error: Error? = nil) {
+    guard let data = data else {
+      return
+    }
     cities = data
     toggleSearch()
     if error != nil {
