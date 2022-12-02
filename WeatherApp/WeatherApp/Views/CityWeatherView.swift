@@ -11,7 +11,7 @@ struct CityWeatherView: View {
       HStack {
         Text(cityElement.name)
         Button(action: {
-          coreDataService.save(viewModel.weatherData, cityElement.lat, cityElement.lon)
+          coreDataService.save(viewModel.weatherData)
         },
                label: { Image(systemName: "star") }
         )

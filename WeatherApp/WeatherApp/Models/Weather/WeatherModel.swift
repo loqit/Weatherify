@@ -21,19 +21,23 @@ struct WeatherModel: Decodable {
   }
   
   init(_ model: WeatherDataEntity?) {
-    self.lat = model?.lat ?? 0
-    self.lon = model?.lon ?? 0
+    self.lat = model?.coordinate?.lat ?? 0
+    self.lon = model?.coordinate?.lon ?? 0
     self.timezone = model?.timezone ?? ""
     self.current = CurrentWeather(model?.current)
     self.hourly = model?.hourly?.compactMap { CurrentWeather($0 as? CurrentWeatherEntity) } ?? []
     self.daily = model?.daily?.compactMap { DailyWeatherModel($0 as? DailyWeatherEntity) } ?? []
   }
   
-  func saveAsEntity(_ dataController: CoreDataController, _ lat: Double, _ lon: Double) -> WeatherDataEntity {
+  func saveAsEntity(_ dataController: CoreDataController) -> WeatherDataEntity {
     let weatherDataEntity = WeatherDataEntity(context: dataController.context)
+    let coordinate = CoordinateEntity(context: dataController.context)
     weatherDataEntity.id = UUID()
-    weatherDataEntity.lat = lat.round(to: 3)
-    weatherDataEntity.lon = lon.round(to: 3)
+    
+    coordinate.lat = lat.round(to: 3)
+    coordinate.lon = lon.round(to: 3)
+    weatherDataEntity.coordinate = coordinate
+    
     weatherDataEntity.timezone = timezone
     weatherDataEntity.current = current.saveAsEntity(dataController)
     weatherDataEntity.hourly = NSSet(array: hourly.compactMap { $0.saveAsEntity(dataController) })

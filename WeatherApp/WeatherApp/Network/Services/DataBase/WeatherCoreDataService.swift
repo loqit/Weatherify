@@ -11,9 +11,9 @@ class WeatherCoreDataService {
   
   // MARK: Public
   
-  func save(_ model: WeatherModel?, _ lat: Double, _ lon: Double) {
+  func save(_ model: WeatherModel?) {
     model.do { model in
-      _ = model.saveAsEntity(dataController, lat, lon)
+      _ = model.saveAsEntity(dataController)
       dataController.saveContext()
     }
   }

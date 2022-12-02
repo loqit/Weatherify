@@ -32,6 +32,10 @@ class CoreDataController: ObservableObject {
       error.do { error in
         fatalError("Unable to load persistent stores: \(error)")
       }
+      let description = NSPersistentStoreDescription()
+      description.shouldMigrateStoreAutomatically = false
+      description.shouldInferMappingModelAutomatically = true
+      container.persistentStoreDescriptions = [description]
     }
     return container
   }()

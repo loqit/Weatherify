@@ -22,7 +22,7 @@ class CountriesViewModel: ViewModelProtocol {
   
   func load() async {
     await toggleSearch()
-    isError = false
+    await toggleError()
     let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
     if reachability.isNetworkAvailable() {
       await getCountry(by: currentSearchCountry)
@@ -39,12 +39,17 @@ class CountriesViewModel: ViewModelProtocol {
   }
   
   @MainActor
+  private func toggleError() {
+    isError.toggle()
+  }
+  
+  @MainActor
   private func setCountries(with data: [CountryElement], _ error: Error? = nil) {
     countries = data
     toggleSearch()
     if error != nil {
       self.error = error
-      isError = true
+      toggleError()
     }
   }
   

@@ -15,7 +15,7 @@ actor CountryCoreDataService {
     country.name?.common = model.name.common
     country.name?.official = model.name.official
     country.id = model.id
-    country.latlng = model.latlng
+  //  country.latlng = model.latlng
     country.coatOfArms?.png = model.flags.png
     country.coatOfArms?.svg = model.flags.svg
     

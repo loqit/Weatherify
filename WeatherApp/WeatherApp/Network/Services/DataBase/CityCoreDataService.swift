@@ -14,7 +14,8 @@ class CityCoreDataService {
   
   func save(_ model: City) {
     let cityEntity = CityEntity(context: dataController.context)
-    model.setUpEntity(cityEntity)
+    let coordinateEntity = CoordinateEntity(context: dataController.context)
+    model.setUpEntity(cityEntity, coordinateEntity)
     dataController.saveContext()
   }
   
