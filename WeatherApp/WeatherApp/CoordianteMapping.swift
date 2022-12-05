@@ -13,7 +13,8 @@ class CoordinateMigration: NSEntityMigrationPolicy {
                                                            into: manager.destinationContext)
       coordinate.setValue(lat, forKey: "lat")
       coordinate.setValue(lon, forKey: "lon")
-      sInstance.entity.setValue(coordinate.objectID, forKey: "coordinate")
+      
+      sInstance.setValue(coordinate.objectID, forKey: "coordinate")
     }
   }
 }
