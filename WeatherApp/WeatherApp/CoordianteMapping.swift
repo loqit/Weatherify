@@ -14,7 +14,7 @@ class CoordinateMigration: NSEntityMigrationPolicy {
       coordinate.setValue(lat, forKey: "lat")
       coordinate.setValue(lon, forKey: "lon")
       
-      sInstance.setValue(coordinate.objectID, forKey: "coordinate")
+      sInstance.setValue(coordinate, forKey: "coordinate")
     }
   }
 }
