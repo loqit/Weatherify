@@ -13,15 +13,7 @@ class CoordinateMigration: NSEntityMigrationPolicy {
                                                            into: manager.destinationContext)
       coordinate.setValue(lat, forKey: "lat")
       coordinate.setValue(lon, forKey: "lon")
-      sInstance.entity.setValue(coordinate.entity, forKey: "coordinate")
+      sInstance.entity.setValue(coordinate.objectID, forKey: "coordinate")
     }
-  }
-  
-  private func setUpCoordinate(_ lat: Double?, _ lon: Double?, manager: NSMigrationManager) {
-    let coordinate = NSEntityDescription.insertNewObject(forEntityName: "CoordinateEntity",
-                                                         into: manager.destinationContext)
-    coordinate.setValue(lat, forKey: "lat")
-    coordinate.setValue(lon, forKey: "lon")
-    
   }
 }
