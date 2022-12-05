@@ -34,7 +34,7 @@ class CoreDataController: ObservableObject {
       }
       let description = NSPersistentStoreDescription()
       description.shouldMigrateStoreAutomatically = false
-      description.shouldInferMappingModelAutomatically = true
+      description.shouldInferMappingModelAutomatically = false
       container.persistentStoreDescriptions = [description]
     }
     return container
