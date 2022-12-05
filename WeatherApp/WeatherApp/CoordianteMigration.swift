@@ -13,12 +13,8 @@ class CoordinateMigration: NSEntityMigrationPolicy {
                                                            into: manager.destinationContext)
       coordinate.setValue(lat, forKey: "lat")
       coordinate.setValue(lon, forKey: "lon")
-     
-      let destResults = manager.destinationInstances(forEntityMappingName: mapping.name, sourceInstances: [sInstance])
-      if let destinationEntity = destResults.last {
-        destinationEntity.setValue(coordinate, forKey: "coordinate")
-      }
-      
+
+      sInstance.setValue(coordinate, forKey: "coordinate")
     }
   }
 }
