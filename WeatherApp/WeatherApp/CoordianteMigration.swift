@@ -16,7 +16,8 @@ class CoordinateMigration: NSEntityMigrationPolicy {
     
       print("sInstance :", sInstance)
       print("sInstance.entity :", sInstance.entity)
-
+      print("mapping : ", mapping)
+      print("mapping name: ", mapping.name)
      // let entity = NSEntityDescription.insertNewObject(forEntityName: mapping.name, into: manager.destinationContext)
       let entity = manager.destinationInstances(forEntityMappingName: mapping.name, sourceInstances: [sInstance])
       print("Entities", entity)
