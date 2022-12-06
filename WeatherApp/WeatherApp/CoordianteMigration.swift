@@ -13,12 +13,13 @@ class CoordinateMigration: NSEntityMigrationPolicy {
                                                            into: manager.destinationContext)
       coordinate.setValue(lat, forKey: "lat")
       coordinate.setValue(lon, forKey: "lon")
-      
-     // sInstance.setValue(coordinate, forKey: "coordinate")
-      let destRes = manager.destinationInstances(forEntityMappingName: mapping.name, sourceInstances: [sInstance])
-      if let destEntity = destRes.last {
-        destEntity.setValue(coordinate, forKey: "coordinate")
-      }
+      print("sInstance :", sInstance)
+      print("sInstance.entity :", sInstance.entity)
+      sInstance.setValue(coordinate, forKey: "coordinate")
+//      let destRes = manager.destinationInstances(forEntityMappingName: mapping.name, sourceInstances: [sInstance])
+//      if let destEntity = destRes.last {
+//        destEntity.setValue(coordinate, forKey: "coordinate")
+//      }
     }
   }
 }
