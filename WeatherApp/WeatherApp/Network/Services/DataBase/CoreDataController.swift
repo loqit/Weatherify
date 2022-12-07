@@ -27,11 +27,11 @@ class CoreDataController: ObservableObject {
   // MARK: - Private
   private static var container: NSPersistentContainer = {
     let container = NSPersistentContainer(name: "WeatherApp")
-    
     container.loadPersistentStores { _, error   in
       error.do { error in
         fatalError("Unable to load persistent stores: \(error)")
       }
+      
       let description = NSPersistentStoreDescription()
       description.shouldMigrateStoreAutomatically = true
       description.shouldInferMappingModelAutomatically = false
