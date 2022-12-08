@@ -13,6 +13,11 @@ class CityToCoordinateMigration: NSEntityMigrationPolicy {
     let entities = manager.destinationInstances(forEntityMappingName: mapping.name,
                                                 sourceInstances: [sInstance])
     print("Entities", entities)
+    
+    var detEnt: NSManagedObject?
+    let userInfo = manager.userInfo
+    print("User Info", userInfo)
+    
     if let destEntity = entities.last {
       print("destEntity :", destEntity)
       destEntity.setValue(coordinate, forKey: "coordinate")
