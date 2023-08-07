@@ -1,8 +1,10 @@
 import SwiftUI
 
 struct CityCard: View {
-
-    let cityInfo: CityElement
+    
+    let cityInfo: City
+    
+    private let coreDataService = CityCoreDataService(dataController: CoreDataController())
     
     var body: some View {
         HStack {
@@ -16,6 +18,10 @@ struct CityCard: View {
             }
             .padding()
             Spacer()
+            Button(action: {},
+                   label: { Image(systemName: "star") }
+            )
+            .onTapGesture { Task { coreDataService.save(cityInfo) } }
         }
         .padding()
         .background(Color(.secondarySystemBackground))

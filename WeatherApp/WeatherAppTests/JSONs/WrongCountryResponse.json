@@ -1,0 +1,23 @@
+[
+    {
+        "name": {
+            "common": "United States",
+            "official": "United States of America",
+        },
+        "capital": [
+            "Washington, D.C."
+        ],
+        "latlng": [
+            "some data",
+            "x"
+        ],
+        "flags": {
+            "png": "https://flagcdn.com/w320/us.png",
+            "svg": "https://flagcdn.com/us.svg"
+        },
+        "coatOfArms": {
+            "png": "https://mainfacts.com/media/images/coats_of_arms/us.png",
+            "svg": "https://mainfacts.com/media/images/coats_of_arms/us.svg"
+        }
+    }
+]

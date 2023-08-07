@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct WeatherCard: View {
+    
     let temp: String
     let iconName: String
     let time: String
@@ -10,14 +11,14 @@ struct WeatherCard: View {
             Text("\(temp)°")
                 .font(.caption)
                 .fontWeight(.medium)
-            AsyncImage(url: URL(string: "\(NetworkConstants.iconUrl)\(iconName).png")) { image in
+            AsyncImage(url: OpenWeatherEndpoint.iconUrl(iconName).url) { image in
                 image
                     .resizable()
             } placeholder: {
                 ProgressView()
             }
-                .imageScale(.small)
-                .frame(width: 40, height: 40)
+            .imageScale(.small)
+            .frame(width: 40, height: 40)
             Text(time)
                 .font(.caption)
                 .fontWeight(.medium)
