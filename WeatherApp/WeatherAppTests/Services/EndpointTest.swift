@@ -4,10 +4,14 @@ import XCTest
 class EndpointTest: XCTestCase {
     // swiftlint:disable line_length
     
+    // MARK: - Properties
+
     var oneCallEndpointMock = "https://api.openweathermap.org/data/3.0/onecall?lat=40.73061&lon=-73.935242&exclude=alerts&appid=4b64504f9c0e072ede8aa685c2df3a15&units=metric"
     var geoUrlMock = "https://api.openweathermap.org/geo/1.0/direct?q=New York&limit=5&appid=4b64504f9c0e072ede8aa685c2df3a15"
     var iconUrlMock = "https://api.openweathermap.org/img/w/10d.png"
     
+    // MARK: - Tests
+
     func testOneCallEndpointGeneration() {
         let endpoint: OpenWeatherEndpoint = .oneCallUrl(40.73061, -73.935242)
         XCTAssertEqual(endpoint.fullPath, oneCallEndpointMock)

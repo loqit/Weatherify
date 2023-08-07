@@ -1,6 +1,7 @@
 import Foundation
 
 enum JSONNames: String {
+
     case empty = "Empty"
     case wrongCountry = "WrongCountryResponse"
     case emptyCountry = "EmptyCountryResponse"

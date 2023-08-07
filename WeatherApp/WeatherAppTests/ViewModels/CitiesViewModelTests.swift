@@ -3,6 +3,7 @@ import Combine
 @testable import WeatherApp
 
 class CitiesNetworkParserMock: NetworkParserProtocol, Mockable {
+
     func decode<Value: Decodable>(_ data: Data) -> Result<Value, Error> {
         do {
             let mockData = try loadJSON(filename: JSONNames.citiesResponse.rawValue, type: Value.self)
@@ -14,6 +15,7 @@ class CitiesNetworkParserMock: NetworkParserProtocol, Mockable {
 }
 
 class EmptyCitiesNetworkParserMock: NetworkParserProtocol, Mockable {
+
     func decode<Value: Decodable>(_ data: Data) -> Result<Value, Error> {
         do {
             let mockData = try loadJSON(filename: JSONNames.emptyCountry.rawValue, type: Value.self)
@@ -25,20 +27,25 @@ class EmptyCitiesNetworkParserMock: NetworkParserProtocol, Mockable {
 }
 
 class CitiesViewModelTests: XCTestCase {
+
+    // MARK: - Properties
+
     var citiesVM: CitiesViewModel?
     private var cancellables = Set<AnyCancellable>()
     private let creator = CitiesViewModelCreator()
-
+    
     override func setUp() async throws {
         try await super.setUp()
         cancellables = []
     }
-
+    
     override func tearDown() async throws {
         try await super.tearDown()
         citiesVM = nil
         cancellables = []
     }
+    
+    // MARK: - Tests
 
     func testFetchCitiesSuccessfully() async {
         let exp = expectation(description: "Fetched Cities")

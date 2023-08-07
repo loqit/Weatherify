@@ -1,37 +1,37 @@
 [
-  {
-    "name": "New York",
-    "lat": 40.7127281,
-    "lon": -74.0060152,
-    "country": "US",
-    "state": "New York"
-  },
-  {
-    "name": "New York",
-    "lat": 55.0252998,
-    "lon": -1.4869496,
-    "country": "GB",
-    "state": "England"
-  },
-  {
-    "name": "New York",
-    "lat": 39.6852874,
-    "lon": -93.9268836,
-    "country": "US",
-    "state": "Missouri"
-  },
-  {
-    "name": "New York",
-    "lat": 7.9631123,
-    "lon": -11.7636869,
-    "country": "SL",
-    "state": "Bo District"
-  },
-  {
-    "name": "New York",
-    "lat": 54.0609807,
-    "lon": -1.6988474,
-    "country": "GB",
-    "state": "England"
-  }
+    {
+        "name": "New York",
+        "lat": 40.7127281,
+        "lon": -74.0060152,
+        "country": "US",
+        "state": "New York"
+    },
+    {
+        "name": "New York",
+        "lat": 55.0252998,
+        "lon": -1.4869496,
+        "country": "GB",
+        "state": "England"
+    },
+    {
+        "name": "New York",
+        "lat": 39.6852874,
+        "lon": -93.9268836,
+        "country": "US",
+        "state": "Missouri"
+    },
+    {
+        "name": "New York",
+        "lat": 7.9631123,
+        "lon": -11.7636869,
+        "country": "SL",
+        "state": "Bo District"
+    },
+    {
+        "name": "New York",
+        "lat": 54.0609807,
+        "lon": -1.6988474,
+        "country": "GB",
+        "state": "England"
+    }
 ]

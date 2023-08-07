@@ -1,11 +1,13 @@
 import Foundation
 
 protocol Mockable: AnyObject {
+
     var bundle: Bundle { get }
     func loadJSON<T: Decodable>(filename: String, type: T.Type) throws -> T
 }
 
 extension Mockable {
+
     var bundle: Bundle {
         return Bundle(for: type(of: self))
     }
@@ -20,7 +22,6 @@ extension Mockable {
             return decodedObject
         } catch {
             throw error
-          //  fatalError("Failed to load JSON file.")
         }
     }
 }

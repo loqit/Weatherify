@@ -1,6 +1,7 @@
 import Foundation
 
 enum CountriesEndpoint: EndpointType {
+
     var baseUrl: String { return "https://restcountries.com/v3.1" }
 
     case name(String)

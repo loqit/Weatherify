@@ -4,12 +4,15 @@ import Combine
 import MapKit
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
+    
+    // MARK: - Properties
+    
     @Published var locationStatus: CLAuthorizationStatus?
     @Published var location: CLLocationCoordinate2D?
     
+    private let locationManager = CLLocationManager()
     private(set) var currentLocation = CLLocationCoordinate2D()
-
+    
     override init() {
         super.init()
         locationManager.delegate = self
@@ -18,10 +21,12 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
     
+    // MARK: - Public
+    
     func requestLocation() {
         locationManager.requestLocation()
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         locationStatus = status
     }
@@ -29,7 +34,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
     }
-
+    
     func loadMap(by name: String) async throws -> MKLocalSearch.Response? {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = name
@@ -45,6 +50,6 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-         print("Location Error 🌎: \(error)")
+        print("Location Error 🌎: \(error)")
     }
 }

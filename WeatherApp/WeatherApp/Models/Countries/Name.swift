@@ -1,5 +1,6 @@
 import Foundation
 
 struct Name: Decodable {
-  let common, official: String
+    
+    let common, official: String
 }

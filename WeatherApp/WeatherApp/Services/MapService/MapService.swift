@@ -1,20 +1,16 @@
 import Foundation
 import MapKit
 
-protocol MapServiceType: MKMapViewDelegate {
-    var locationManager: LocationManager { get set }
-    func configureDestinationLocation(by coordinate: CLLocationCoordinate2D)
-    func drawRoute()
-}
-
 class MapService: NSObject, MapServiceType {
     
-    private(set) var mapView = MKMapView()
-    private var requestService: MKRequestServiceProtocol
-    var locationManager: LocationManager
+    // MARK: - Properties
     
     private var sourceLocation = CLLocationCoordinate2D()
     private var destinationLocation = CLLocationCoordinate2D()
+
+    private(set) var mapView = MKMapView()
+    private var requestService: MKRequestServiceProtocol
+    var locationManager: LocationManager
     
     struct Constants {
         static let delta: Double = 5000
@@ -26,6 +22,8 @@ class MapService: NSObject, MapServiceType {
         super.init()
         mapView.delegate = self
     }
+    
+    // MARK: - Public
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
@@ -78,6 +76,8 @@ class MapService: NSObject, MapServiceType {
         calculateRoute(using: direction)
         
     }
+    
+    // MARK: - Private
 
     private func calculateRoute(using directions: MKDirections) {
         directions.calculate { response, _ in

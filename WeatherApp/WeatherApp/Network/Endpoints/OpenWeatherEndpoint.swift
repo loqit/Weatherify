@@ -1,6 +1,7 @@
 import Foundation
 
 enum OpenWeatherEndpoint: EndpointType {
+    
     var baseUrl: String { return "https://api.openweathermap.org" }
     var apiKey: String { return "4b64504f9c0e072ede8aa685c2df3a15" }
     
