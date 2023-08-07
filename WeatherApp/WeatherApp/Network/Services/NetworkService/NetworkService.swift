@@ -16,9 +16,9 @@ class NetworkService: NetworkServiceProtocol {
     
     func fetchResponse<T: Decodable>(from url: URL) async throws -> Result<T, Error> {
         do {
-            loadTask?.cancel()
+            cancelRequest()
             loadTask = Task { () -> Data in
-                return try await getData(from: url)
+                try await getData(from: url)
             }
             
             let data = try await loadTask?.value ?? Data()

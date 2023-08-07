@@ -11,7 +11,6 @@ class CountriesViewModel: ViewModelProtocol {
     @Published var searchTerm: String = ""
     
     private let reachability = NetworkReachability()
-    
     private let dataFetcher: CountriesServiceProtocol
     
     init(service: CountriesServiceProtocol) {
@@ -22,7 +21,7 @@ class CountriesViewModel: ViewModelProtocol {
     
     func load() async {
         await toggleSearch()
-        await toggleError()
+        await resetError()
         let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
         if reachability.isNetworkAvailable() {
             await getCountry(by: currentSearchCountry)
@@ -39,8 +38,8 @@ class CountriesViewModel: ViewModelProtocol {
     }
     
     @MainActor
-    private func toggleError() {
-        isError.toggle()
+    private func resetError() {
+        isError = error != nil
     }
     
     @MainActor
@@ -49,7 +48,7 @@ class CountriesViewModel: ViewModelProtocol {
         toggleSearch()
         if error != nil {
             self.error = error
-            toggleError()
+            resetError()
         }
     }
     
