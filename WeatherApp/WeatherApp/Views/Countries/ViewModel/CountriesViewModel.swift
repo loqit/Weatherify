@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 class CountriesViewModel: ViewModelProtocol {
     
@@ -6,31 +7,42 @@ class CountriesViewModel: ViewModelProtocol {
     
     @Published private(set) var countries: [CountryElement] = []
     @Published private(set) var error: Error?
-    @Published var isError = false
     @Published private(set) var isSearching = false
+    @Published var isError = false
     @Published var searchTerm: String = ""
     
     private let reachability = NetworkReachability()
     private let dataFetcher: CountriesServiceProtocol
+    
+    private var subscriptions: Set<AnyCancellable> = []
     
     init(service: CountriesServiceProtocol) {
         dataFetcher = service
     }
     
     // MARK: Public
-    
+
     func load() async {
         await toggleSearch()
         await resetError()
         let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
         if reachability.isNetworkAvailable() {
-            await getCountry(by: currentSearchCountry)
-        } else {
-            
+            await getCountry()
         }
     }
     
     // MARK: Private
+    
+    private func subcribeToSearch() {
+        $searchTerm
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .dropFirst()
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .sink { countryName in
+                print(countryName)
+            }
+            .store(in: &subscriptions)
+    }
     
     @MainActor
     private func toggleSearch() {
@@ -44,18 +56,17 @@ class CountriesViewModel: ViewModelProtocol {
     
     @MainActor
     private func setCountries(with data: [CountryElement], _ error: Error? = nil) {
-        countries = data
         toggleSearch()
-        if error != nil {
-            self.error = error
-            resetError()
-        }
+        countries = data
+        self.error = error
+        resetError()
     }
     
-    private func getCountry(by name: String) async {
+    private func getCountry() async {
         do {
-            let countriesResult = try await dataFetcher.getCountry(by: name)
-            switch countriesResult {
+            let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
+            async let countriesResult = try await dataFetcher.getCountry(by: currentSearchCountry)
+            switch try await countriesResult {
             case .success(let data):
                 await setCountries(with: data ?? [])
             case .failure(let error):

@@ -1,4 +1,5 @@
 import SwiftUI
+import CoreLocation
 
 struct CountriesView: View {
     
@@ -7,23 +8,20 @@ struct CountriesView: View {
     @State private var isLoading = false
     
     var body: some View {
-        let countries = viewModel.countries
-        NavigationView {
-            List(countries) { country in
-                NavigationLink(destination: WeatherMapView(coordinate: country.coordinate)) {
-                    CountryCard(countryName: country.name.common, countryFlag: country.flags.png)
+        NavigationStack {
+            List(viewModel.countries) { country in
+                NavigationLink(value: country.id) {
+                    countryCard(of: country)
                 }
             }
+            .navigationDestination(for: CountryElement.ID.self, destination: { countryID in
+                let country = viewModel.countries.first(where: { $0.id == countryID })
+                WeatherMapView(coordinate: country?.coordinate)
+            })
+            .id(UUID())
             .overlay(loadingOverlay)
             .searchable(text: $viewModel.searchTerm)
-            .onSubmit(of: .search) {
-                Task {
-                    await viewModel.load()
-                }
-            }
-            .onReceive(viewModel.$isSearching, perform: { value in
-                isLoading = value
-            })
+            .onReceive(viewModel.$isSearching) { isLoading = $0 }
             .task {
                 await viewModel.load()
             }
@@ -35,8 +33,13 @@ struct CountriesView: View {
     }
     
     // MARK: - Private
+    
+    private func countryCard(of coutry: CountryElement) -> some View {
+        CountryCard(countryName: coutry.name.common, countryFlag: coutry.flags.png)
+    }
 
-    @ViewBuilder private var loadingOverlay: some View {
+    @ViewBuilder
+    private var loadingOverlay: some View {
         if isLoading {
             ProgressView()
         }

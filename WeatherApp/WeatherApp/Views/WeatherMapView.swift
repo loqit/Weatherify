@@ -4,7 +4,7 @@ import Combine
 
 struct WeatherMapView: View {
     
-    var coordinate: CLLocationCoordinate2D
+    var coordinate: CLLocationCoordinate2D?
     @State var mapView = MapView()
     
     var body: some View {
@@ -35,7 +35,10 @@ struct MapView: UIViewRepresentable {
         mapService.drawRoute()
     }
     
-    func updateMap(with coordinate: CLLocationCoordinate2D) {
+    func updateMap(with coordinate: CLLocationCoordinate2D?) {
+        guard let coordinate = coordinate else {
+            return
+        }
         mapService.configureDestinationLocation(by: coordinate)
     }
     

@@ -13,25 +13,13 @@ class CityDataFetcherService {
     // MARK: Public
     
     func fetchData(from url: URL, _ name: String) async -> Result<[City], Error> {
-        //    do {
-        //      print("Start Fetching")
-        //      let data: Result<[City], Error> = try await networkService.fetchResponse(from: url)
-        //      return data
-        //    } catch {
         let result = await fetchLocally(by: name)
         return result
-        //    }
     }
     
     // MARK: Private
     
     private func fetchLocally(by name: String, _ error: Error? = nil) async -> Result<[City], Error> {
-        //    let errorCode = (error as NSError).code
-        //    castError(errorCode: errorCode)
-        //    guard errorCode != URLError.cancelled.rawValue else {
-        //      return .failure(error)
-        //    }
-        
         do {
             let data = try uploadFromDataBase(by: name)
             return .success(data)

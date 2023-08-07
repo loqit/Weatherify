@@ -2,8 +2,8 @@ import Foundation
 import CoreLocation
 
 struct CountryElement: Decodable, Identifiable {
-    
-    var id: UUID { UUID() }
+
+    var id: String { "\(coordinate.latitude)\(coordinate.longitude)" }
     let name: Name
     let flags: CoatOfArms
     let capital: [String]?

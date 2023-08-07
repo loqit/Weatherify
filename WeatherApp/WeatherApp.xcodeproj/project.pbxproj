@@ -267,6 +267,85 @@
 			path = MKRequestService;
 			sourceTree = "<group>";
 		};
+		64AE20182A810ED20054E1FE /* Countries */ = {
+			isa = PBXGroup;
+			children = (
+				64AE201A2A810EFA0054E1FE /* ViewModifiers */,
+				64AE20192A810EE60054E1FE /* ViewModel */,
+				D2FC414A28BF8A280064EF01 /* CountriesView.swift */,
+			);
+			path = Countries;
+			sourceTree = "<group>";
+		};
+		64AE20192A810EE60054E1FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D22B04E728A669CC00EFDD6C /* CountriesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		64AE201A2A810EFA0054E1FE /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				D22B04E928A66C3C00EFDD6C /* CountryCard.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		64AE201B2A810F290054E1FE /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				64AE201D2A810F680054E1FE /* ViewModifiers */,
+				64AE201C2A810F4B0054E1FE /* ViewModel */,
+				D2FC414C28BF8A280064EF01 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		64AE201C2A810F4B0054E1FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D2FC415328BF8A920064EF01 /* CitiesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		64AE201D2A810F680054E1FE /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				D28114A72851401B00590033 /* CityCard.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		64AE201E2A810F790054E1FE /* CityWeather */ = {
+			isa = PBXGroup;
+			children = (
+				64AE20202A810FF00054E1FE /* ViewModifiers */,
+				64AE201F2A810F8A0054E1FE /* ViewModel */,
+				D2FC414928BF8A280064EF01 /* CityWeatherView.swift */,
+			);
+			path = CityWeather;
+			sourceTree = "<group>";
+		};
+		64AE201F2A810F8A0054E1FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D2FC415528BF8A970064EF01 /* WeatherViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		64AE20202A810FF00054E1FE /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				D2085D17286B8A8C00210D1A /* DailyWeather.swift */,
+				D28114A5285139F500590033 /* WeatherCard.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		A41C9EDD442BBD048FC016F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,17 +492,6 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		D28114A2285139CA00590033 /* ViewModifiers */ = {
-			isa = PBXGroup;
-			children = (
-				D28114A5285139F500590033 /* WeatherCard.swift */,
-				D28114A72851401B00590033 /* CityCard.swift */,
-				D2085D17286B8A8C00210D1A /* DailyWeather.swift */,
-				D22B04E928A66C3C00EFDD6C /* CountryCard.swift */,
-			);
-			path = ViewModifiers;
-			sourceTree = "<group>";
-		};
 		D2A0D8F228D9BF18008D883C /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,9 +538,6 @@
 			children = (
 				D2EA320C28F03096000287AD /* ViewModelProtocol.swift */,
 				D2EA320E28F0314C000287AD /* ViewModelFabric.swift */,
-				D2FC415528BF8A970064EF01 /* WeatherViewModel.swift */,
-				D2FC415328BF8A920064EF01 /* CitiesViewModel.swift */,
-				D22B04E728A669CC00EFDD6C /* CountriesViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -489,12 +554,11 @@
 		D2E3B2D22858CFFD0000A895 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D2FC414928BF8A280064EF01 /* CityWeatherView.swift */,
+				64AE201E2A810F790054E1FE /* CityWeather */,
+				64AE201B2A810F290054E1FE /* Main */,
+				64AE20182A810ED20054E1FE /* Countries */,
 				D2FC414B28BF8A280064EF01 /* ContentView.swift */,
-				D2FC414A28BF8A280064EF01 /* CountriesView.swift */,
-				D2FC414C28BF8A280064EF01 /* MainView.swift */,
 				D2FC414D28BF8A280064EF01 /* WeatherMapView.swift */,
-				D28114A2285139CA00590033 /* ViewModifiers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -801,7 +865,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -855,7 +919,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

@@ -21,7 +21,9 @@ class NetworkService: NetworkServiceProtocol {
                 try await getData(from: url)
             }
             
-            let data = try await loadTask?.value ?? Data()
+            guard let data = try await loadTask?.value else {
+                throw NetworkError.inavlidData
+            }
             let result: Result<T, Error> = parser.decode(data)
             return result
         } catch {
@@ -37,7 +39,10 @@ class NetworkService: NetworkServiceProtocol {
     
     private func getData(from url: URL) async throws -> Data {
         do {
-            let (data, _) = try await URLSession.shared.data(from: url)
+            let (data, response) = try await URLSession.shared.data(from: url)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw NetworkError.connectionError
+            }
             return data
         } catch {
             throw error
