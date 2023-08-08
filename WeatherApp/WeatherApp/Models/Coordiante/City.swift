@@ -2,7 +2,7 @@ import Foundation
 
 struct City: Decodable, Identifiable {
     
-    var id: UUID { UUID() }
+    var id: String { "\(lat)\(lon)" }
     let name: String
     let lat, lon: Double
     let country: String
@@ -22,7 +22,7 @@ struct City: Decodable, Identifiable {
     }
     
     func setUpEntity(_ cityEntity: CityEntity, _ coordinate: CoordinateEntity) {
-        cityEntity.id = id
+        cityEntity.id = UUID(uuidString: id)
         coordinate.lat = lat.round(to: 3)
         coordinate.lon = lon.round(to: 3)
         cityEntity.coordinate = coordinate

@@ -4,13 +4,13 @@ struct CityWeatherView: View {
     
     @StateObject private var viewModel: WeatherViewModel = WeatherViewModelCreator().factoryMethod(parser: NetworkParser())
     private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
-    var cityElement: City
+    var cityElement: City?
     
     var body: some View {
         VStack {
             Spacer()
             HStack {
-                Text(cityElement.name)
+                Text(cityElement?.name ?? "City Name")
                 Button(action: {
                     coreDataService.save(viewModel.weatherData)
                 },

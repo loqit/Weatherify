@@ -39,7 +39,6 @@ class CitiesViewModel: ViewModelProtocol {
             .dropFirst()
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .sink { cityName in
-                print(cityName)
                 Task {
                     await self.searchCities(by: cityName)
                 }
