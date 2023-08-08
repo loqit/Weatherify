@@ -10,10 +10,13 @@ class CitiesViewModel: ViewModelProtocol {
     @Published var searchTerm: String = ""
     @Published private(set) var error: Error?
     
+    private var subscriptions: Set<AnyCancellable> = []
+    
     private let citiesFetcher: CityServiceProtocol
     
     init(service: CityServiceProtocol) {
         citiesFetcher = service
+        subscribeToSearch()
     }
     
     // MARK: Public
@@ -30,6 +33,20 @@ class CitiesViewModel: ViewModelProtocol {
     
     // MARK: Private
     
+    private func subscribeToSearch() {
+        $searchTerm
+            .debounce(for: 0.5, scheduler: RunLoop.main)
+            .dropFirst()
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .sink { cityName in
+                print(cityName)
+                Task {
+                    await self.searchCities(by: cityName)
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
     @MainActor
     private func toggleSearch() {
         isSearching.toggle()
@@ -37,14 +54,9 @@ class CitiesViewModel: ViewModelProtocol {
     
     @MainActor
     private func setCities(with data: [City]?, _ error: Error? = nil) {
-        guard let data = data else {
-            return
-        }
-        cities = data
+        cities = data ?? []
         toggleSearch()
-        if error != nil {
-            self.error = error
-        }
+        self.error = error
     }
     
     private func searchCities(by name: String) async {

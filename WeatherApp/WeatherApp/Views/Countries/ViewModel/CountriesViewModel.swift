@@ -18,6 +18,7 @@ class CountriesViewModel: ViewModelProtocol {
     
     init(service: CountriesServiceProtocol) {
         dataFetcher = service
+        subcribeToSearch()
     }
     
     // MARK: Public
@@ -25,9 +26,10 @@ class CountriesViewModel: ViewModelProtocol {
     func load() async {
         await toggleSearch()
         await resetError()
-        let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
+        
         if reachability.isNetworkAvailable() {
-            await getCountry()
+            let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
+            await getCountry(by: currentSearchCountry)
         }
     }
     
@@ -39,7 +41,9 @@ class CountriesViewModel: ViewModelProtocol {
             .dropFirst()
             .map { $0.trimmingCharacters(in: .whitespaces) }
             .sink { countryName in
-                print(countryName)
+                Task {
+                    await self.getCountry(by: countryName)
+                }
             }
             .store(in: &subscriptions)
     }
@@ -62,10 +66,9 @@ class CountriesViewModel: ViewModelProtocol {
         resetError()
     }
     
-    private func getCountry() async {
+    private func getCountry(by name: String) async {
         do {
-            let currentSearchCountry = searchTerm.trimmingCharacters(in: .whitespaces)
-            async let countriesResult = try await dataFetcher.getCountry(by: currentSearchCountry)
+            async let countriesResult = try await dataFetcher.getCountry(by: name)
             switch try await countriesResult {
             case .success(let data):
                 await setCountries(with: data ?? [])

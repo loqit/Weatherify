@@ -31,7 +31,6 @@
 		D22B04E628A65F1500EFDD6C /* Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22B04E528A65F1500EFDD6C /* Name.swift */; };
 		D22B04E828A669CC00EFDD6C /* CountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22B04E728A669CC00EFDD6C /* CountriesViewModel.swift */; };
 		D22B04EA28A66C3C00EFDD6C /* CountryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22B04E928A66C3C00EFDD6C /* CountryCard.swift */; };
-		D22FAE2028D47951007FF9D7 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22FAE1F28D47951007FF9D7 /* WeatherAppTests.swift */; };
 		D22FAE2728D479F1007FF9D7 /* EndpointTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22FAE2628D479F1007FF9D7 /* EndpointTest.swift */; };
 		D22FAE2F28D49572007FF9D7 /* DateFormatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22FAE2E28D49572007FF9D7 /* DateFormatServiceTests.swift */; };
 		D22FAE3128D49734007FF9D7 /* MapServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22FAE3028D49734007FF9D7 /* MapServiceTests.swift */; };
@@ -122,7 +121,6 @@
 		D22B04E728A669CC00EFDD6C /* CountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesViewModel.swift; sourceTree = "<group>"; };
 		D22B04E928A66C3C00EFDD6C /* CountryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCard.swift; sourceTree = "<group>"; };
 		D22FAE1D28D47951007FF9D7 /* WeatherAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D22FAE1F28D47951007FF9D7 /* WeatherAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppTests.swift; sourceTree = "<group>"; };
 		D22FAE2628D479F1007FF9D7 /* EndpointTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointTest.swift; sourceTree = "<group>"; };
 		D22FAE2E28D49572007FF9D7 /* DateFormatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatServiceTests.swift; sourceTree = "<group>"; };
 		D22FAE3028D49734007FF9D7 /* MapServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServiceTests.swift; sourceTree = "<group>"; };
@@ -346,6 +344,14 @@
 			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
+		64AE20212A8124E00054E1FE /* CountryMap */ = {
+			isa = PBXGroup;
+			children = (
+				D2FC414D28BF8A280064EF01 /* WeatherMapView.swift */,
+			);
+			path = CountryMap;
+			sourceTree = "<group>";
+		};
 		A41C9EDD442BBD048FC016F9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -451,7 +457,6 @@
 				D2EF8C0E28E6EC3B00EBAD83 /* JSONs */,
 				D2BDB5CF28E1B2590081C13D /* ViewModels */,
 				D2A0D8F228D9BF18008D883C /* Services */,
-				D22FAE1F28D47951007FF9D7 /* WeatherAppTests.swift */,
 				D2A0D8F328D9BF37008D883C /* Mockable.swift */,
 			);
 			path = WeatherAppTests;
@@ -554,11 +559,11 @@
 		D2E3B2D22858CFFD0000A895 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				64AE20212A8124E00054E1FE /* CountryMap */,
 				64AE201E2A810F790054E1FE /* CityWeather */,
 				64AE201B2A810F290054E1FE /* Main */,
 				64AE20182A810ED20054E1FE /* Countries */,
 				D2FC414B28BF8A280064EF01 /* ContentView.swift */,
-				D2FC414D28BF8A280064EF01 /* WeatherMapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -800,7 +805,6 @@
 				D22FAE2728D479F1007FF9D7 /* EndpointTest.swift in Sources */,
 				D22FAE2F28D49572007FF9D7 /* DateFormatServiceTests.swift in Sources */,
 				D2A0D8F428D9BF37008D883C /* Mockable.swift in Sources */,
-				D22FAE2028D47951007FF9D7 /* WeatherAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
