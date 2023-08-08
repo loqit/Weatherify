@@ -241,6 +241,7 @@
 		64441E6F2A80EC4000A62CEB /* CityService */ = {
 			isa = PBXGroup;
 			children = (
+				D292AADB292B7C23005F3667 /* CityDataFetcherService.swift */,
 				D25CD9CE28AFA2A000ADFF7A /* CityService.swift */,
 				64441E702A80EC5300A62CEB /* CityServiceProtocol.swift */,
 			);
@@ -250,6 +251,7 @@
 		64441E722A80EC6F00A62CEB /* WeatherService */ = {
 			isa = PBXGroup;
 			children = (
+				D20B0952292E2537005415BF /* WeatherDataFetcherService.swift */,
 				D25CD9D028AFA30200ADFF7A /* WeatherService.swift */,
 				64441E732A80EC8500A62CEB /* WeatherServiceProtocol.swift */,
 			);
@@ -491,8 +493,6 @@
 				64441E662A80EB9F00A62CEB /* NetworkParser */,
 				D20A28082912A3A30066BF83 /* DataBase */,
 				D237F6E62927913F000D446C /* Reachability.swift */,
-				D292AADB292B7C23005F3667 /* CityDataFetcherService.swift */,
-				D20B0952292E2537005415BF /* WeatherDataFetcherService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
