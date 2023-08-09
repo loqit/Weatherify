@@ -12,8 +12,8 @@ class CityDataFetcherService {
     
     // MARK: Public
     
-    func fetchData(from url: URL, _ name: String) async -> Result<[City], Error> {
-        let result = await fetchLocally(by: name)
+    func fetchData(from url: URL, _ name: String) async throws -> Result<[City], Error> {
+        let result: Result<[City], Error> = try await networkService.fetchResponse(from: url)
         return result
     }
     

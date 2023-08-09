@@ -1,10 +1,14 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct ContentView: View {
     
     var body: some View {
         TabView {
-            MainView()
+            SearchCityView(store: Store(initialState: SearchCityReducer.State()) {
+                SearchCityReducer()
+                    ._printChanges()
+            })
                 .tabItem {
                     Image(systemName: "cloud.sun")
                     Text("Weather")
