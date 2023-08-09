@@ -6,7 +6,7 @@ class CoreDataController: ObservableObject {
     // MARK: - Properties
 
     var context: NSManagedObjectContext {
-        return Self.container.viewContext
+        Self.container.viewContext
     }
     
     // MARK: - Public

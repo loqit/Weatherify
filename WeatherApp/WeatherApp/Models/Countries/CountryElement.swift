@@ -10,6 +10,6 @@ struct CountryElement: Decodable, Identifiable {
     let latlng: [Double]
     
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: latlng[0], longitude: latlng[1])
+        CLLocationCoordinate2D(latitude: latlng[0], longitude: latlng[1])
     }
 }

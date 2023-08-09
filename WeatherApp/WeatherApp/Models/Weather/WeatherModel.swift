@@ -15,7 +15,7 @@ struct WeatherModel: Decodable {
     }
     
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
     init(_ model: WeatherDataEntity?) {

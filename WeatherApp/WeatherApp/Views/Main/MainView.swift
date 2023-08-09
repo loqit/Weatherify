@@ -2,7 +2,11 @@ import SwiftUI
 
 struct MainView: View {
     
+    // MARK: - Properties
+
     @StateObject private var viewModel: CitiesViewModel = CitiesViewModelCreator().factoryMethod(parser: NetworkParser())
+
+    // MARK: - Body
 
     var body: some View {
         NavigationStack {
@@ -17,11 +21,6 @@ struct MainView: View {
                 CityWeatherView(cityElement: city)
             })
             .searchable(text: $viewModel.searchTerm)
-            .onSubmit(of: .search) {
-                Task {
-                    await viewModel.load()
-                }
-            }
             .navigationTitle("Search Weather")
         }
     }

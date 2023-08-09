@@ -11,9 +11,10 @@ class CitiesViewModel: ViewModelProtocol {
     @Published private(set) var error: Error?
     
     private var subscriptions: Set<AnyCancellable> = []
-    
     private let citiesFetcher: CityServiceProtocol
     
+    // MARK: - Init
+
     init(service: CityServiceProtocol) {
         citiesFetcher = service
         subscribeToSearch()

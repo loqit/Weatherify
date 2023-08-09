@@ -28,7 +28,7 @@ struct MapView: UIViewRepresentable {
     private var mapService = MapService(locationManager: LocationManager())
     
     func makeUIView(context: Context) -> MKMapView {
-        return mapService.mapView
+        mapService.mapView
     }
     
     func drawRoute() {

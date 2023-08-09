@@ -9,7 +9,7 @@ protocol Mockable: AnyObject {
 extension Mockable {
 
     var bundle: Bundle {
-        return Bundle(for: type(of: self))
+        Bundle(for: type(of: self))
     }
     
     func loadJSON<T: Decodable>(filename: String, type: T.Type) throws -> T {
