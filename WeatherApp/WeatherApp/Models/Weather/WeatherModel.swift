@@ -1,8 +1,8 @@
 import Foundation
 import CoreLocation
 
-struct WeatherModel: Decodable {
-    
+struct WeatherModel: Decodable, Equatable {
+
     let lat, lon: Double
     let timezone: String
     let current: CurrentWeather
@@ -46,5 +46,9 @@ struct WeatherModel: Decodable {
         print("weather entity 🌎", weatherDataEntity.cityID)
         
         return weatherDataEntity
+    }
+    
+    static func == (lhs: WeatherModel, rhs: WeatherModel) -> Bool {
+        lhs.lat == rhs.lat && lhs.lon == rhs.lon
     }
 }

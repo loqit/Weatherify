@@ -1,46 +1,52 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct CityWeatherView: View {
-    
-    @StateObject private var viewModel: WeatherViewModel = WeatherViewModelCreator().factoryMethod(parser: NetworkParser())
+
     private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
+    let store: StoreOf<CityWeatherReducer>
     var cityElement: City?
     
     var body: some View {
-        VStack {
-            Spacer()
-            HStack {
-                Text(cityElement?.name ?? "City Name")
-                Button(action: {
-                    coreDataService.save(viewModel.weatherData)
-                },
-                       label: { Image(systemName: "star") }
-                )
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            VStack {
+                Spacer()
+                HStack {
+                    Text(cityElement?.name ?? "City Name")
+                    Button(action: {
+                        coreDataService.save(viewStore.weatherData)
+                    },
+                           label: { Image(systemName: "star") }
+                    )
+                }
+                if let currentTemp = viewStore.weatherData?.current.temp {
+                    Text("\(Int(currentTemp))")
+                }
+                Spacer()
+                ScrollView(.vertical, showsIndicators: false) {
+                    currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
+                    dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [])
+                }
+                Spacer()
+                Spacer()
             }
-            if let weatherData = viewModel.weatherData {
-                Text("\(Int(weatherData.current.temp))°")
+            .onAppear {
+                guard let lat = cityElement?.lat,
+                      let lon = cityElement?.lon else {
+                    return
+                }
+                viewStore.send(.requestWeather(lat, lon))
             }
-            Spacer()
-            ScrollView(.vertical, showsIndicators: false) {
-                currentWeatherView
-                dailyWeatherView
-            }
-            Spacer()
-            Spacer()
-        }
-        .task {
-            self.viewModel.city = cityElement
-            await viewModel.load()
         }
     }
     
     // MARK: - Private
     
-    private var currentWeatherView: some View {
+    private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
         return AnyView(
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(viewModel.weatherData?.hourly ?? []) { hourly in
+                    ForEach(hourlyWeather) { hourly in
                         WeatherCard(temp: String(Int(hourly.temp)),
                                     iconName: hourly.weather[0].icon,
                                     time: DateFormatService.timeFromDate(hourly.daytime))
@@ -52,10 +58,10 @@ struct CityWeatherView: View {
         )
     }
     
-    private var dailyWeatherView: some View {
+    private func dailyWeatherView(dailyWeather: [DailyWeatherModel]) -> some View {
         return AnyView(
             VStack {
-                ForEach(viewModel.weatherData?.daily ?? []) { daily in
+                ForEach(dailyWeather) { daily in
                     DailyWeather(date: DateFormatService.shortDate(daily.daytime),
                                  temp: daily.temp,
                                  iconName: daily.weather[0].icon)
