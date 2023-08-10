@@ -9,7 +9,6 @@ struct CountriesView: View {
     let store: StoreOf<CountriesReducer>
 
     @State private var isError = false
-    @State private var isLoading = false
     
     // MARK: - Body
 
@@ -25,10 +24,9 @@ struct CountriesView: View {
                     let country = viewStore.countries.first(where: { $0.id == countryID })
                     WeatherMapView(coordinate: country?.coordinate)
                 })
-                .overlay(loadingOverlay)
+                .overlay(loadingOverlay(isLoading: viewStore.isCountryRequestInFlight))
                 .searchable(text: viewStore.binding(get: \.searchQuery,
                                                     send: CountriesReducer.Action.searchQueryChanged ))
-              //  .onReceive(viewModel.$isSearching) { isLoading = $0 }
                 .task(id: viewStore.searchQuery) {
                     do {
                         try await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
@@ -37,9 +35,6 @@ struct CountriesView: View {
                 }
                 .navigationTitle("Countries")
             }
-//            .alert("Failed to load Countries list", isPresented: self.$viewModel.isError) {
-//                Button("Ok", role: .cancel, action: {})
-//            }
         }
     }
     
@@ -49,7 +44,8 @@ struct CountriesView: View {
         CountryCard(countryName: coutry.name.common, countryFlag: coutry.flags.png)
     }
 
-    @ViewBuilder private var loadingOverlay: some View {
+    @ViewBuilder
+    private func loadingOverlay(isLoading: Bool) -> some View {
         if isLoading {
             ProgressView()
         }
