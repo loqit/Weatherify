@@ -1,6 +1,6 @@
 import Foundation
 
-struct Temperature: Decodable, EntityComparable {
+struct Temperature: Decodable, Equatable, EntityComparable {
     
     typealias Entity = TempEntity
     

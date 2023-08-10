@@ -3,6 +3,8 @@ import ComposableArchitecture
 
 struct CityWeatherReducer: Reducer {
     
+    // MARK: - Properties
+
     @Dependency(\.weatherService)
     var weatherService
     
@@ -14,7 +16,8 @@ struct CityWeatherReducer: Reducer {
     // MARK: - State
 
     struct State: Equatable {
-        
+
+        var id: String?
         var weatherData: WeatherModel?
         var isWeatherRequestInFlight = false
     }
@@ -24,24 +27,27 @@ struct CityWeatherReducer: Reducer {
     enum Action {
 
         case requestWeather(_ lat: Double, _ lon: Double)
-        case weatherResponse(Result<WeatherModel, Error>)
+        case weatherResponse(String, Result<WeatherModel, Error>)
     }
     
     // MARK: - Reduce
-
+    // swiftlint:disable function_body_length
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .requestWeather(lat, lon):
             state.isWeatherRequestInFlight = true
             return .run { send in
-                await send(.weatherResponse( try await weatherService.fetchWeatherModel(lat, lon) ))
+                async let response = try weatherService.fetchWeatherModel(lat, lon)
+                await send(.weatherResponse( "\(lat) \(lon)", try await response ))
             }
             .cancellable(id: CancelID.loading)
-        case .weatherResponse(.failure):
+        case let .weatherResponse(id, .failure):
+            state.id = id
             state.isWeatherRequestInFlight = false
             state.weatherData = nil
             return .none
-        case let .weatherResponse(.success(weather)):
+        case let .weatherResponse(id, .success(weather)):
+            state.id = id
             state.isWeatherRequestInFlight = false
             state.weatherData = weather
             return .none

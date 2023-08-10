@@ -15,7 +15,7 @@ struct WeatherModel: Decodable, Equatable {
     }
     
     var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: lat, longitude: lon)
+        CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
     
     init(_ model: WeatherDataEntity?) {
@@ -46,9 +46,5 @@ struct WeatherModel: Decodable, Equatable {
         print("weather entity 🌎", weatherDataEntity.cityID)
         
         return weatherDataEntity
-    }
-    
-    static func == (lhs: WeatherModel, rhs: WeatherModel) -> Bool {
-        lhs.lat == rhs.lat && lhs.lon == rhs.lon
     }
 }

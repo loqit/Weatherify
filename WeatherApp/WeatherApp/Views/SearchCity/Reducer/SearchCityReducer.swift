@@ -46,7 +46,8 @@ struct SearchCityReducer: Reducer {
                 return .none
             }
             return .run { [query = state.searchQuery] send in
-                await send(.searchResponse( try cityService.getCitiesData(of: query) ))
+                async let response = try await cityService.getCitiesData(of: query)
+                await send(.searchResponse( try await response ))
             }
             .cancellable(id: CancellID.search)
             

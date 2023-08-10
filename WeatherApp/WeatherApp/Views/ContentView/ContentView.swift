@@ -7,16 +7,14 @@ struct ContentView: View {
         TabView {
             SearchCityView(store: Store(initialState: SearchCityReducer.State()) {
                 SearchCityReducer()
-                    ._printChanges()
             })
                 .tabItem {
                     Image(systemName: "cloud.sun")
                     Text("Weather")
                 }
-            CountriesView(store: Store(initialState: CountriesReducer.State(), reducer: {
+            CountriesView(store: Store(initialState: CountriesReducer.State()) {
                 CountriesReducer()
-                    ._printChanges()
-            }))
+            })
                 .tabItem {
                     Image(systemName: "map")
                     Text("Countries")

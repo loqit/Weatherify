@@ -1,6 +1,6 @@
 import Foundation
 
-struct DailyWeatherModel: Decodable, Identifiable, EntityComparable {
+struct DailyWeatherModel: Decodable, Identifiable, Equatable, EntityComparable {
     
     typealias Entity = DailyWeatherEntity
     

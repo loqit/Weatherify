@@ -3,8 +3,12 @@ import ComposableArchitecture
 
 struct SearchCityView: View {
 
+    // MARK: - Properties
+
     let store: StoreOf<SearchCityReducer>
     
+    // MARK: - Body
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
@@ -16,11 +20,11 @@ struct SearchCityView: View {
                 }
                 .navigationDestination(for: City.ID.self) { cityID in
                     let city = viewStore.cities.first(where: { $0.id == cityID })
-                    CityWeatherView(store: Store(initialState: CityWeatherReducer.State(),
-                                                 reducer: {
+                    CityWeatherView(store: Store(initialState: CityWeatherReducer.State()) {
                         CityWeatherReducer()
                             ._printChanges()
-                    }), cityElement: city)
+                    },
+                                    cityElement: city)
                 }
                 .searchable(text: viewStore.binding(get: \.searchQuery,
                                                     send: SearchCityReducer.Action.searchQueryChanged)

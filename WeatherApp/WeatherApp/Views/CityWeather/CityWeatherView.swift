@@ -3,9 +3,14 @@ import ComposableArchitecture
 
 struct CityWeatherView: View {
 
-    private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
+    // MARK: - Properties
+
     let store: StoreOf<CityWeatherReducer>
+
+    private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
     var cityElement: City?
+
+    // MARK: - Body
 
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -35,12 +40,15 @@ struct CityWeatherView: View {
                     ProgressView()
                 }
             }
-            .onAppear {
+            .task {
                 guard let lat = cityElement?.lat,
                       let lon = cityElement?.lon else {
                     return
                 }
-                viewStore.send(.requestWeather(lat, lon))
+                do {
+                    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
+                    await viewStore.send(.requestWeather(lat, lon)).finish()
+                } catch {}
             }
         }
     }
