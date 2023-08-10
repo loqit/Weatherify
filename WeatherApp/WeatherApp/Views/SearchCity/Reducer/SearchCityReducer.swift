@@ -30,13 +30,6 @@ struct SearchCityReducer: Reducer {
         var cities: [City] = []
         var selectedCity: City?
         var searchQuery = ""
-        var error: Error?
-        
-        static func == (lhs: SearchCityReducer.State, rhs: SearchCityReducer.State) -> Bool {
-            lhs.cities == rhs.cities &&
-            lhs.searchQuery == rhs.searchQuery &&
-            lhs.selectedCity == rhs.selectedCity
-        }
     }
     
     // MARK: - Action

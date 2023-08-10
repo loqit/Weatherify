@@ -29,10 +29,6 @@ struct CityWeatherReducer: Reducer {
     struct State: Equatable {
         
         var weatherData: WeatherModel?
-        
-        static func == (lhs: CityWeatherReducer.State, rhs: CityWeatherReducer.State) -> Bool {
-            lhs.weatherData == rhs.weatherData
-        }
     }
     
     // MARK: - Action

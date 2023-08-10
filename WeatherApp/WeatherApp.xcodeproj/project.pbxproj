@@ -420,6 +420,7 @@
 		D22B04D328A643D800EFDD6C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				64441E752A80EC9A00A62CEB /* MKRequestService */,
 				64441E632A80EAF700A62CEB /* MapService */,
 				D22B04D428A6440700EFDD6C /* DateFormatService.swift */,
 				D2FC415728C0D1A70064EF01 /* LocationManager.swift */,
@@ -490,7 +491,6 @@
 		D25CD9CB28AF9DEA00ADFF7A /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				64441E752A80EC9A00A62CEB /* MKRequestService */,
 				64441E722A80EC6F00A62CEB /* WeatherService */,
 				64441E6F2A80EC4000A62CEB /* CityService */,
 				64441E6C2A80EC1300A62CEB /* CountryService */,
