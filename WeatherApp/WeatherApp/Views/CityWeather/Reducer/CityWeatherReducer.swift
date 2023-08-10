@@ -1,19 +1,6 @@
 import Foundation
 import ComposableArchitecture
 
-extension DependencyValues {
-    
-    var weatherService: WeatherService {
-        get { self[WeatherService.self] }
-        set { self[WeatherService.self] = newValue }
-    }
-}
-
-extension WeatherService: DependencyKey {
-    
-    static let liveValue = WeatherService(service: NetworkService(parser: NetworkParser()))
-}
-
 struct CityWeatherReducer: Reducer {
     
     @Dependency(\.weatherService)

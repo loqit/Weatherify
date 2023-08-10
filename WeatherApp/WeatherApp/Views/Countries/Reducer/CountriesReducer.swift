@@ -1,19 +1,6 @@
 import Foundation
 import ComposableArchitecture
 
-extension DependencyValues {
-    
-    var countryService: CountryService {
-        get { self[CountryService.self] }
-        set { self[CountryService.self] = newValue }
-    }
-}
-
-extension CountryService: DependencyKey {
-    
-    static let liveValue = CountryService(service: NetworkService(parser: NetworkParser()))
-}
-
 struct CountriesReducer: Reducer {
     
     // MARK: - Propreties

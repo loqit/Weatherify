@@ -1,4 +1,5 @@
 import Foundation
+import Dependencies
 
 class CountryService: CountriesServiceProtocol {
     
@@ -20,4 +21,19 @@ class CountryService: CountriesServiceProtocol {
             throw error
         }
     }
+}
+
+// MARK: - Dependency
+
+extension DependencyValues {
+    
+    var countryService: CountryService {
+        get { self[CountryService.self] }
+        set { self[CountryService.self] = newValue }
+    }
+}
+
+extension CountryService: DependencyKey {
+    
+    static let liveValue = CountryService(service: NetworkService(parser: NetworkParser()))
 }

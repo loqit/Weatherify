@@ -1,22 +1,10 @@
 import Foundation
 import ComposableArchitecture
 
-extension DependencyValues {
-    
-    var cityService: CityService {
-        get { self[CityService.self] }
-        set { self[CityService.self] = newValue }
-    }
-}
-
-extension CityService: DependencyKey {
-    
-    static let liveValue = CityService(service: NetworkService(parser: NetworkParser()))
-}
-
 struct SearchCityReducer: Reducer {
 
-    @Dependency(\.cityService) var cityService
+    @Dependency(\.cityService)
+    var cityService
     
     private enum CancellID {
         
