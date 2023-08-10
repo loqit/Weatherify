@@ -12,6 +12,7 @@ struct CityWeatherView: View {
 
     // MARK: - Body
 
+    // FIXME: View not updates at first open
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
@@ -40,15 +41,12 @@ struct CityWeatherView: View {
                     ProgressView()
                 }
             }
-            .task {
+            .onAppear {
                 guard let lat = cityElement?.lat,
                       let lon = cityElement?.lon else {
                     return
                 }
-                do {
-                    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
-                    await viewStore.send(.requestWeather(lat, lon)).finish()
-                } catch {}
+                viewStore.send(.requestWeather(lat, lon))
             }
         }
     }
