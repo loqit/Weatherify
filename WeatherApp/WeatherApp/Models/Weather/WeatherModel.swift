@@ -1,8 +1,8 @@
 import Foundation
 import CoreLocation
 
-struct WeatherModel: Decodable {
-    
+struct WeatherModel: Decodable, Equatable {
+
     let lat, lon: Double
     let timezone: String
     let current: CurrentWeather

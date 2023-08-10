@@ -1,4 +1,5 @@
 import Foundation
+import Dependencies
 
 class CityService: CityServiceProtocol {
     
@@ -19,4 +20,19 @@ class CityService: CityServiceProtocol {
         let data: Result<[City], Error> = try await dataFetcher.fetchData(from: url, cityName)
         return data
     }
+}
+
+// MARK: - Dependecy
+
+extension DependencyValues {
+    
+    var cityService: CityService {
+        get { self[CityService.self] }
+        set { self[CityService.self] = newValue }
+    }
+}
+
+extension CityService: DependencyKey {
+    
+    static let liveValue = CityService(service: NetworkService(parser: NetworkParser()))
 }

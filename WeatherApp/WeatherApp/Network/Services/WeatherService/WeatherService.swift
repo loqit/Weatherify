@@ -1,4 +1,5 @@
 import Foundation
+import Dependencies
 
 class WeatherService: WeatherServiceProtocol {
     
@@ -20,4 +21,19 @@ class WeatherService: WeatherServiceProtocol {
         let data: Result<WeatherModel, Error> = await dataFetcher.fetchData(from: url, cityID)
         return data
     }
+}
+
+// MARK: - Dependecy
+
+extension DependencyValues {
+    
+    var weatherService: WeatherService {
+        get { self[WeatherService.self] }
+        set { self[WeatherService.self] = newValue }
+    }
+}
+
+extension WeatherService: DependencyKey {
+    
+    static let liveValue = WeatherService(service: NetworkService(parser: NetworkParser()))
 }

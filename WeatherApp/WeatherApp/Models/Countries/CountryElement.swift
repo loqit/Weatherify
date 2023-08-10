@@ -1,7 +1,7 @@
 import Foundation
 import CoreLocation
 
-struct CountryElement: Decodable, Identifiable {
+struct CountryElement: Decodable, Identifiable, Equatable {
 
     var id: String { "\(coordinate.latitude)\(coordinate.longitude)" }
     let name: Name
@@ -11,5 +11,9 @@ struct CountryElement: Decodable, Identifiable {
     
     var coordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latlng[0], longitude: latlng[1])
+    }
+
+    static func == (lhs: CountryElement, rhs: CountryElement) -> Bool {
+        lhs.id == rhs.id
     }
 }

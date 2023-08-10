@@ -1,6 +1,6 @@
 import Foundation
 
-struct Weather: Decodable, EntityComparable {
+struct Weather: Decodable, Equatable, EntityComparable {
     
     typealias Entity = WeatherEntity
     

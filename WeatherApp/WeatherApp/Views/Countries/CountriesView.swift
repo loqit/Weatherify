@@ -1,34 +1,40 @@
 import SwiftUI
+import ComposableArchitecture
 import CoreLocation
 
 struct CountriesView: View {
-    
-    @StateObject private var viewModel: CountriesViewModel = CountriesViewModelCreator().factoryMethod(parser: NetworkParser())
+
+    // MARK: - Properties
+
+    let store: StoreOf<CountriesReducer>
+
     @State private var isError = false
-    @State private var isLoading = false
     
+    // MARK: - Body
+
     var body: some View {
-        NavigationStack {
-            List(viewModel.countries) { country in
-                NavigationLink(value: country.id) {
-                    countryCard(of: country)
+        WithViewStore(self.store, observe: { $0 }) { viewStore in
+            NavigationStack {
+                List(viewStore.countries) { country in
+                    NavigationLink(value: country.id) {
+                        countryCard(of: country)
+                    }
                 }
+                .navigationDestination(for: CountryElement.ID.self, destination: { countryID in
+                    let country = viewStore.countries.first(where: { $0.id == countryID })
+                    WeatherMapView(coordinate: country?.coordinate)
+                })
+                .overlay(loadingOverlay(isLoading: viewStore.isCountryRequestInFlight))
+                .searchable(text: viewStore.binding(get: \.searchQuery,
+                                                    send: CountriesReducer.Action.searchQueryChanged ))
+                .task(id: viewStore.searchQuery) {
+                    do {
+                        try await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
+                        await viewStore.send(.searchQueryChangeDebounced).finish()
+                    } catch {}
+                }
+                .navigationTitle("Countries")
             }
-            .navigationDestination(for: CountryElement.ID.self, destination: { countryID in
-                let country = viewModel.countries.first(where: { $0.id == countryID })
-                WeatherMapView(coordinate: country?.coordinate)
-            })
-            .id(UUID())
-            .overlay(loadingOverlay)
-            .searchable(text: $viewModel.searchTerm)
-            .onReceive(viewModel.$isSearching) { isLoading = $0 }
-            .task {
-                await viewModel.load()
-            }
-            .navigationTitle("Countries")
-        }
-        .alert("Failed to load Countries list", isPresented: self.$viewModel.isError) {
-            Button("Ok", role: .cancel, action: {})
         }
     }
     
@@ -39,16 +45,9 @@ struct CountriesView: View {
     }
 
     @ViewBuilder
-    private var loadingOverlay: some View {
+    private func loadingOverlay(isLoading: Bool) -> some View {
         if isLoading {
             ProgressView()
         }
-    }
-}
-
-struct CountriesView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        CountriesView()
     }
 }

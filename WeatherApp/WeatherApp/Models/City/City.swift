@@ -1,6 +1,6 @@
 import Foundation
 
-struct City: Decodable, Identifiable {
+struct City: Decodable, Identifiable, Equatable {
     
     var id: String { "\(lat)\(lon)" }
     let name: String
