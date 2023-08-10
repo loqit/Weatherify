@@ -30,6 +30,11 @@ struct CityWeatherView: View {
                 Spacer()
                 Spacer()
             }
+            .overlay {
+                if viewStore.isWeatherRequestInFlight {
+                    ProgressView()
+                }
+            }
             .onAppear {
                 guard let lat = cityElement?.lat,
                       let lon = cityElement?.lon else {
