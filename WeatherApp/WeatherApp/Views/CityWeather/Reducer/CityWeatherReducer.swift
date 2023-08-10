@@ -16,7 +16,13 @@ extension WeatherService: DependencyKey {
 
 struct CityWeatherReducer: Reducer {
     
-    @Dependency(\.weatherService) var weatherService
+    @Dependency(\.weatherService)
+    var weatherService
+    
+    enum CancelID {
+        
+        case loading
+    }
     
     // MARK: - State
 
@@ -45,6 +51,7 @@ struct CityWeatherReducer: Reducer {
             return .run { send in
                 await send(.weatherResponse( try await weatherService.fetchWeatherModel(lat, lon) ))
             }
+            .cancellable(id: CancelID.loading)
         case .weatherResponse(.failure):
             state.weatherData = nil
             return .none

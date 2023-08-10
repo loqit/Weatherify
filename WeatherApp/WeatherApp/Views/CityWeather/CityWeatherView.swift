@@ -6,7 +6,7 @@ struct CityWeatherView: View {
     private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
     let store: StoreOf<CityWeatherReducer>
     var cityElement: City?
-    
+
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
@@ -43,30 +43,26 @@ struct CityWeatherView: View {
     // MARK: - Private
     
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
-        return AnyView(
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(hourlyWeather) { hourly in
-                        WeatherCard(temp: String(Int(hourly.temp)),
-                                    iconName: hourly.weather[0].icon,
-                                    time: DateFormatService.timeFromDate(hourly.daytime))
-                        
-                    }
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(hourlyWeather) { hourly in
+                    WeatherCard(temp: String(Int(hourly.temp)),
+                                iconName: hourly.weather[0].icon,
+                                time: DateFormatService.timeFromDate(hourly.daytime))
+                    
                 }
             }
-                .padding()
-        )
+        }
+            .padding()
     }
     
     private func dailyWeatherView(dailyWeather: [DailyWeatherModel]) -> some View {
-        return AnyView(
-            VStack {
-                ForEach(dailyWeather) { daily in
-                    DailyWeather(date: DateFormatService.shortDate(daily.daytime),
-                                 temp: daily.temp,
-                                 iconName: daily.weather[0].icon)
-                }
+        VStack {
+            ForEach(dailyWeather) { daily in
+                DailyWeather(date: DateFormatService.shortDate(daily.daytime),
+                             temp: daily.temp,
+                             iconName: daily.weather[0].icon)
             }
-        )
+        }
     }
 }

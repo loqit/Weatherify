@@ -77,7 +77,6 @@ struct SearchCityReducer: Reducer {
             return .none
         case let .searchResultTapped(city):
             state.selectedCity = city
-            
             return .none
         }
     }

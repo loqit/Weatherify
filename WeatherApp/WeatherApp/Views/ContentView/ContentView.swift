@@ -13,7 +13,10 @@ struct ContentView: View {
                     Image(systemName: "cloud.sun")
                     Text("Weather")
                 }
-            CountriesView()
+            CountriesView(store: Store(initialState: CountriesReducer.State(), reducer: {
+                CountriesReducer()
+                    ._printChanges()
+            }))
                 .tabItem {
                     Image(systemName: "map")
                     Text("Countries")
