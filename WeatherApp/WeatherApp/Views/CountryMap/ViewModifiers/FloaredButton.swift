@@ -1,0 +1,24 @@
+import SwiftUI
+
+struct FloaredButton: View {
+
+    let title: String
+    
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .foregroundColor(.blue)
+                .frame(width: 150, height: 50)
+                .shadow(radius: 25)
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.white)
+        }
+    }
+}
+
+struct DrawRouteButton_Previews: PreviewProvider {
+    static var previews: some View {
+        FloaredButton(title: "Draw a route")
+    }
+}
