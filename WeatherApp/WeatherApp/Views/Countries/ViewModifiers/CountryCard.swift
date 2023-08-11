@@ -11,7 +11,7 @@ struct CountryCard: View {
             Spacer()
             image
         }
-        .frame(width: 270, height: 50)
+        .frame(height: 50)
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
@@ -21,6 +21,7 @@ struct CountryCard: View {
     
     private var countryNameTitle: some View {
         Text(countryName)
+            .tint(.black)
             .font(.headline)
             .fontWeight(.bold)
             .padding()
