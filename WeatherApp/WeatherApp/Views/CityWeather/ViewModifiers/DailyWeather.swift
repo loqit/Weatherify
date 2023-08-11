@@ -2,16 +2,17 @@ import SwiftUI
 
 struct DailyWeather: View {
     
-    let date: String
+    let date: Double
     let temp: Temperature
     let iconName: String
     
     var body: some View {
         HStack {
-            Text(date)
+            Text( DateFormatService.dayOfWeek(date))
                 .fontWeight(.medium)
             Spacer()
-            Text("\(Int(temp.min))°/\(Int(temp.max))°")
+            Text("\(Int(temp.min))°C/\(Int(temp.max))°C")
+                .font(.caption)
                 .fontWeight(.light)
             AsyncImage(url: OpenWeatherEndpoint.iconUrl(iconName).url) { image in
                 image

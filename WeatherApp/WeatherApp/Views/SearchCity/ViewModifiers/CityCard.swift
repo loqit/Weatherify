@@ -5,30 +5,56 @@ struct CityCard: View {
     // MARK: - Propertie
 
     private let coreDataService = CityCoreDataService(dataController: CoreDataController())
-    let cityInfo: City
+
+    let cityName: String
+    let cityState: String
+    let cityCountry: String
 
     // MARK: - Body
 
     var body: some View {
         HStack {
-            VStack {
-                Text(cityInfo.name)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                Text("\(cityInfo.state ?? "") \(cityInfo.country)")
-                    .font(.caption)
-                    .fontWeight(.light)
-            }
-            .frame(minWidth: 150)
-            .padding()
+            cityTitle
             Spacer()
-            Button(action: {},
-                   label: { Image(systemName: "star") }
-            )
-            .onTapGesture { Task { coreDataService.save(cityInfo) } }
+            saveButton
         }
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(10)
+    }
+    
+    // MARK: - Private
+    
+    private var cityTitle: some View {
+        VStack(alignment: .leading) {
+            Text(cityName)
+                .font(.title3)
+                .fontWeight(.bold)
+            Text("\(cityState) \(cityCountry)")
+                .font(.subheadline)
+                .fontWeight(.light)
+        }
+        .tint(.black)
+        .frame(minWidth: 150, maxWidth: 200, alignment: .leading)
+        .padding()
+    }
+    
+    private var saveButton: some View {
+        Button(action: {},
+               label: {
+                Image(systemName: "star")
+                .tint(.yellow)
+                .fontWeight(.bold)
+            }
+        )
+       // .onTapGesture { Task { coreDataService.save(cityInfo) } }
+    }
+
+}
+
+struct CityCard_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        CityCard(cityName: "Minsk", cityState: "Minsk", cityCountry: "Belarus")
     }
 }

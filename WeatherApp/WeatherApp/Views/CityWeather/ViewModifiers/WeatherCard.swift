@@ -4,11 +4,11 @@ struct WeatherCard: View {
     
     let temp: String
     let iconName: String
-    let time: String
+    let time: Double
     
     var body: some View {
         VStack(spacing: 16) {
-            Text("\(temp)°")
+            Text("\(temp)°C")
                 .font(.caption)
                 .fontWeight(.medium)
             AsyncImage(url: OpenWeatherEndpoint.iconUrl(iconName).url) { image in
@@ -19,7 +19,7 @@ struct WeatherCard: View {
             }
             .imageScale(.small)
             .frame(width: 40, height: 40)
-            Text(time)
+            Text(DateFormatService.timeFromDate(time))
                 .font(.caption)
                 .fontWeight(.medium)
         }

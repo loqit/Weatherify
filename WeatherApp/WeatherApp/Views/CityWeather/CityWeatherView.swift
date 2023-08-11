@@ -18,24 +18,15 @@ struct CityWeatherView: View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Spacer()
+                
                 HStack {
-                    Text(cityElement?.name ?? "City Name")
-                        .font(.largeTitle)
-                        .fontWeight(.black)
-                    Button(action: {
-                        coreDataService.save(viewStore.weatherData)
-                    },
-                    label: { 
-                            Image(systemName: isCitySaved ? "star.fill" : "star") 
-                                .tint(.yellow)
-                                .fontWeight(.bold)
+                    VStack {
+                        cityTitle
+                        if let currentTemp = viewStore.weatherData?.current.temp {
+                            currentTempTitle(currentTemp: currentTemp)
                         }
-                    )
-                }
-                if let currentTemp = viewStore.weatherData?.current.temp {
-                    Text("\(Int(currentTemp))")
-                        .font(.title2)
-                        .fontWeight(.medium)
+                    }
+                    saveButton(weatherData: viewStore.weatherData) // TODO: Pin it to top
                 }
                 Spacer()
                 ScrollView(.vertical, showsIndicators: false) {
@@ -61,13 +52,37 @@ struct CityWeatherView: View {
     
     // MARK: - Private
     
+    private var cityTitle: some View {
+        Text(cityElement?.name ?? "City Name")
+            .font(.title)
+            .fontWeight(.medium)
+    }
+    
+    private func currentTempTitle(currentTemp: Double) -> some View {
+        Text("\(Int(currentTemp))°C")
+            .font(.largeTitle) // TODO: Make it bigger
+            .fontWeight(.medium)
+    }
+    
+    private func saveButton(weatherData: WeatherModel?) -> some View {
+        Button(action: {
+            coreDataService.save(weatherData)
+        },
+        label: {
+                Image(systemName: isCitySaved ? "star.fill" : "star")
+                    .tint(.yellow)
+                    .fontWeight(.bold)
+            }
+        )
+    }
+    
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(hourlyWeather) { hourly in
                     WeatherCard(temp: String(Int(hourly.temp)),
                                 iconName: hourly.weather[0].icon,
-                                time: DateFormatService.timeFromDate(hourly.daytime))
+                                time: hourly.daytime)
                     
                 }
             }
@@ -79,7 +94,7 @@ struct CityWeatherView: View {
     private func dailyWeatherView(dailyWeather: [DailyWeatherModel]) -> some View {
         VStack {
             ForEach(dailyWeather) { daily in
-                DailyWeather(date: DateFormatService.shortDate(daily.daytime),
+                DailyWeather(date: daily.daytime,
                              temp: daily.temp,
                              iconName: daily.weather[0].icon)
             }
