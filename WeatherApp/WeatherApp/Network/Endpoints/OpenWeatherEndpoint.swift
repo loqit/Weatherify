@@ -12,13 +12,16 @@ enum OpenWeatherEndpoint: EndpointType {
     var fullPath: String {
         var endpoint: String
         switch self {
-        case .oneCallUrl(let lat, let lon):
+        case let .oneCallUrl(lat, lon):
             endpoint = "/data/3.0/onecall?lat=\(lat)&lon=\(lon)&exclude=alerts&appid=\(apiKey)&units=metric"
-        case .geoUrl(let name):
+        case let .geoUrl(name):
             endpoint = "/geo/1.0/direct?q=\(name)&limit=5&appid=\(apiKey)"
-        case .iconUrl(let name):
+        case let .iconUrl(name):
             endpoint = "/img/w/\(name).png"
         }
+        endpoint = endpoint
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "%20")
         return baseUrl + endpoint
     }
 }

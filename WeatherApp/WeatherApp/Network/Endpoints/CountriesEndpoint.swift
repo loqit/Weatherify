@@ -10,11 +10,14 @@ enum CountriesEndpoint: EndpointType {
     var fullPath: String {
         var endpoint: String
         switch self {
-        case .name(let name):
+        case let .name(name):
             endpoint = "/name/\(name)"
         default:
             endpoint = "/\(String(describing: self))"
         }
+        endpoint = endpoint
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "%20")
         return baseUrl + endpoint
     }
 }
