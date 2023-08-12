@@ -16,7 +16,6 @@ class CoreDataController: ObservableObject {
             try context.save()
         } catch {
             print(error)
-            print("Failed saving context 😧")
         }
     }
     

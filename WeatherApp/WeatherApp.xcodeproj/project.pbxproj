@@ -107,6 +107,7 @@
 		648AD6842A82760D00B2E28B /* CityWeatherReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherReducer.swift; sourceTree = "<group>"; };
 		648AD6882A83AE4E00B2E28B /* CountriesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesReducer.swift; sourceTree = "<group>"; };
 		648AD68B2A8531C500B2E28B /* FloaredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloaredButton.swift; sourceTree = "<group>"; };
+		648AD68D2A86663600B2E28B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D2085D11286B80D100210D1A /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D2085D13286B82E500210D1A /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D2085D17286B8A8C00210D1A /* DailyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
@@ -416,6 +417,7 @@
 		D212A76A284FE29600219C0B /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				648AD68D2A86663600B2E28B /* Info.plist */,
 				D2C94B722936204700DF4355 /* Extensions */,
 				D22B04D328A643D800EFDD6C /* Services */,
 				D2E3B2D22858CFFD0000A895 /* Views */,
@@ -956,6 +958,7 @@
 				DEVELOPMENT_TEAM = 6UL2YK5FHA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_NSLocationUsageDescription = You;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your description here";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -987,6 +990,7 @@
 				DEVELOPMENT_TEAM = 6UL2YK5FHA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_NSLocationUsageDescription = You;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your description here";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

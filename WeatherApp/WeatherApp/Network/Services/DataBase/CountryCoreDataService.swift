@@ -14,12 +14,9 @@ actor CountryCoreDataService {
 
     func save(_ model: CountryElement) {
         let country = CountryEntity(context: dataController.context)
-        print("\(model.name.common) 🤢")
         
         country.name?.common = model.name.common
         country.name?.official = model.name.official
-      //  country.id = model.id
-        //  country.latlng = model.latlng
         country.coatOfArms?.png = model.flags.png
         country.coatOfArms?.svg = model.flags.svg
         
@@ -34,7 +31,7 @@ actor CountryCoreDataService {
                 dataController.context.delete(object)
             }
         } catch _ {
-            print("Failed fetching 🤡")
+            print("Failed fetching")
         }
         dataController.saveContext()
     }

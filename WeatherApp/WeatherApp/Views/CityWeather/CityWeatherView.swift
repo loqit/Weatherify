@@ -19,14 +19,15 @@ struct CityWeatherView: View {
             VStack {
                 Spacer()
                 
-                HStack {
-                    VStack {
-                        cityTitle
-                        if let currentTemp = viewStore.weatherData?.current.temp {
-                            currentTempTitle(currentTemp: currentTemp)
-                        }
-                    }
-                    saveButton(weatherData: viewStore.weatherData) // TODO: Pin it to top
+                cityTitle
+                if let currentWeather = viewStore.weatherData?.current {
+                    currentTempTitle(currentTemp: currentWeather.temp)
+                    Spacer()
+                    descriptionTitle(description: currentWeather.weather[0].weatherDescription)
+                }
+                Spacer()
+                if let todyTemp = viewStore.weatherData?.daily[0].temp {
+                    todayTemp(minTemp: todyTemp.min, maxTemp: todyTemp.max)
                 }
                 Spacer()
                 ScrollView(.vertical, showsIndicators: false) {
@@ -58,22 +59,20 @@ struct CityWeatherView: View {
             .fontWeight(.medium)
     }
     
+    private func descriptionTitle(description: String) -> some View {
+        Text(description.capitalized)
+    }
+    
+    private func todayTemp(minTemp: Double, maxTemp: Double) -> some View {
+        Text("Min: \(Int(minTemp))°C Max: \(Int(maxTemp))°C")
+            .font(.headline)
+            .fontWeight(.medium)
+    }
+    
     private func currentTempTitle(currentTemp: Double) -> some View {
         Text("\(Int(currentTemp))°C")
             .font(.largeTitle) // TODO: Make it bigger
             .fontWeight(.medium)
-    }
-    
-    private func saveButton(weatherData: WeatherModel?) -> some View {
-        Button(action: {
-            coreDataService.save(weatherData)
-        },
-        label: {
-                Image(systemName: isCitySaved ? "star.fill" : "star")
-                    .tint(.yellow)
-                    .fontWeight(.bold)
-            }
-        )
     }
     
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
@@ -82,7 +81,7 @@ struct CityWeatherView: View {
                 ForEach(hourlyWeather) { hourly in
                     WeatherCard(temp: String(Int(hourly.temp)),
                                 iconName: hourly.weather[0].icon,
-                                time: hourly.daytime)
+                                time: DateFormatService.timeFromDate(hourly.daytime))
                     
                 }
             }

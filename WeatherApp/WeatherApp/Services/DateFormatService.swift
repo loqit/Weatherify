@@ -9,6 +9,9 @@ class DateFormatService {
         dateFormatter.dateStyle = .none
         dateFormatter.timeStyle = .short
         dateFormatter.locale = Locale.current
+        if Date.now >= date {
+            return "Now"
+        }
         return dateFormatter.string(from: date)
     }
     
@@ -22,7 +25,7 @@ class DateFormatService {
     
     static func dayOfWeek(_ dateInterval: Double) -> String {
         let date = Date(timeIntervalSince1970: dateInterval)
-        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.dateFormat = "EE"
         dateFormatter.locale = Locale.current
         if Calendar.current.isDateInToday(date) || Calendar.current.isDateInTomorrow(date) {
             dateFormatter.timeStyle = .none
