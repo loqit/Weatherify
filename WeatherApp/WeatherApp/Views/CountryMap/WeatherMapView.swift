@@ -8,15 +8,19 @@ struct WeatherMapView: View {
     @State var mapView = MapView()
     
     var body: some View {
-        mapView
-            .edgesIgnoringSafeArea(.all)
-            .onAppear {
-                mapView.updateMap(with: coordinate)
+        ZStack {
+            mapView
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
+                    mapView.updateMap(with: coordinate)
+                }
+        }
+        .overlay(alignment: .bottom) {
+            Button {
+                mapView.drawRoute()
+            } label: {
+                FloaredButton(title: "Draw a route")
             }
-        Button {
-            mapView.drawRoute()
-        } label: {
-            Text("Draw Route")
         }
     }
 }
@@ -43,4 +47,12 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {}
+}
+
+struct WeatherMap_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        WeatherMapView(coordinate: CLLocationCoordinate2D(latitude: 53.893009,
+                                                          longitude: 27.567444))
+    }
 }

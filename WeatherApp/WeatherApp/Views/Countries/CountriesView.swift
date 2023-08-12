@@ -15,9 +15,14 @@ struct CountriesView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             NavigationStack {
-                List(viewStore.countries) { country in
-                    NavigationLink(value: country.id) {
-                        countryCard(of: country)
+                ScrollView {
+                    LazyVStack {
+                        ForEach(viewStore.countries) { country in
+                            NavigationLink(value: country.id) {
+                                countryCard(of: country)
+                            }
+                            .padding(EdgeInsets(top: 7, leading: 10, bottom: 3, trailing: 10))
+                        }
                     }
                 }
                 .navigationDestination(for: CountryElement.ID.self, destination: { countryID in

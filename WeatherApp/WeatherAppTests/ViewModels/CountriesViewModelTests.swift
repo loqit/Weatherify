@@ -53,7 +53,6 @@ class CountriesViewModelTests: XCTestCase {
     
     override func tearDown() async throws {
         try await super.tearDown()
-        print("TEAR DOWN!!!")
         countriesVM = nil
         cancellables = []
     }
@@ -82,7 +81,6 @@ class CountriesViewModelTests: XCTestCase {
         countriesVM?.$error
             .dropFirst()
             .sink { value in
-                print("🤡", value)
                 XCTAssertNotNil(value)
                 exp.fulfill()
             }

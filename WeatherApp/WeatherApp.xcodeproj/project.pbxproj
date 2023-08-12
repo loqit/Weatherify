@@ -18,6 +18,7 @@
 		648AD6822A8252C900B2E28B /* SearchCityReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD6812A8252C900B2E28B /* SearchCityReducer.swift */; };
 		648AD6852A82760D00B2E28B /* CityWeatherReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD6842A82760D00B2E28B /* CityWeatherReducer.swift */; };
 		648AD6892A83AE4E00B2E28B /* CountriesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD6882A83AE4E00B2E28B /* CountriesReducer.swift */; };
+		648AD68C2A8531C500B2E28B /* FloaredButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD68B2A8531C500B2E28B /* FloaredButton.swift */; };
 		743BBFEA41F7D65E94E6B350 /* libPods-WeatherApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F3FD500F90A74D8C276856E /* libPods-WeatherApp.a */; };
 		D2085D12286B80D100210D1A /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2085D11286B80D100210D1A /* Weather.swift */; };
 		D2085D15286B82E500210D1A /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2085D13286B82E500210D1A /* City.swift */; };
@@ -105,6 +106,8 @@
 		648AD6812A8252C900B2E28B /* SearchCityReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityReducer.swift; sourceTree = "<group>"; };
 		648AD6842A82760D00B2E28B /* CityWeatherReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherReducer.swift; sourceTree = "<group>"; };
 		648AD6882A83AE4E00B2E28B /* CountriesReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesReducer.swift; sourceTree = "<group>"; };
+		648AD68B2A8531C500B2E28B /* FloaredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloaredButton.swift; sourceTree = "<group>"; };
+		648AD68D2A86663600B2E28B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D2085D11286B80D100210D1A /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D2085D13286B82E500210D1A /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D2085D17286B8A8C00210D1A /* DailyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
@@ -297,6 +300,14 @@
 			path = Reducer;
 			sourceTree = "<group>";
 		};
+		648AD68A2A8531AB00B2E28B /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				648AD68B2A8531C500B2E28B /* FloaredButton.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
 		64AE20182A810ED20054E1FE /* Countries */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +366,7 @@
 		64AE20212A8124E00054E1FE /* CountryMap */ = {
 			isa = PBXGroup;
 			children = (
+				648AD68A2A8531AB00B2E28B /* ViewModifiers */,
 				D2FC414D28BF8A280064EF01 /* WeatherMapView.swift */,
 			);
 			path = CountryMap;
@@ -405,6 +417,7 @@
 		D212A76A284FE29600219C0B /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				648AD68D2A86663600B2E28B /* Info.plist */,
 				D2C94B722936204700DF4355 /* Extensions */,
 				D22B04D328A643D800EFDD6C /* Services */,
 				D2E3B2D22858CFFD0000A895 /* Views */,
@@ -754,6 +767,7 @@
 				D25CD9C328AF991600ADFF7A /* CountriesEndpoint.swift in Sources */,
 				D25CD9C528AF993400ADFF7A /* OpenWeatherEndpoint.swift in Sources */,
 				D2FC415028BF8A280064EF01 /* ContentView.swift in Sources */,
+				648AD68C2A8531C500B2E28B /* FloaredButton.swift in Sources */,
 				D2085D1A286C518900210D1A /* CurrentWeather.swift in Sources */,
 				648AD6852A82760D00B2E28B /* CityWeatherReducer.swift in Sources */,
 				D25CD9CF28AFA2A000ADFF7A /* CityService.swift in Sources */,
@@ -944,6 +958,7 @@
 				DEVELOPMENT_TEAM = 6UL2YK5FHA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_NSLocationUsageDescription = You;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your description here";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -975,6 +990,7 @@
 				DEVELOPMENT_TEAM = 6UL2YK5FHA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WeatherApp/Info.plist;
 				INFOPLIST_KEY_NSLocationUsageDescription = You;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your description here";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

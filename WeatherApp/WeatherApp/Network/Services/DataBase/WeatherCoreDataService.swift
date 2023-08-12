@@ -22,7 +22,6 @@ class WeatherCoreDataService {
     @MainActor
     func fetch(by cityID: Int) throws -> WeatherModel {
         let fetchRequest = WeatherDataEntity.fetchRequest()
-        print(cityID)
         fetchRequest.predicate = NSPredicate(format: "cityID = %d", cityID) // %@ shouldn't be used with an int, use %d instead.
         
         do {
