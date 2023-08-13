@@ -1,5 +1,6 @@
 import SwiftUI
 import ComposableArchitecture
+import CoreLocation
 
 struct CityWeatherView: View {
 
@@ -8,17 +9,16 @@ struct CityWeatherView: View {
     let store: StoreOf<CityWeatherReducer>
 
     private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
-    var cityElement: City?
-    @State var isCitySaved: Bool = false
+    let coordinate: CLLocationCoordinate2D
+    let cityName: String
 
     // MARK: - Body
 
-    // FIXME: View not updates at first open
+    // FIXME: View doesn't update at first open
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
                 Spacer()
-                
                 cityTitle
                 if let currentWeather = viewStore.weatherData?.current {
                     currentTempTitle(currentTemp: currentWeather.temp)
@@ -26,8 +26,8 @@ struct CityWeatherView: View {
                     descriptionTitle(description: currentWeather.weather[0].weatherDescription)
                 }
                 Spacer()
-                if let todyTemp = viewStore.weatherData?.daily[0].temp {
-                    todayTemp(minTemp: todyTemp.min, maxTemp: todyTemp.max)
+                if let todayTemps = viewStore.weatherData?.daily[0].temp {
+                    todayTemp(minTemp: todayTemps.min, maxTemp: todayTemps.max)
                 }
                 Spacer()
                 ScrollView(.vertical, showsIndicators: false) {
@@ -42,11 +42,7 @@ struct CityWeatherView: View {
                 }
             }
             .onAppear {
-                guard let lat = cityElement?.lat,
-                      let lon = cityElement?.lon else {
-                    return
-                }
-                viewStore.send(.requestWeather(lat, lon))
+                viewStore.send(.requestWeather(coordinate.latitude, coordinate.longitude))
             }
         }
     }
@@ -54,7 +50,7 @@ struct CityWeatherView: View {
     // MARK: - Private
     
     private var cityTitle: some View {
-        Text(cityElement?.name ?? "City Name")
+        Text(cityName)
             .font(.title)
             .fontWeight(.medium)
     }
@@ -79,7 +75,7 @@ struct CityWeatherView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(hourlyWeather) { hourly in
-                    WeatherCard(temp: String(Int(hourly.temp)),
+                    HourlyWeather(temp: String(Int(hourly.temp)),
                                 iconName: hourly.weather[0].icon,
                                 time: DateFormatService.timeFromDate(hourly.daytime))
                     

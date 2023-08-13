@@ -16,9 +16,11 @@ class MapService: NSObject, MapServiceType {
         static let delta: Double = 5000
     }
 
+    // MARK: - Init
+
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
-        self.requestService = MKRequestService()
+        requestService = MKRequestService()
         super.init()
         mapView.delegate = self
     }
@@ -30,14 +32,6 @@ class MapService: NSObject, MapServiceType {
         renderer.strokeColor = .systemRed
         renderer.lineWidth = 5
         return renderer
-    }
-    
-    private func configureSourceLocation() {
-        locationManager.requestLocation()
-        guard let source = locationManager.location else {
-            return
-        }
-        self.addAnnotation(source)
     }
     
     func getDistance(between source: CLLocationCoordinate2D,
@@ -89,5 +83,13 @@ class MapService: NSObject, MapServiceType {
                                            edgePadding: UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20),
                                            animated: true)
         }
+    }
+    
+    private func configureSourceLocation() {
+        locationManager.requestLocation()
+        guard let source = locationManager.location else {
+            return
+        }
+        addAnnotation(source)
     }
 }

@@ -6,7 +6,7 @@ class NetworkReachability {
     
     // MARK: - Properties
     
-    private var pathMonitor: NWPathMonitor!
+    private var pathMonitor: NWPathMonitor?
     private var path: NWPath?
     lazy var pathUpdateHandler: ((NWPath) -> Void) = { path in
         self.path = path
@@ -23,8 +23,8 @@ class NetworkReachability {
     
     init() {
         pathMonitor = NWPathMonitor()
-        pathMonitor.pathUpdateHandler = self.pathUpdateHandler
-        pathMonitor.start(queue: backgroudQueue)
+        pathMonitor?.pathUpdateHandler = self.pathUpdateHandler
+        pathMonitor?.start(queue: backgroudQueue)
     }
     
     // MARK: - Public

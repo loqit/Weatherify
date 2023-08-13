@@ -31,7 +31,6 @@ struct CityWeatherReducer: Reducer {
     }
     
     // MARK: - Reduce
-    // swiftlint:disable function_body_length
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .requestWeather(lat, lon):

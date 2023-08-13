@@ -10,4 +10,3 @@ extension Optional {
         action.do(self.do)
     }
 }
-

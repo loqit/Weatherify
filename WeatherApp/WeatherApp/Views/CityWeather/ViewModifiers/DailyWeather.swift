@@ -2,13 +2,17 @@ import SwiftUI
 
 struct DailyWeather: View {
     
+    // MARK: - Properties
+
     let date: Double
     let temp: Temperature
     let iconName: String
     
+    // MARK: - Body
+
     var body: some View {
         HStack {
-            Text( DateFormatService.dayOfWeek(date))
+            Text(DateFormatService.dayOfWeek(date))
                 .fontWeight(.medium)
             Spacer()
             Text("\(Int(temp.min))°C/\(Int(temp.max))°C")

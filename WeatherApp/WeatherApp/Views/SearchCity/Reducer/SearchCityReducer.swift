@@ -3,6 +3,8 @@ import ComposableArchitecture
 
 struct SearchCityReducer: Reducer {
 
+    // MARK: - Properties
+
     @Dependency(\.cityService)
     var cityService
     
@@ -27,11 +29,9 @@ struct SearchCityReducer: Reducer {
         case searchQueryChanged(String)
         case searchQueryDebounced
         case searchResponse(Result<[City], Error>)
-        case searchResultTapped(City)
     }
     
     // MARK: - Reduce
-    // swiftlint:disable function_body_length
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .searchQueryChanged(query):
@@ -56,9 +56,6 @@ struct SearchCityReducer: Reducer {
             return .none
         case .searchResponse(.failure):
             state.cities = []
-            return .none
-        case let .searchResultTapped(city):
-            state.selectedCity = city
             return .none
         }
     }

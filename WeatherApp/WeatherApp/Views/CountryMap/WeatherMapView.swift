@@ -4,9 +4,13 @@ import Combine
 
 struct WeatherMapView: View {
     
-    var coordinate: CLLocationCoordinate2D?
+    // MARK: - Properties
+
+    let coordinate: CLLocationCoordinate2D?
     @State var mapView = MapView()
     
+    // MARK: - Body
+
     var body: some View {
         ZStack {
             mapView

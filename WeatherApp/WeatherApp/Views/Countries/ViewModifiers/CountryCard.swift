@@ -2,9 +2,13 @@ import SwiftUI
 
 struct CountryCard: View {
 
+    // MARK: - Properties
+
     let countryName: String
     let countryFlag: URL?
     
+    // MARK: - Body
+
     var body: some View {
         HStack {
             countryNameTitle

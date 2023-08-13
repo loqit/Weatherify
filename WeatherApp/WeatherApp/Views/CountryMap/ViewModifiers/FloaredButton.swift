@@ -2,8 +2,12 @@ import SwiftUI
 
 struct FloaredButton: View {
 
+    // MARK: - Properties
+
     let title: String
     
+    // MARK: - Body
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
@@ -18,6 +22,7 @@ struct FloaredButton: View {
 }
 
 struct DrawRouteButton_Previews: PreviewProvider {
+
     static var previews: some View {
         FloaredButton(title: "Draw a route")
     }

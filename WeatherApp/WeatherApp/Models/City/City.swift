@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 struct City: Decodable, Identifiable, Equatable {
     
@@ -13,6 +14,10 @@ struct City: Decodable, Identifiable, Equatable {
         case lat, lon, country, state
     }
     
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: lat, longitude: lon)
+    }
+
     init(_ model: CityEntity) {
         self.name = model.name ?? ""
         self.lat = model.coordinate?.lat ?? 0

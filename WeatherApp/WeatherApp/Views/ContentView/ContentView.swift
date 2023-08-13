@@ -3,6 +3,8 @@ import ComposableArchitecture
 
 struct ContentView: View {
     
+    // MARK: - Body
+
     var body: some View {
         TabView {
             SearchCityView(store: Store(initialState: SearchCityReducer.State()) {

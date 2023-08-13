@@ -1,5 +1,6 @@
 disabled_rules:
   - trailing_whitespace
+  - multiple_closures_with_trailing_closure
 opt_in_rules:
   - attributes
   - closure_end_indentation
@@ -40,9 +41,6 @@ force_try:
 type_body_length:
   warning: 100
   error: 200
-function_body_length:
-  warning: 10
-  error: 20
 cyclomatic_complexity:
   warning: 5
   error: 10
@@ -58,4 +56,5 @@ file_length:
 line_length:
   warning: 120
   error: 130
-
+cyclomatic_complexity:
+  ignores_case_statements: true

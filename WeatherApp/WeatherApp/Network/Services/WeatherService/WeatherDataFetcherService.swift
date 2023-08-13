@@ -14,7 +14,6 @@ class WeatherDataFetcherService {
     
     func fetchData(from url: URL, _ cityID: Int) async -> Result<WeatherModel, Error> {
         do {
-            print("Start Fetching")
             let data: Result<WeatherModel, Error> = try await networkService.fetchResponse(from: url)
             return data
         } catch {

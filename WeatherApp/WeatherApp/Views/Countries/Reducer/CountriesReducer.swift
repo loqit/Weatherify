@@ -32,6 +32,8 @@ struct CountriesReducer: Reducer {
         case searchResponse(Result<[CountryElement]?, Error>)
     }
 
+    // MARK: - Reduce
+
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .searchQueryChanged(query):

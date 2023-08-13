@@ -18,18 +18,18 @@ struct SearchCityView: View {
                             NavigationLink(value: city.id) {
                                 CityCard(cityName: city.name,
                                          cityState: city.state ?? "",
-                                         cityCountry: city.state ?? "")
+                                         cityCountry: city.country)
                             }
                             .padding(EdgeInsets(top: 7, leading: 10, bottom: 3, trailing: 10))
                         }
                     }
                 }
                 .navigationDestination(for: City.ID.self) { cityID in
-                    let city = viewStore.cities.first(where: { $0.id == cityID })
-                    CityWeatherView(store: Store(initialState: CityWeatherReducer.State()) {
-                        CityWeatherReducer()
-                    },
-                                    cityElement: city)
+                    if let city = viewStore.cities.first(where: { $0.id == cityID }) {
+                        CityWeatherView(store: Store(initialState: CityWeatherReducer.State()) { CityWeatherReducer() },
+                                        coordinate: city.coordinate,
+                                        cityName: city.name)
+                    }
                 }
                 .searchable(text: viewStore.binding(get: \.searchQuery,
                                                     send: SearchCityReducer.Action.searchQueryChanged)

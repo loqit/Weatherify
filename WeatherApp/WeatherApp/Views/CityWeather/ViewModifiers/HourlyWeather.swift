@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct WeatherCard: View {
+struct HourlyWeather: View {
     
     // MARK: - Properties
 
@@ -51,6 +51,6 @@ struct WeatherCard: View {
 struct WeatherCard_Previews: PreviewProvider {
     
     static var previews: some View {
-        WeatherCard(temp: "20", iconName: "", time: "2:00 PM")
+        HourlyWeather(temp: "20", iconName: "", time: "2:00 PM")
     }
 }
