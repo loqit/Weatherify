@@ -18,14 +18,14 @@ class CityDataFetcherService {
     
     // MARK: Private
     
-    private func fetchLocally(by name: String, _ error: Error? = nil) async -> Result<[City], Error> {
-        do {
-            let data = try uploadFromDataBase(by: name)
-            return .success(data)
-        } catch {
-            return .failure(error)
-        }
-    }
+//    private func fetchLocally(by name: String, _ error: Error? = nil) async -> Result<[City], Error> {
+//        do {
+//            let data = try uploadFromDataBase(by: name)
+//            return .success(data)
+//        } catch {
+//            return .failure(error)
+//        }
+//    }
     
     private func castError(errorCode: Int) {
         switch errorCode {
@@ -42,13 +42,13 @@ class CityDataFetcherService {
         }
     }
     
-    private func uploadFromDataBase(by name: String) throws -> [City] {
-        let cityCoreDataService = CityCoreDataService(dataController: CoreDataController())
-        do {
-            let city = try cityCoreDataService.fetch(by: name)
-            return city
-        } catch {
-            throw error
-        }
-    }
+//    private func uploadFromDataBase(by name: String) throws -> [City] {
+//        let cityCoreDataService = CityCoreDataService(dataController: CoreDataController())
+//        do {
+//            let city = try cityCoreDataService.fetch(by: name)
+//            return city
+//        } catch {
+//            throw error
+//        }
+//    }
 }

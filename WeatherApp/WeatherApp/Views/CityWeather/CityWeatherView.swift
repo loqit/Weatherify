@@ -8,7 +8,6 @@ struct CityWeatherView: View {
 
     let store: StoreOf<CityWeatherReducer>
 
-    private let coreDataService = WeatherCoreDataService(dataController: CoreDataController())
     let coordinate: CLLocationCoordinate2D
     let cityName: String
 

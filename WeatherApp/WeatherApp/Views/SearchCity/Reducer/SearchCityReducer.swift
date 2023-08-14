@@ -8,6 +8,8 @@ struct SearchCityReducer: Reducer {
     @Dependency(\.cityService)
     var cityService
     
+    private let dataController = CoreDataController<CityEntity>()
+    
     private enum CancellID {
         
         case search
@@ -29,6 +31,7 @@ struct SearchCityReducer: Reducer {
         case searchQueryChanged(String)
         case searchQueryDebounced
         case searchResponse(Result<[City], Error>)
+        case saveButtonTapped(City)
     }
     
     // MARK: - Reduce
@@ -56,6 +59,22 @@ struct SearchCityReducer: Reducer {
             return .none
         case .searchResponse(.failure):
             state.cities = []
+            return .none
+        case let .saveButtonTapped(city):
+            dataController.add { cityEntity in
+                cityEntity.name = city.name
+                cityEntity.id = UUID(uuidString: city.id)
+                cityEntity.country = city.country
+                cityEntity.state = city.state
+                cityEntity.cityID = Int64(HashService.getHash(from: city.lat.round(to: 3),
+                                                              and: city.lon.round(to: 3)))
+            }
+            .sink(receiveCompletion: { completion in
+                print(completion)
+            }) { cityEntity in
+                print(cityEntity)
+            }
+
             return .none
         }
     }

@@ -4,8 +4,6 @@ struct CityCard: View {
     
     // MARK: - Propertie
 
-    private let coreDataService = CityCoreDataService(dataController: CoreDataController())
-
     let cityName: String
     let cityState: String
     let cityCountry: String
@@ -47,7 +45,6 @@ struct CityCard: View {
                 .fontWeight(.bold)
             }
         )
-       // .onTapGesture { Task { coreDataService.save(cityInfo) } }
     }
 
 }
