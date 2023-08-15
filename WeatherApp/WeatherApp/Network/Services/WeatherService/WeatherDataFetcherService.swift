@@ -54,8 +54,15 @@ class WeatherDataFetcherService {
     }
     
     @MainActor
-    private func uploadFromDataBase(by id: Int) throws -> WeatherModel {
-        let coreDataService = CoreDataController<WeatherEntity>()
-        coreDataService.fetch(predicate: NSPredicate(format: "id = %@", id))
+    private func uploadFromDataBase(by id: Int) async throws -> WeatherModel {
+        let coreDataService = CoreDataController<WeatherDataEntity>()
+        async let result = await coreDataService.fetch(predicate: NSPredicate(format: "id = %@", id))
+        switch await result {
+        case let .success(entities):
+            let weatherModel = WeatherModel(entities[0])
+            return weatherModel
+        case let .failure(error):
+            throw error
+        }
     }
 }

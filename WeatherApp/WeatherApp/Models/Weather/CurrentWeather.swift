@@ -13,4 +13,10 @@ struct CurrentWeather: Decodable, Identifiable, Equatable {
         case temp
         case weather
     }
+    
+    init(_ model: CurrentWeatherEntity?) {
+        self.daytime = model?.daytime ?? 0
+        self.temp = model?.temp ?? 0
+        self.weather = model?.weather?.compactMap { Weather($0 as? WeatherEntity) } ?? []
+    }
 }
