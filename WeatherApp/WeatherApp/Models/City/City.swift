@@ -18,4 +18,12 @@ struct City: Decodable, Identifiable, Equatable {
         case name
         case lat, lon, country, state
     }
+    
+    init(_ model: CityEntity) {
+        self.name = model.name ?? ""
+        self.lat = model.coordinate?.lat ?? 0
+        self.lon = model.coordinate?.lon ?? 0
+        self.country = model.country ?? ""
+        self.state = model.state
+    }
 }
