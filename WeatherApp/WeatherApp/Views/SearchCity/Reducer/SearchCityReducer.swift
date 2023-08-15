@@ -32,9 +32,11 @@ struct SearchCityReducer: Reducer {
         case searchQueryDebounced
         case searchResponse(Result<[City], Error>)
         case saveButtonTapped(City)
+        case citySaved(Result<CityEntity, Error>)
     }
     
     // MARK: - Reduce
+
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .searchQueryChanged(query):
@@ -61,20 +63,24 @@ struct SearchCityReducer: Reducer {
             state.cities = []
             return .none
         case let .saveButtonTapped(city):
-            dataController.add { cityEntity in
-                cityEntity.name = city.name
-                cityEntity.id = UUID(uuidString: city.id)
-                cityEntity.country = city.country
-                cityEntity.state = city.state
-                cityEntity.cityID = Int64(HashService.getHash(from: city.lat.round(to: 3),
-                                                              and: city.lon.round(to: 3)))
+            return .run { send in
+                let result = await dataController.add { cityEntity in
+                    cityEntity.name = city.name
+                    cityEntity.id = UUID(uuidString: city.id)
+                    cityEntity.country = city.country
+                    cityEntity.state = city.state
+                    cityEntity.cityID = Int64(HashService.getHash(from: city.lat.round(to: 3),
+                                                                  and: city.lon.round(to: 3)))
+                }
+                await send(.citySaved(result))
             }
-            .sink(receiveCompletion: { completion in
-                print(completion)
-            }) { cityEntity in
-                print(cityEntity)
+        case let .citySaved(result):
+            switch result {
+            case .success:
+                print("Success")
+            case .failure:
+                print("Failure")
             }
-
             return .none
         }
     }
