@@ -16,9 +16,11 @@ struct SearchCityView: View {
                     LazyVStack {
                         ForEach(viewStore.cities) { city in
                             NavigationLink(value: city.id) {
-                                CityCard(cityName: city.name,
+                                CityCard(store: store,
+                                         cityName: city.name,
                                          cityState: city.state ?? "",
-                                         cityCountry: city.country)
+                                         cityCountry: city.country,
+                                         cityID: city.id)
                             }
                             .padding(EdgeInsets(top: 7, leading: 10, bottom: 3, trailing: 10))
                         }
@@ -40,6 +42,9 @@ struct SearchCityView: View {
                         try await Task.sleep(nanoseconds: NSEC_PER_SEC / 3)
                         await viewStore.send(.searchQueryDebounced).finish()
                     } catch {}
+                }
+                .onAppear {
+                    viewStore.send(.viewLoaded)
                 }
                 .navigationTitle("Search Weather")
             }

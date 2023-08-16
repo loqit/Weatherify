@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D49" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CityEntity" representedClassName="CityEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="cityID" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="state" optional="YES" attributeType="String"/>
+        <relationship name="coordinate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoordinateEntity"/>
+    </entity>
+    <entity name="CoatOfArmsEntity" representedClassName="CoatOfArmsEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="png" optional="YES" attributeType="URI"/>
+        <attribute name="svg" optional="YES" attributeType="URI"/>
+    </entity>
+    <entity name="CoordinateEntity" representedClassName="CoordinateEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="CountryEntity" representedClassName="CountryEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="capital" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;String&gt;"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="latlng" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName="Array&lt;Double&gt;"/>
+        <relationship name="coatOfArms" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoatOfArmsEntity"/>
+        <relationship name="name" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CountryNameEntity"/>
+    </entity>
+    <entity name="CountryNameEntity" representedClassName="CountryNameEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="common" optional="YES" attributeType="String"/>
+        <attribute name="official" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="CurrentWeatherEntity" representedClassName="CurrentWeatherEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="daytime" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="temp" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="weather" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherEntity"/>
+    </entity>
+    <entity name="DailyWeatherEntity" representedClassName="DailyWeatherEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="daytime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="temp" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TempEntity"/>
+        <relationship name="weather" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WeatherEntity"/>
+    </entity>
+    <entity name="TempEntity" representedClassName="TempEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="max" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="min" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="WeatherDataEntity" representedClassName="WeatherDataEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="cityID" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timezone" optional="YES" attributeType="String"/>
+        <relationship name="coordinate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoordinateEntity"/>
+        <relationship name="current" maxCount="1" deletionRule="Nullify" destinationEntity="CurrentWeatherEntity"/>
+        <relationship name="daily" toMany="YES" deletionRule="Nullify" destinationEntity="DailyWeatherEntity"/>
+        <relationship name="hourly" toMany="YES" deletionRule="Nullify" destinationEntity="CurrentWeatherEntity"/>
+    </entity>
+    <entity name="WeatherEntity" representedClassName="WeatherEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="main" attributeType="String"/>
+        <attribute name="weatherDescription" attributeType="String"/>
+    </entity>
+</model>

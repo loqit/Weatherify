@@ -1,12 +1,18 @@
 import SwiftUI
+import ComposableArchitecture
 
 struct CityCard: View {
     
-    // MARK: - Propertie
+    // MARK: - Properties
+    
+    let store: StoreOf<SearchCityReducer>
 
     let cityName: String
     let cityState: String
     let cityCountry: String
+    let cityID: String
+    
+    var isSaved = false
 
     // MARK: - Body
 
@@ -38,20 +44,18 @@ struct CityCard: View {
     }
     
     private var saveButton: some View {
-        Button(action: {},
-               label: {
-                Image(systemName: "star")
-                .tint(.yellow)
-                .fontWeight(.bold)
-            }
-        )
+        WithViewStore(store, observe: { $0 }) { viewStore in
+            Button(
+                action: {
+                    viewStore.send(.saveButtonTapped(cityID))
+                },
+                label: {
+                    Image(systemName: viewStore.savedCities[cityID] ?? false ? "star.fill" : "star")
+                    .tint(.yellow)
+                    .fontWeight(.bold)
+                }
+            )
+        }
     }
 
-}
-
-struct CityCard_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        CityCard(cityName: "Minsk", cityState: "Minsk", cityCountry: "Belarus")
-    }
 }

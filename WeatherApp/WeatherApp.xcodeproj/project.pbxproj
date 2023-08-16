@@ -57,7 +57,6 @@
 		D2A0D8F428D9BF37008D883C /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0D8F328D9BF37008D883C /* Mockable.swift */; };
 		D2BDB5CE28E1B2160081C13D /* CitiesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2BDB5CD28E1B2160081C13D /* CitiesViewModelTests.swift */; };
 		D2C14E03284FEFB900CDA398 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C14E02284FEFB800CDA398 /* NetworkError.swift */; };
-		D2C16F34293F596500C0C3DC /* MappingModel.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = D2C16F33293F596500C0C3DC /* MappingModel.xcmappingmodel */; };
 		D2C16F602941CCF100C0C3DC /* CityToCoordinateMigration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C16F5F2941CCF100C0C3DC /* CityToCoordinateMigration.swift */; };
 		D2C94B742936206900DF4355 /* Dobule+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C94B732936206900DF4355 /* Dobule+Extensions.swift */; };
 		D2C94B762936208000DF4355 /* Optional+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2C94B752936208000DF4355 /* Optional+Extensions.swift */; };
@@ -106,6 +105,7 @@
 		648AD68B2A8531C500B2E28B /* FloaredButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloaredButton.swift; sourceTree = "<group>"; };
 		648AD68D2A86663600B2E28B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		648AD6922A8A984B00B2E28B /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
+		648AD6942A8C0F7100B2E28B /* WeatherApp v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WeatherApp v3.xcdatamodel"; sourceTree = "<group>"; };
 		D2085D11286B80D100210D1A /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		D2085D13286B82E500210D1A /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		D2085D17286B8A8C00210D1A /* DailyWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
@@ -144,7 +144,6 @@
 		D2A0D8F328D9BF37008D883C /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		D2BDB5CD28E1B2160081C13D /* CitiesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModelTests.swift; sourceTree = "<group>"; };
 		D2C14E02284FEFB800CDA398 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		D2C16F33293F596500C0C3DC /* MappingModel.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModel.xcmappingmodel; sourceTree = "<group>"; };
 		D2C16F5F2941CCF100C0C3DC /* CityToCoordinateMigration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityToCoordinateMigration.swift; sourceTree = "<group>"; };
 		D2C94B732936206900DF4355 /* Dobule+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dobule+Extensions.swift"; sourceTree = "<group>"; };
 		D2C94B752936208000DF4355 /* Optional+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
@@ -387,7 +386,6 @@
 		D212A75F284FE29600219C0B = {
 			isa = PBXGroup;
 			children = (
-				D2C16F33293F596500C0C3DC /* MappingModel.xcmappingmodel */,
 				D2F6871A293A29DA00BD8B0C /* WeatherApp.xcdatamodeld */,
 				D212A76A284FE29600219C0B /* WeatherApp */,
 				D22FAE1E28D47951007FF9D7 /* WeatherAppTests */,
@@ -765,7 +763,6 @@
 				D2DB2510292BAB0E00A48B1A /* HashService.swift in Sources */,
 				D25D2208291D1EDD00F922D7 /* CoreDataController.swift in Sources */,
 				64441E742A80EC8500A62CEB /* WeatherServiceProtocol.swift in Sources */,
-				D2C16F34293F596500C0C3DC /* MappingModel.xcmappingmodel in Sources */,
 				D2085D1F286C521200210D1A /* DailyWeatherModel.swift in Sources */,
 				D2FC414E28BF8A280064EF01 /* CityWeatherView.swift in Sources */,
 				D20B0953292E2537005415BF /* WeatherDataFetcherService.swift in Sources */,
@@ -1092,10 +1089,11 @@
 		D2F6871A293A29DA00BD8B0C /* WeatherApp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				648AD6942A8C0F7100B2E28B /* WeatherApp v3.xcdatamodel */,
 				D2F6871D293A2A8000BD8B0C /* WeatherApp v2.xcdatamodel */,
 				D2F6871B293A29DA00BD8B0C /* WeatherApp.xcdatamodel */,
 			);
-			currentVersion = D2F6871D293A2A8000BD8B0C /* WeatherApp v2.xcdatamodel */;
+			currentVersion = 648AD6942A8C0F7100B2E28B /* WeatherApp v3.xcdatamodel */;
 			path = WeatherApp.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
