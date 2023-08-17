@@ -46,15 +46,16 @@ struct DailyWeather: View {
                     .fill(.tertiary)
                     .foregroundColor(.gray)
                 GeometryReader { proxy in
-
-                    Capsule()
-                        .fill(.linearGradient(colors: [.mint, .green, .yellow, .orange, .red],
-                                              startPoint: .leading,
-                                              endPoint: .trailing))
-                        .frame(width: temp.max / maxWeekly * proxy.size.width)
-                    Capsule()
-                        .fill(.gray)
-                        .frame(width: proxy.size.width / (temp.min - minWeekly))
+                    HStack(spacing: 0) {
+                        Capsule()
+                            .fill(.clear)
+                            .frame(width: proxy.size.width / (temp.min - minWeekly))
+                        Capsule()
+                            .fill(.linearGradient(colors: [.mint, .green, .yellow, .orange, .red],
+                                                  startPoint: .leading,
+                                                  endPoint: .trailing))
+                            .frame(width: (temp.max - temp.min) / (maxWeekly - minWeekly) * proxy.size.width)
+                    }
                 }
 
             }
