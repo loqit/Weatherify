@@ -49,7 +49,7 @@ struct DailyWeather: View {
                     HStack(spacing: 0) {
                         Capsule()
                             .fill(.clear)
-                            .frame(width: proxy.size.width / (temp.min - minWeekly))
+                            .frame(width: proxy.size.width * (temp.min - minWeekly) / (maxWeekly - minWeekly))
                         Capsule()
                             .fill(.linearGradient(colors: [.mint, .green, .yellow, .orange, .red],
                                                   startPoint: .leading,
@@ -70,6 +70,6 @@ struct DailyWeather: View {
 struct DailyWeather_Previews: PreviewProvider {
     
     static var previews: some View {
-        DailyWeather(date: 1.0, temp: Temperature(min: 16, max: 25), iconName: "", maxWeekly: 30, minWeekly: 13)
+        DailyWeather(date: 1.0, temp: Temperature(min: 12, max: 22), iconName: "", maxWeekly: 29, minWeekly: 12)
     }
 }
