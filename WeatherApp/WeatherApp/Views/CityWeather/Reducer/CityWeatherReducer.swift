@@ -19,6 +19,8 @@ struct CityWeatherReducer: Reducer {
 
         var id: String?
         var weatherData: WeatherModel?
+        var maxWeeklyTemp: Double?
+        var minWeeklyTemp: Double?
         var isWeatherRequestInFlight = false
     }
     
@@ -49,6 +51,8 @@ struct CityWeatherReducer: Reducer {
             state.id = id
             state.isWeatherRequestInFlight = false
             state.weatherData = weather
+            state.maxWeeklyTemp = weather.daily.map { $0.temp.max }.max()
+            state.minWeeklyTemp = weather.daily.map { $0.temp.min }.min()
             return .none
         }
     }

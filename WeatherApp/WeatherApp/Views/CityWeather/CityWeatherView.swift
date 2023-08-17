@@ -10,6 +10,8 @@ struct CityWeatherView: View {
 
     let coordinate: CLLocationCoordinate2D
     let cityName: String
+    
+    @State var offset: CGFloat = 0
 
     // MARK: - Body
 
@@ -31,7 +33,9 @@ struct CityWeatherView: View {
                 Spacer()
                 ScrollView(.vertical, showsIndicators: false) {
                     currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
-                    dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [])
+                    dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
+                                     minWeekly: viewStore.minWeeklyTemp ?? 0,
+                                     maxWeekly: viewStore.maxWeeklyTemp ?? 0)
                 }
                 Spacer(minLength: 7)
             }
@@ -85,12 +89,14 @@ struct CityWeatherView: View {
             .padding()
     }
     
-    private func dailyWeatherView(dailyWeather: [DailyWeatherModel]) -> some View {
+    private func dailyWeatherView(dailyWeather: [DailyWeatherModel], minWeekly: Double, maxWeekly: Double) -> some View {
         VStack {
             ForEach(dailyWeather) { daily in
                 DailyWeather(date: daily.daytime,
                              temp: daily.temp,
-                             iconName: daily.weather[0].icon)
+                             iconName: daily.weather[0].icon,
+                             maxWeekly: maxWeekly,
+                             minWeekly: minWeekly)
             }
         }
         .padding()
