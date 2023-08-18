@@ -89,14 +89,16 @@ struct CityWeatherView: View {
             .padding()
     }
     
-    private func dailyWeatherView(dailyWeather: [DailyWeatherModel], minWeekly: Double, maxWeekly: Double) -> some View {
+    private func dailyWeatherView(dailyWeather: [DailyWeatherModel],
+                                  minWeekly: Double,
+                                  maxWeekly: Double) -> some View {
         VStack {
             ForEach(dailyWeather) { daily in
                 DailyWeather(date: daily.daytime,
                              temp: daily.temp,
                              iconName: daily.weather[0].icon,
-                             maxWeekly: maxWeekly,
-                             minWeekly: minWeekly)
+                             minWeekly: minWeekly,
+                             maxWeekly: maxWeekly)
             }
         }
         .padding()

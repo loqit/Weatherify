@@ -33,6 +33,7 @@ struct CityWeatherReducer: Reducer {
     }
     
     // MARK: - Reduce
+
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
         case let .requestWeather(lat, lon):

@@ -7,8 +7,8 @@ struct DailyWeather: View {
     let date: Double
     let temp: Temperature
     let iconName: String
-    let maxWeekly: Double
     let minWeekly: Double
+    let maxWeekly: Double
     
     // MARK: - Body
 
@@ -89,7 +89,6 @@ struct DailyWeather: View {
         if range ~= 26...Int.max {
             colors.append(.red)
         }
-        print(colors)
         return colors
     }
 }
@@ -97,6 +96,6 @@ struct DailyWeather: View {
 struct DailyWeather_Previews: PreviewProvider {
     
     static var previews: some View {
-        DailyWeather(date: 1.0, temp: Temperature(min: 12, max: 22), iconName: "", maxWeekly: 29, minWeekly: 12)
+        DailyWeather(date: 1.0, temp: Temperature(min: 12, max: 22), iconName: "", minWeekly: 12, maxWeekly: 29)
     }
 }
