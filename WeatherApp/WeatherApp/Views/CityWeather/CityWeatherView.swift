@@ -37,7 +37,6 @@ struct CityWeatherView: View {
                                      minWeekly: viewStore.minWeeklyTemp ?? 0,
                                      maxWeekly: viewStore.maxWeeklyTemp ?? 0)
                 }
-                Spacer(minLength: 7)
             }
             .overlay {
                 if viewStore.isWeatherRequestInFlight {
