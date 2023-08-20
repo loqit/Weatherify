@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum RootTab: Int {
+enum RootTab: Int, CaseIterable {
     
     case first, second
     
