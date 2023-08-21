@@ -6,54 +6,44 @@ struct ContentView: View {
     // MARK: - Properties
     
     @State private var selectedTab: RootTab = .first
-    @State private var isTabViewHidden = false
     
     // MARK: - Body
     
     var body: some View {
-        if !isTabViewHidden {
-            TabView(selection: $selectedTab) {
-                SearchCityView(store: Store(initialState: SearchCityReducer.State()) {
-                    SearchCityReducer()
-                })
-                .tabItem {
-                    Image(systemName: "cloud.sun")
-                    Text("Weather")
-                }
-                .tag(RootTab.first)
-                CountriesView(store: Store(initialState: CountriesReducer.State()) {
-                    CountriesReducer()
-                })
-                .tabItem {
-                    Image(systemName: "map")
-                    Text("Countries")
-                }
-                .tag(RootTab.second)
+        TabView(selection: $selectedTab) {
+            SearchCityView(store: Store(initialState: SearchCityReducer.State()) {
+                SearchCityReducer()
+            })
+            .tabItem {
+                Image(systemName: "cloud.sun")
+                Text("Weather")
             }
-            .overlay(alignment: .bottom) {
-                let color = selectedTab.selectedColor
-                GeometryReader { proxy in
-                    let part = proxy.size.width / CGFloat(RootTab.allCases.count)
-                    VStack {
-                        Spacer()
-                        Circle()
-                            .foregroundColor(.clear)
-                            .background(color.blur(radius: 20))
-                            .frame(width: part, height: 30)
-                            .shadow(color: color, radius: 40)
-                            .offset(x: CGFloat(selectedTab.rawValue) * part,
-                                    y: 30)
-                    }
-                }
+            .tag(RootTab.first)
+            CountriesView(store: Store(initialState: CountriesReducer.State()) {
+                CountriesReducer()
+            })
+            .tabItem {
+                Image(systemName: "map")
+                Text("Countries")
             }
-            .edgesIgnoringSafeArea(.bottom)
+            .tag(RootTab.second)
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        ContentView()
+        .overlay(alignment: .bottom) {
+            let color = selectedTab.selectedColor
+            GeometryReader { proxy in
+                let part = proxy.size.width / CGFloat(RootTab.allCases.count)
+                VStack {
+                    Spacer()
+                    Circle()
+                        .foregroundColor(.clear)
+                        .background(color.blur(radius: 20))
+                        .frame(width: part, height: 30)
+                        .shadow(color: color, radius: 40)
+                        .offset(x: CGFloat(selectedTab.rawValue) * part,
+                                y: 30)
+                }
+            }
+        }
+        .edgesIgnoringSafeArea(.bottom)
     }
 }

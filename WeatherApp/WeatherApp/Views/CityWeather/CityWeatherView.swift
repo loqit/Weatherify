@@ -38,7 +38,7 @@ struct CityWeatherView: View {
                                      maxWeekly: viewStore.maxWeeklyTemp ?? 0)
                 }
             }
-            .toolbar(.hidden, for: .tabBar)
+           // .toolbar(.hidden, for: .tabBar)
             
             .overlay {
                 if viewStore.isWeatherRequestInFlight {
