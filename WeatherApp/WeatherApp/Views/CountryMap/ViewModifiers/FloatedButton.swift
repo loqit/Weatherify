@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FloaredButton: View {
+struct FloatedButton: View {
 
     // MARK: - Properties
 
@@ -24,6 +24,6 @@ struct FloaredButton: View {
 struct DrawRouteButton_Previews: PreviewProvider {
 
     static var previews: some View {
-        FloaredButton(title: "Draw a route")
+        FloatedButton(title: "Draw a route")
     }
 }

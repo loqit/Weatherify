@@ -23,7 +23,7 @@ struct WeatherMapView: View {
             Button {
                 mapView.drawRoute()
             } label: {
-                FloaredButton(title: "Draw a route")
+                FloatedButton(title: "Draw a route")
             }
         }
     }

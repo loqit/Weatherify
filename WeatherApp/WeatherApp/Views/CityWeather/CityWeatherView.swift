@@ -81,6 +81,7 @@ struct CityWeatherView: View {
                     HourlyWeather(temp: String(Int(hourly.temp)),
                                 iconName: hourly.weather[0].icon,
                                 time: DateFormatService.timeFromDate(hourly.daytime))
+                    .shadow(radius: 5, x: 5, y: 5)
                     
                 }
             }
