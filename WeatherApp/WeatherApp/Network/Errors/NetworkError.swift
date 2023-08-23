@@ -1,6 +1,6 @@
 import Foundation
 
-enum NetworkError: String, Error {
+enum NetworkError: String, Error, Equatable {
     
     case inavlidData
     case invalidUrl

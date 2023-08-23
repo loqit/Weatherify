@@ -29,7 +29,7 @@ struct CountriesReducer: Reducer {
         
         case searchQueryChanged(String)
         case searchQueryChangeDebounced
-        case searchResponse(Result<[CountryElement]?, Error>)
+        case searchResponse(Result<[CountryElement]?, NetworkError>)
     }
 
     // MARK: - Reduce

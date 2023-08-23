@@ -12,18 +12,18 @@ class CityDataFetcherService {
     
     // MARK: Public
     
-    func fetchData(from url: URL, _ name: String) async throws -> Result<[City], Error> {
+    func fetchData(from url: URL, _ name: String) async throws -> Result<[City], NetworkError> {
         try await networkService.fetchResponse(from: url)
     }
     
     // MARK: Private
     
-    private func fetchLocally(by name: String, _ error: Error? = nil) async -> Result<[City], Error> {
+    private func fetchLocally(by name: String, _ error: Error? = nil) async -> Result<[City], NetworkError> {
         do {
             let data = try await uploadFromDataBase(by: name)
             return .success(data)
         } catch {
-            return .failure(error)
+            return .failure(NetworkError.inavlidData)
         }
     }
     

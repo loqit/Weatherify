@@ -33,7 +33,7 @@ struct SearchCityReducer: Reducer {
         case citiesLoaded([String: Bool])
         case searchQueryChanged(String)
         case searchQueryDebounced
-        case searchResponse(Result<[City], Error>)
+        case searchResponse(Result<[City], NetworkError>)
         case saveButtonTapped(String)
         case citySaved(String)
         case cityDeleted(String)

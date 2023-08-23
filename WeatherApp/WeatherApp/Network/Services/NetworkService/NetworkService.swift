@@ -14,7 +14,7 @@ class NetworkService: NetworkServiceProtocol {
     
     // MARK: Public
     
-    func fetchResponse<T: Decodable>(from url: URL) async throws -> Result<T, Error> {
+    func fetchResponse<T: Decodable>(from url: URL) async -> Result<T, NetworkError> {
         do {
             cancelRequest()
             loadTask = Task {
@@ -22,12 +22,14 @@ class NetworkService: NetworkServiceProtocol {
             }
             
             guard let data = try await loadTask?.value else {
-                throw NetworkError.inavlidData
+                return .failure(NetworkError.inavlidData)
+             //   throw NetworkError.inavlidData
             }
-            let result: Result<T, Error> = parser.decode(data)
+            let result: Result<T, NetworkError> = parser.decode(data)
             return result
         } catch {
-            throw error
+           // throw error
+            return .failure(NetworkError.inavlidData)
         }
     }
     

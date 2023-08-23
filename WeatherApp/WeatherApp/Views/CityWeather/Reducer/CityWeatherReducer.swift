@@ -26,10 +26,10 @@ struct CityWeatherReducer: Reducer {
     
     // MARK: - Action
 
-    enum Action {
+    enum Action: Equatable {
 
         case requestWeather(_ lat: Double, _ lon: Double)
-        case weatherResponse(String, Result<WeatherModel, Error>)
+        case weatherResponse(String, Result<WeatherModel, NetworkError>)
     }
     
     // MARK: - Reduce
@@ -39,7 +39,7 @@ struct CityWeatherReducer: Reducer {
         case let .requestWeather(lat, lon):
             state.isWeatherRequestInFlight = true
             return .run { send in
-                async let response = try weatherService.fetchWeatherModel(lat, lon)
+                async let response = try await weatherService.fetchWeatherModel(lat, lon)
                 await send(.weatherResponse( "\(lat) \(lon)", try await response ))
             }
             .cancellable(id: CancelID.loading)
@@ -49,6 +49,7 @@ struct CityWeatherReducer: Reducer {
             state.weatherData = nil
             return .none
         case let .weatherResponse(id, .success(weather)):
+            
             state.id = id
             state.isWeatherRequestInFlight = false
             state.weatherData = weather

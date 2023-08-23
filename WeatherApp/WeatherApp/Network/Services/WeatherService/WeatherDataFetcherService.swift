@@ -12,13 +12,14 @@ class WeatherDataFetcherService {
     
     // MARK: Public
     
-    func fetchData(from url: URL, _ cityID: Int) async -> Result<WeatherModel, Error> {
+    func fetchData(from url: URL, _ cityID: Int) async -> Result<WeatherModel, NetworkError> {
         do {
-            let data: Result<WeatherModel, Error> = try await networkService.fetchResponse(from: url)
+            let data: Result<WeatherModel, NetworkError> = try await networkService.fetchResponse(from: url)
             return data
         } catch {
-            let result = await fetchLocally(by: cityID, error)
-            return result
+          //  throw NetworkError.connectionError
+//            let result = await fetchLocally(by: cityID, error)
+//            return result
         }
     }
     

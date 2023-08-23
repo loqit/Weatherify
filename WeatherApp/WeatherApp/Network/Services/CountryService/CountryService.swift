@@ -13,7 +13,7 @@ class CountryService: CountriesServiceProtocol {
     
     // MARK: - Public
     
-    func getCountry(by name: String = "") async throws -> Result<[CountryElement]?, Error> {
+    func getCountry(by name: String = "") async throws -> Result<[CountryElement]?, NetworkError> {
         do {
             let url = name.isEmpty ? CountriesEndpoint.all.url : CountriesEndpoint.name(name).url
             return try await networkService.fetchResponse(from: url)
