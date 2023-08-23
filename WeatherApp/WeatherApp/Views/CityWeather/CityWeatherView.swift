@@ -12,6 +12,7 @@ struct CityWeatherView: View {
     let cityName: String
     
     @State var offset: CGFloat = 0
+    @State var isChartShown = false
 
     // MARK: - Body
 
@@ -33,6 +34,11 @@ struct CityWeatherView: View {
                 Spacer()
                 ScrollView(.vertical, showsIndicators: false) {
                     currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
+                    Button {
+                        isChartShown = true
+                    } label: {
+                        chartButton
+                    }
                     dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
                                      minWeekly: viewStore.minWeeklyTemp ?? 0,
                                      maxWeekly: viewStore.maxWeeklyTemp ?? 0)
@@ -44,8 +50,15 @@ struct CityWeatherView: View {
                     ProgressView()
                 }
             }
+            .onDisappear {
+                print("Disappear")
+            }
             .onAppear {
+                print("Appear")
                 viewStore.send(.requestWeather(coordinate.latitude, coordinate.longitude))
+            }
+            .sheet(isPresented: $isChartShown) {
+                WeatherChartView(data: viewStore.weatherData?.daily ?? [])
             }
         }
     }
@@ -88,6 +101,17 @@ struct CityWeatherView: View {
             .padding()
         }
             .padding()
+    }
+    
+    private var chartButton: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 15)
+                .foregroundColor(.white)
+                .shadow(radius: 15, x: 5, y: 5)
+                .frame(height: 40)
+                .padding()
+            Text("Show Charts")
+        }
     }
     
     private func dailyWeatherView(dailyWeather: [DailyWeatherModel],
