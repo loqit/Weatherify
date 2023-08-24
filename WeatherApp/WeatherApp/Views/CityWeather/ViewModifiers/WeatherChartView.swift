@@ -28,7 +28,8 @@ struct WeatherChartView: View {
                     PointMark(x: .value("Day", DateFormatService.timeFromDate($0.daytime)),
                               y: .value("Temp", $0.temp))
                 }
-                .foregroundStyle(.linearGradient(Gradient(colors: setupGradient()),
+                .foregroundStyle(.linearGradient(Gradient(colors: TempGradinetConfigurator.setupGradient(minTemp: minTemp,
+                                                                                                         maxTemp: maxTemp)),
                                                  startPoint: .leading,
                                                  endPoint: .trailing))
                 .chartYScale(domain: [minTemp - 3, maxTemp + 3], type: .linear)
@@ -37,31 +38,5 @@ struct WeatherChartView: View {
         .onAppear {
             print(data)
         }
-    }
-    
-    // MARK: - Private
-    
-    private func setupGradient() -> [Color] {
-        var colors: [Color] = []
-        let range = (minTemp...maxTemp)
-        if range ~= (-30)...(-15) {
-            colors.append(.blue)
-        }
-        if range ~= (-14)...0 {
-            colors.append(.mint)
-        }
-        if range ~= 1...15 {
-            colors.append(.green)
-        }
-        if range ~= 15...20 {
-            colors.append(.yellow)
-        }
-        if range ~= 21...25 {
-            colors.append(.orange)
-        }
-        if range ~= 26...Int.max {
-            colors.append(.red)
-        }
-        return colors
     }
 }

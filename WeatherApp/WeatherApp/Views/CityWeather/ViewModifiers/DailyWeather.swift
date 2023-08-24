@@ -51,7 +51,8 @@ struct DailyWeather: View {
                             .fill(.clear)
                             .frame(width: proxy.size.width * (temp.min - minWeekly) / (maxWeekly - minWeekly))
                         Capsule()
-                            .fill(.linearGradient(colors: setupGradient(),
+                            .fill(.linearGradient(colors: TempGradinetConfigurator.setupGradient(minTemp: Int(minWeekly),
+                                                                                                 maxTemp: Int(maxWeekly)),
                                                   startPoint: .leading,
                                                   endPoint: .trailing))
                             .frame(width: (temp.max - temp.min) / (maxWeekly - minWeekly) * proxy.size.width)
@@ -64,32 +65,6 @@ struct DailyWeather: View {
                 .font(.caption)
                 .fontWeight(.light)
         }
-    }
-    
-    // MARK: - Private
-    
-    private func setupGradient() -> [Color] {
-        var colors: [Color] = []
-        let range = (Int(temp.min)...Int(temp.max))
-        if range ~= (-30)...(-15) {
-            colors.append(.blue)
-        }
-        if range ~= (-14)...0 {
-            colors.append(.mint)
-        }
-        if range ~= 1...15 {
-            colors.append(.green)
-        }
-        if range ~= 15...20 {
-            colors.append(.yellow)
-        }
-        if range ~= 21...25 {
-            colors.append(.orange)
-        }
-        if range ~= 26...Int.max {
-            colors.append(.red)
-        }
-        return colors
     }
 }
 
