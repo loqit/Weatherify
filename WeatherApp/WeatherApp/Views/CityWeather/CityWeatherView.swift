@@ -43,6 +43,9 @@ struct CityWeatherView: View {
                                      minWeekly: viewStore.minWeeklyTemp ?? 0,
                                      maxWeekly: viewStore.maxWeeklyTemp ?? 0)
                 }
+                
+                WeatherChartView(data: Array(viewStore.weatherData?.hourly[0..<8] ?? []))
+                
                 Spacer(minLength: 7)
             }
             .overlay {
@@ -58,7 +61,7 @@ struct CityWeatherView: View {
                 viewStore.send(.requestWeather(coordinate.latitude, coordinate.longitude))
             }
             .sheet(isPresented: $isChartShown) {
-                WeatherChartView(data: viewStore.weatherData?.daily ?? [])
+                WeatherChartView(data: viewStore.weatherData?.hourly ?? [])
             }
         }
     }
