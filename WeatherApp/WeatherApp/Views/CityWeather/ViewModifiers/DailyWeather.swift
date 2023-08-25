@@ -51,8 +51,8 @@ struct DailyWeather: View {
                             .fill(.clear)
                             .frame(width: proxy.size.width * (temp.min - minWeekly) / (maxWeekly - minWeekly))
                         Capsule()
-                            .fill(.linearGradient(colors: TempGradinetConfigurator.setupGradient(minTemp: Int(minWeekly),
-                                                                                                 maxTemp: Int(maxWeekly)),
+                            .fill(.linearGradient(colors: TempGradinetConfigurator.setupGradient(minTemp: Int(temp.min),
+                                                                                                 maxTemp: Int(temp.max)),
                                                   startPoint: .leading,
                                                   endPoint: .trailing))
                             .frame(width: (temp.max - temp.min) / (maxWeekly - minWeekly) * proxy.size.width)

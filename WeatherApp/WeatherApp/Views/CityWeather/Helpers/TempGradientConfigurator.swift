@@ -11,7 +11,7 @@ class TempGradinetConfigurator {
         if range ~= (-14)...0 {
             colors.append(.mint)
         }
-        if range ~= 1...15 {
+        if range ~= 1...14 {
             colors.append(.green)
         }
         if range ~= 15...20 {
