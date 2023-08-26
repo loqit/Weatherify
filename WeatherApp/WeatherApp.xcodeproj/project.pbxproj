@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		64196E8B2A93EE1B001DC132 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64196E8A2A93EE1B001DC132 /* TabBarController.swift */; };
 		64441E652A80EB0A00A62CEB /* MapServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64441E642A80EB0A00A62CEB /* MapServiceProtocol.swift */; };
 		64441E682A80EBB600A62CEB /* NetworkParserProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64441E672A80EBB600A62CEB /* NetworkParserProtocol.swift */; };
 		64441E6B2A80EC0000A62CEB /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64441E6A2A80EC0000A62CEB /* NetworkServiceProtocol.swift */; };
@@ -95,7 +94,6 @@
 /* Begin PBXFileReference section */
 		0D2093F1FE5D7DC3215759FA /* Pods-WeatherApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherApp.debug.xcconfig"; path = "Target Support Files/Pods-WeatherApp/Pods-WeatherApp.debug.xcconfig"; sourceTree = "<group>"; };
 		2F3FD500F90A74D8C276856E /* libPods-WeatherApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeatherApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		64196E8A2A93EE1B001DC132 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		64441E642A80EB0A00A62CEB /* MapServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapServiceProtocol.swift; sourceTree = "<group>"; };
 		64441E672A80EBB600A62CEB /* NetworkParserProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkParserProtocol.swift; sourceTree = "<group>"; };
 		64441E6A2A80EC0000A62CEB /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
@@ -376,7 +374,6 @@
 			isa = PBXGroup;
 			children = (
 				64D6FBFB2A90CD4200CB0287 /* RootTab.swift */,
-				64196E8A2A93EE1B001DC132 /* TabBarController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -800,7 +797,6 @@
 				D2C94B762936208000DF4355 /* Optional+Extensions.swift in Sources */,
 				D237F6E72927913F000D446C /* Reachability.swift in Sources */,
 				D2EF8C0D28E6E50F00EBAD83 /* NetworkParser.swift in Sources */,
-				64196E8B2A93EE1B001DC132 /* TabBarController.swift in Sources */,
 				D2F687142938D13100BD8B0C /* WeatherToCoordinateMigration.swift in Sources */,
 				D212A76C284FE29600219C0B /* WeatherAppApp.swift in Sources */,
 				D2C94B742936206900DF4355 /* Dobule+Extensions.swift in Sources */,
