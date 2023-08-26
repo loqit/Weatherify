@@ -25,10 +25,10 @@ struct CountriesView: View {
                         }
                     }
                 }
-                .navigationDestination(for: CountryElement.ID.self, destination: { countryID in
+                .navigationDestination(for: CountryElement.ID.self) { countryID in
                     let country = viewStore.countries.first(where: { $0.id == countryID })
                     WeatherMapView(coordinate: country?.coordinate)
-                })
+                }
                 .overlay(loadingOverlay(isLoading: viewStore.isCountryRequestInFlight))
                 .searchable(text: viewStore.binding(get: \.searchQuery,
                                                     send: CountriesReducer.Action.searchQueryChanged ))

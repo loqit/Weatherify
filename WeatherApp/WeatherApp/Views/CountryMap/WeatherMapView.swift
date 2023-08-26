@@ -19,6 +19,7 @@ struct WeatherMapView: View {
                     mapView.updateMap(with: coordinate)
                 }
         }
+        .toolbar(.hidden, for: .tabBar)
         .overlay(alignment: .bottom) {
             Button {
                 mapView.drawRoute()

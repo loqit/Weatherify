@@ -43,8 +43,8 @@ struct CityWeatherView: View {
                                      minWeekly: viewStore.minWeeklyTemp ?? 0,
                                      maxWeekly: viewStore.maxWeeklyTemp ?? 0)
                 }
-                Spacer(minLength: 7)
             }
+            .toolbar(.hidden, for: .tabBar)
             .overlay {
                 if viewStore.isWeatherRequestInFlight {
                     ProgressView()
