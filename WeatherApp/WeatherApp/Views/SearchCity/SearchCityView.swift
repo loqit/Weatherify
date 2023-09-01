@@ -29,7 +29,7 @@ struct SearchCityView: View {
                 .navigationDestination(for: City.ID.self) { cityID in
                     if let city = viewStore.cities.first(where: { $0.id == cityID }) {
                         CityWeatherView(store: Store(initialState: CityWeatherReducer.State()) {
-                            CityWeatherReducer()._printChanges()
+                            CityWeatherReducer()
                         },
                                         coordinate: city.coordinate,
                                         cityName: city.name)

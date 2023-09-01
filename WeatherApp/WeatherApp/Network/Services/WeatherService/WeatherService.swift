@@ -19,6 +19,7 @@ class WeatherService: WeatherServiceProtocol {
         let url = OpenWeatherEndpoint.oneCallUrl(lat, lon).url
         let cityID = HashService.getHash(from: lat.round(to: 3), and: lon.round(to: 3))
         let data: Result<WeatherModel, NetworkError> = await dataFetcher.fetchData(from: url, cityID)
+        print(data)
         return data
     }
 }
