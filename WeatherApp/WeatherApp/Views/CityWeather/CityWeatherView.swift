@@ -20,9 +20,6 @@ struct CityWeatherView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                CircularProgressBar(progress: viewStore.weatherData?.current.uvi ?? 0,
-                                    min: 0,
-                                    max: 11)
                 Spacer()
                 cityTitle
                 if let currentWeather = viewStore.weatherData?.current {
@@ -45,6 +42,8 @@ struct CityWeatherView: View {
                     dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
                                      minWeekly: viewStore.minWeeklyTemp ?? 0,
                                      maxWeekly: viewStore.maxWeeklyTemp ?? 0)
+                    uviProgress(progress: viewStore.weatherData?.current.uvi ?? 0)
+                        .padding(.vertical, 16)
                 }
             }
             .toolbar(.hidden, for: .tabBar)
@@ -89,6 +88,28 @@ struct CityWeatherView: View {
         Text("\(Int(currentTemp))°C")
             .font(.largeTitle) // TODO: Make it bigger
             .fontWeight(.medium)
+    }
+    
+    private func uviProgress(progress: Double) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .shadow(radius: 25, x: 3, y: 8)
+                .padding(.horizontal, 16)
+                .foregroundColor(.white)
+            VStack {
+                CircularProgressBar(progress: progress,
+                                    min: 0,
+                                    max: 11)
+                .padding(.horizontal, 16)
+              Text("Ultra Violet Index")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .offset(y: -35)
+            }
+            .padding(16)
+        }
+        .frame(height: 250)
+        .padding(.top, 10)
     }
     
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
