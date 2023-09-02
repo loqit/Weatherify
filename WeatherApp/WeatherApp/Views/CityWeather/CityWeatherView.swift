@@ -20,9 +20,9 @@ struct CityWeatherView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
             VStack {
-                CircularProgressBar(progress: viewStore.weatherData?.current.pressure ?? 1,
-                                    weekDelta: viewStore.pressureDelta ?? 1,
-                                    weeklyMin: viewStore.minWeeklyPressure ?? 1)
+                CircularProgressBar(progress: viewStore.weatherData?.current.uvi ?? 0,
+                                    min: 0,
+                                    max: 11)
                 Spacer()
                 cityTitle
                 if let currentWeather = viewStore.weatherData?.current {

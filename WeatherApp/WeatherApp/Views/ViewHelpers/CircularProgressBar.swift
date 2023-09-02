@@ -2,16 +2,13 @@ import SwiftUI
 
 struct CircularProgressBar: View {
     
-    @State var progress: Int
-    var weekDelta: Int
-    var weeklyMin: Int
-    
-    init(progress: Int, weekDelta: Int, weeklyMin: Int) {
-        self.progress = progress
-        self.weekDelta = weekDelta
-        self.weeklyMin = weeklyMin
-        print("Pressure \(progress - weeklyMin) max \(weekDelta) Pos \( Double((progress - weeklyMin) / weekDelta))")
-    }
+    // MARK: - Properties
+
+    let progress: Double
+    let min: Double
+    let max: Double
+
+    // MARK: - Body
 
     var body: some View {
         ZStack {
@@ -22,20 +19,18 @@ struct CircularProgressBar: View {
                 .foregroundColor(Color.gray)
                 .rotationEffect(.degrees(54.5))
             Circle()
-                .trim(from: 0.3, to: 0.9 * CGFloat(progress / weeklyMin))
+                .trim(from: 0.3, to: (0.3 + 0.6 * (progress / (max - min))).round(to: 2))
                 .stroke(style: StrokeStyle(lineWidth: 12.0, lineCap: .round, lineJoin: .round))
-                .fill(.green)
+                .fill(AngularGradient(gradient: Gradient(stops: [
+                    .init(color: .green, location: 0.39),
+                    .init(color: .yellow, location: 0.59),
+                    .init(color: .red, location: 0.72),
+                    .init(color: .purple, location: 0.8)
+                ]), center: .center))
                 .rotationEffect(.degrees(54.5))
-        }
-    }
-
-    struct ProgressBarTriangle: View {
-        @Binding var progress: Float
-
-        var body: some View {
-            ZStack {
-                Image("triangle").resizable().frame(width: 10, height: 10, alignment: .center)
-            }
+            Text("\(Int(progress))")
+                .font(.largeTitle)
+                .fontWeight(.bold)
         }
     }
 }

@@ -22,9 +22,6 @@ struct CityWeatherReducer: Reducer {
         var maxWeeklyTemp: Double?
         var minWeeklyTemp: Double?
         var isWeatherRequestInFlight = false
-        
-        var pressureDelta: Int?
-        var minWeeklyPressure: Int?
     }
     
     // MARK: - Action
@@ -56,8 +53,6 @@ struct CityWeatherReducer: Reducer {
             state.id = id
             state.isWeatherRequestInFlight = false
             state.weatherData = weather
-            state.pressureDelta = (weather.daily.map { $0.pressure }.max() ?? 1) - (weather.daily.map { $0.pressure }.min() ?? 0)
-            state.minWeeklyPressure = weather.daily.map { $0.pressure }.min()
             state.maxWeeklyTemp = weather.daily.map { $0.temp.max }.max()
             state.minWeeklyTemp = weather.daily.map { $0.temp.min }.min()
             return .none
