@@ -19,7 +19,6 @@ struct CityWeatherView: View {
     // FIXME: View doesn't update at first open
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            ZStack {
                 VStack {
                     Spacer()
                     cityTitle
@@ -35,11 +34,6 @@ struct CityWeatherView: View {
                     Spacer()
                     ScrollView(.vertical, showsIndicators: false) {
                         currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
-                        Button {
-                            isChartShown = true
-                        } label: {
-                            chartButton
-                        }
                         dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
                                          minWeekly: viewStore.minWeeklyTemp ?? 0,
                                          maxWeekly: viewStore.maxWeeklyTemp ?? 0)
@@ -65,7 +59,6 @@ struct CityWeatherView: View {
                     WeatherChartView(data: viewStore.weatherData?.hourly ?? [])
                 }
             }
-        }
         .background(.linearGradient(colors: [.cyan, .blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
     }
     
@@ -120,27 +113,20 @@ struct CityWeatherView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(hourlyWeather) { hourly in
-                    HourlyWeather(temp: String(Int(hourly.temp)),
-                                iconName: hourly.weather[0].icon,
-                                time: DateFormatService.timeFromDate(hourly.daytime))
-                    .shadow(radius: 5, x: 5, y: 5)
-                    
+                    Button {
+                        isChartShown = true
+                    } label: {
+                        HourlyWeather(temp: String(Int(hourly.temp)),
+                                    iconName: hourly.weather[0].icon,
+                                    time: DateFormatService.timeFromDate(hourly.daytime))
+                        .shadow(radius: 5, x: 5, y: 5)
+                        .tint(.black)
+                    }
                 }
             }
             .padding()
         }
             .padding()
-    }
-    
-    private var chartButton: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                .foregroundColor(.white)
-                .shadow(radius: 15, x: 5, y: 5)
-                .frame(height: 40)
-                .padding()
-            Text("Show Charts")
-        }
     }
     
     private func dailyWeatherView(dailyWeather: [DailyWeatherModel],
