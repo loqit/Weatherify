@@ -19,51 +19,54 @@ struct CityWeatherView: View {
     // FIXME: View doesn't update at first open
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
-            VStack {
-                Spacer()
-                cityTitle
-                if let currentWeather = viewStore.weatherData?.current {
-                    currentTempTitle(currentTemp: currentWeather.temp)
+            ZStack {
+                VStack {
                     Spacer()
-                    descriptionTitle(description: currentWeather.weather[0].weatherDescription)
-                }
-                Spacer()
-                if let todayTemps = viewStore.weatherData?.daily[0].temp {
-                    todayTemp(minTemp: todayTemps.min, maxTemp: todayTemps.max)
-                }
-                Spacer()
-                ScrollView(.vertical, showsIndicators: false) {
-                    currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
-                    Button {
-                        isChartShown = true
-                    } label: {
-                        chartButton
+                    cityTitle
+                    if let currentWeather = viewStore.weatherData?.current {
+                        currentTempTitle(currentTemp: currentWeather.temp)
+                        Spacer()
+                        descriptionTitle(description: currentWeather.weather[0].weatherDescription)
                     }
-                    dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
-                                     minWeekly: viewStore.minWeeklyTemp ?? 0,
-                                     maxWeekly: viewStore.maxWeeklyTemp ?? 0)
-                    uviProgress(progress: viewStore.weatherData?.current.uvi ?? 0)
-                        .padding(.vertical, 16)
+                    Spacer()
+                    if let todayTemps = viewStore.weatherData?.daily[0].temp {
+                        todayTemp(minTemp: todayTemps.min, maxTemp: todayTemps.max)
+                    }
+                    Spacer()
+                    ScrollView(.vertical, showsIndicators: false) {
+                        currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
+                        Button {
+                            isChartShown = true
+                        } label: {
+                            chartButton
+                        }
+                        dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
+                                         minWeekly: viewStore.minWeeklyTemp ?? 0,
+                                         maxWeekly: viewStore.maxWeeklyTemp ?? 0)
+                        uviProgress(progress: viewStore.weatherData?.current.uvi ?? 0)
+                            .padding(.vertical, 16)
+                    }
                 }
-            }
-            .toolbar(.hidden, for: .tabBar)
-            .overlay {
-                if viewStore.isWeatherRequestInFlight {
-                    ProgressView()
+                .toolbar(.hidden, for: .tabBar)
+                .overlay {
+                    if viewStore.isWeatherRequestInFlight {
+                        ProgressView()
+                    }
                 }
-            }
-            .onDisappear {
-                print("Disappear")
-            }
-            .onAppear {
-                print("Appear")
-                viewStore.send(.requestWeather(coordinate.latitude, coordinate.longitude))
-            }
-            .sheet(isPresented: $isChartShown) {
-                /// This sheet is temporaly not working. The chart itself working fine
-                WeatherChartView(data: viewStore.weatherData?.hourly ?? [])
+                .onDisappear {
+                    print("Disappear")
+                }
+                .onAppear {
+                    print("Appear")
+                    viewStore.send(.requestWeather(coordinate.latitude, coordinate.longitude))
+                }
+                .sheet(isPresented: $isChartShown) {
+                    /// This sheet is temporaly not working. The chart itself working fine
+                    WeatherChartView(data: viewStore.weatherData?.hourly ?? [])
+                }
             }
         }
+        .background(.linearGradient(colors: [.cyan, .blue], startPoint: .topLeading, endPoint: .bottomTrailing))
     }
     
     // MARK: - Private
@@ -110,6 +113,7 @@ struct CityWeatherView: View {
         }
         .frame(height: 250)
         .padding(.top, 10)
+     //   .background(.ultraThinMaterial)
     }
     
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {

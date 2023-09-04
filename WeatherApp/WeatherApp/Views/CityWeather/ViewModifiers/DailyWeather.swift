@@ -30,7 +30,7 @@ struct DailyWeather: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 22)
-        .background(Color(.secondarySystemBackground))
+        .background(.ultraThinMaterial)
         .cornerRadius(10)
     }
     

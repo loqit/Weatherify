@@ -18,7 +18,7 @@ struct HourlyWeather: View {
         }
         .frame(width: 60, height: 90)
         .padding()
-        .background(Color(.secondarySystemBackground))
+        .background(.ultraThinMaterial)
         .cornerRadius(10)
     }
     
