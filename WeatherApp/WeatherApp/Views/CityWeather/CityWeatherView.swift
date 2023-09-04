@@ -66,7 +66,7 @@ struct CityWeatherView: View {
                 }
             }
         }
-        .background(.linearGradient(colors: [.cyan, .blue], startPoint: .topLeading, endPoint: .bottomTrailing))
+        .background(.linearGradient(colors: [.cyan, .blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
     }
     
     // MARK: - Private

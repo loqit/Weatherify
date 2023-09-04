@@ -31,7 +31,7 @@ struct DailyWeather: View {
         .padding(.horizontal)
         .padding(.vertical, 22)
         .background(.ultraThinMaterial)
-        .cornerRadius(10)
+        .cornerRadius(25)
     }
     
     // MARK: - Private
