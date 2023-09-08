@@ -20,19 +20,19 @@ struct CityWeatherView: View {
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
                 VStack {
-                    Spacer()
-                    cityTitle
-                    if let currentWeather = viewStore.weatherData?.current {
-                        currentTempTitle(currentTemp: currentWeather.temp)
-                        Spacer()
-                        descriptionTitle(description: currentWeather.weather[0].weatherDescription)
-                    }
-                    Spacer()
-                    if let todayTemps = viewStore.weatherData?.daily[0].temp {
-                        todayTemp(minTemp: todayTemps.min, maxTemp: todayTemps.max)
-                    }
-                    Spacer()
                     ScrollView(.vertical, showsIndicators: false) {
+                        Spacer()
+                        cityTitle
+                        if let currentWeather = viewStore.weatherData?.current {
+                            currentTempTitle(currentTemp: currentWeather.temp)
+                            Spacer()
+                            descriptionTitle(description: currentWeather.weather[0].weatherDescription)
+                        }
+                        Spacer()
+                        if let todayTemps = viewStore.weatherData?.daily[0].temp {
+                            todayTemp(minTemp: todayTemps.min, maxTemp: todayTemps.max)
+                        }
+                        Spacer()
                         currentWeatherView(hourlyWeather: viewStore.weatherData?.hourly ?? [])
                         dailyWeatherView(dailyWeather: viewStore.weatherData?.daily ?? [],
                                          minWeekly: viewStore.minWeeklyTemp ?? 0,

@@ -22,6 +22,7 @@
 		648AD6892A83AE4E00B2E28B /* CountriesReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD6882A83AE4E00B2E28B /* CountriesReducer.swift */; };
 		648AD68C2A8531C500B2E28B /* FloatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD68B2A8531C500B2E28B /* FloatedButton.swift */; };
 		648AD6932A8A984B00B2E28B /* RepositoryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648AD6922A8A984B00B2E28B /* RepositoryError.swift */; };
+		648CB27C2AA651D70092B9E9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 648CB27B2AA651D70092B9E9 /* Images.xcassets */; };
 		64954FB92A9CC9FE006633DE /* TransparentBlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64954FB82A9CC9FE006633DE /* TransparentBlurView.swift */; };
 		64954FBB2A9CCDB2006633DE /* PressureCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64954FBA2A9CCDB2006633DE /* PressureCard.swift */; };
 		64954FBD2A9CCF45006633DE /* CircularProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64954FBC2A9CCF45006633DE /* CircularProgressBar.swift */; };
@@ -116,6 +117,7 @@
 		648AD68D2A86663600B2E28B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		648AD6922A8A984B00B2E28B /* RepositoryError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryError.swift; sourceTree = "<group>"; };
 		648AD6942A8C0F7100B2E28B /* WeatherApp v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WeatherApp v3.xcdatamodel"; sourceTree = "<group>"; };
+		648CB27B2AA651D70092B9E9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		64954FB82A9CC9FE006633DE /* TransparentBlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentBlurView.swift; sourceTree = "<group>"; };
 		64954FBA2A9CCDB2006633DE /* PressureCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressureCard.swift; sourceTree = "<group>"; };
 		64954FBC2A9CCF45006633DE /* CircularProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressBar.swift; sourceTree = "<group>"; };
@@ -453,6 +455,7 @@
 		D212A76A284FE29600219C0B /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				648CB27B2AA651D70092B9E9 /* Images.xcassets */,
 				648AD68D2A86663600B2E28B /* Info.plist */,
 				D2C94B722936204700DF4355 /* Extensions */,
 				D22B04D328A643D800EFDD6C /* Services */,
@@ -717,6 +720,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				648CB27C2AA651D70092B9E9 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,6 +998,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6UL2YK5FHA;
@@ -1005,6 +1010,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = AppIcon;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1026,6 +1032,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6UL2YK5FHA;
@@ -1037,6 +1044,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = AppIcon;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
