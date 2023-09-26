@@ -26,4 +26,16 @@ struct City: Decodable, Identifiable, Equatable {
         self.country = model.country ?? ""
         self.state = model.state
     }
+    
+    init(name: String,
+         lat: Double,
+         lon: Double,
+         country: String,
+         state: String?) {
+        self.name = name
+        self.lat = lat
+        self.lon = lon
+        self.country = country
+        self.state = state
+    }
 }

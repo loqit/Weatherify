@@ -20,6 +20,7 @@ struct SearchCityReducer: Reducer {
     struct State: Equatable {
         
         var cities: [City] = []
+        var searchError: NetworkError?
         var savedCities: [String: Bool] = [:]
         var selectedCity: City?
         var searchQuery = ""
@@ -68,11 +69,13 @@ struct SearchCityReducer: Reducer {
             .cancellable(id: CancellID.search)
             
         case let .searchResponse(.success(cities)):
+            state.searchError = nil
             state.cities = cities
             
             return .none
-        case .searchResponse(.failure):
+        case let .searchResponse(.failure(error)):
             state.cities = []
+            state.searchError = error
             return .none
         case let .saveButtonTapped(cityID):
             guard let city = state.cities.first(where: { $0.id == cityID }) else {
