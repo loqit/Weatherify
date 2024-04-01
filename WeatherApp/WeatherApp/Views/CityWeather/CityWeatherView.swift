@@ -14,7 +14,6 @@ struct CityWeatherView: View {
 
     // MARK: - Body
 
-    // FIXME: View doesn't update at first open
     var body: some View {
         WithViewStore(self.store, observe: { $0 }) { viewStore in
                 VStack {
@@ -53,8 +52,7 @@ struct CityWeatherView: View {
                     viewStore.send(.requestWeather(weatherViewModel.coordinate.latitude, weatherViewModel.coordinate.longitude))
                 }
                 .sheet(isPresented: $isChartShown) {
-                    /// This sheet is temporaly not working. The chart itself working fine
-                    WeatherChartView(data: viewStore.weatherData?.hourly ?? [])
+                    WeatherChartView(chartModel: .init(data: viewStore.weatherData?.hourly ?? []))
                 }
             }
         .background(.linearGradient(colors: [.cyan, .blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
@@ -80,7 +78,7 @@ struct CityWeatherView: View {
 
     private func currentTempTitle(currentTemp: Double) -> some View {
         Text("\(Int(currentTemp))°C")
-            .font(.largeTitle) // TODO: Make it bigger
+            .font(.largeTitle)
             .fontWeight(.medium)
     }
 
@@ -104,7 +102,6 @@ struct CityWeatherView: View {
         }
         .frame(height: 250)
         .padding(.top, 10)
-     //   .background(.ultraThinMaterial)
     }
 
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
