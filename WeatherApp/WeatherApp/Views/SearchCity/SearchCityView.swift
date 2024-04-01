@@ -33,6 +33,7 @@ struct SearchCityView: View {
                 .searchable(text: viewStore.binding(get: \.searchQuery,
                                                     send: SearchCityReducer.Action.searchQueryChanged)
                 )
+                .tint(.init(hex: "F39876"))
                 .disableAutocorrection(true)
                 .task(id: viewStore.searchQuery) {
                     do {

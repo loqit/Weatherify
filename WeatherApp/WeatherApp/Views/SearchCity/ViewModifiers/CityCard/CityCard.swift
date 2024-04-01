@@ -19,8 +19,8 @@ struct CityCard: View {
             saveButton
         }
         .padding()
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(10)
+        .background(.regularMaterial)
+        .cornerRadius(20)
     }
 
     // MARK: - Private

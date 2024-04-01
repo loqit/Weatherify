@@ -20,7 +20,7 @@ struct DailyWeather: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 22)
-        .background(.ultraThinMaterial)
+        .background(DateFormatService.isTodayDate(dailyModel.date) ? .thinMaterial : .ultraThinMaterial)
         .cornerRadius(25)
     }
 

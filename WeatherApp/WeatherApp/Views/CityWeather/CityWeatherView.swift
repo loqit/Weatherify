@@ -102,8 +102,7 @@ struct CityWeatherView: View {
 
     private func todayTemp(minTemp: Double, maxTemp: Double) -> some View {
         Text("Min: \(Int(minTemp))°C Max: \(Int(maxTemp))°C")
-            .font(.headline)
-            .fontWeight(.medium)
+            .font(.custom("Inter-Medium", size: 15))
     }
 
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {

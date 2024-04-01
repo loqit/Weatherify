@@ -35,4 +35,11 @@ class DateFormatService {
         }
         return dateFormatter.string(from: date).capitalized
     }
+    
+    static func isTodayDate(_ dateInterval: Double) -> Bool {
+        let date = Date(timeIntervalSince1970: dateInterval)
+        dateFormatter.dateFormat = "EE"
+        dateFormatter.locale = Locale.current
+        return Calendar.current.isDateInToday(date)
+    }
 }
