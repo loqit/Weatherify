@@ -63,7 +63,7 @@ struct CityWeatherView: View {
     // MARK: - Private
 
     private var cityTitle: some View {
-        Text(cityName)
+        Text(weatherViewModel.cityName)
             .font(.title)
             .fontWeight(.medium)
     }
@@ -114,9 +114,7 @@ struct CityWeatherView: View {
                     Button {
                         isChartShown = true
                     } label: {
-                        HourlyWeather(temp: String(Int(hourly.temp)),
-                                    iconName: hourly.weather[0].icon,
-                                    time: DateFormatService.timeFromDate(hourly.daytime))
+                        HourlyWeather(model: .init(hourly: hourly))
                         .shadow(radius: 5, x: 5, y: 5)
                         .tint(.black)
                     }

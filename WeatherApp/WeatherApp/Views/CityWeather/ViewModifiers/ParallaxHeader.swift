@@ -39,14 +39,14 @@ struct ParallaxHeader<Content: View, Space: Hashable>: View {
         }
         .frame(height: defaultHeight)
     }
-    
+
     // MARK: - Private
 
     private func offset(for proxy: GeometryProxy) -> CGFloat {
         let frame = proxy.frame(in: .named(coordinateSpace))
         return frame.minY < 0 ? -frame.minY * 0.8: -frame.minY
     }
-    
+
     private func heightModifier(for proxy: GeometryProxy) -> CGFloat {
         let frame = proxy.frame(in: .named(coordinateSpace))
         return max(0, frame.minY)

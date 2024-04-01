@@ -1,16 +1,17 @@
 import SwiftUI
+import Combine
 
 struct DailyWeather: View {
 
     // MARK: - Properties
 
-    @ObservableObject var dailyModel: DailyWeatherModel
+    @ObservedObject var dailyModel: DailyWeatherViewModel
 
     // MARK: - Body
 
     var body: some View {
         HStack {
-            Text(DateFormatService.dayOfWeek(date))
+            Text(DateFormatService.dayOfWeek(dailyModel.date))
                 .fontWeight(.medium)
                 .frame(minWidth: 75, alignment: .leading)
             Spacer()

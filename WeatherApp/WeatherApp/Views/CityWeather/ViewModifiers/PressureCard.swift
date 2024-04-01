@@ -14,9 +14,3 @@ struct PressureCard: View {
         }
     }
 }
-
-//struct PressureCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PressureCard()
-//    }
-//}

@@ -1,13 +1,12 @@
 import SwiftUI
+import Combine
 
 struct HourlyWeather: View {
-    
+
     // MARK: - Properties
 
-    let temp: String
-    let iconName: String
-    let time: String
-    
+    @ObservedObject var model: HourlyWeatherModel
+
     // MARK: - Body
 
     var body: some View {
@@ -25,13 +24,13 @@ struct HourlyWeather: View {
     // MARK: - Private
     
     private var tempTitle: some View {
-        Text("\(temp)°C")
+        Text("\(model.temp)°C")
             .font(.caption)
             .fontWeight(.medium)
     }
 
     private var weatherImage: some View {
-        AsyncImage(url: OpenWeatherEndpoint.iconUrl(iconName).url) { image in
+        AsyncImage(url: OpenWeatherEndpoint.iconUrl(model.iconName).url) { image in
             image
                 .resizable()
         } placeholder: {
@@ -40,17 +39,10 @@ struct HourlyWeather: View {
         .imageScale(.small)
         .frame(width: 40, height: 40)
     }
-    
+
     private var timeTitle: some View {
-        Text(time)
+        Text(model.time)
             .font(.caption)
             .fontWeight(.medium)
-    }
-}
-
-struct WeatherCard_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        HourlyWeather(temp: "20", iconName: "", time: "2:00 PM")
     }
 }

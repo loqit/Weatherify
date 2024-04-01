@@ -1,6 +1,7 @@
 import Foundation
+import Combine
 
-final class DailyWeatherModel: ObservableObject {
+final class DailyWeatherViewModel: ObservableObject {
     @Published var date: Double
     @Published var temp: Temperature
     @Published var iconName: String
@@ -15,10 +16,10 @@ final class DailyWeatherModel: ObservableObject {
         self.maxWeekly = maxWeekly
     }
 
-    convenience init(dailyWeather: DailyWeatherModel, minWeekly: Double, maxWeekly: Double) {
-        self.date = dailyWeather.date
+    init(dailyWeather: DailyWeatherModel, minWeekly: Double, maxWeekly: Double) {
+        self.date = dailyWeather.daytime
         self.temp = dailyWeather.temp
-        self.iconName = dailyWeather.iconName
+        self.iconName = dailyWeather.weather[0].icon
         self.minWeekly = minWeekly
         self.maxWeekly = maxWeekly
     }

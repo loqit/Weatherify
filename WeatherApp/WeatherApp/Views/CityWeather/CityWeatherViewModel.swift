@@ -11,7 +11,7 @@ final class CityWeatherViewModel: ObservableObject {
         self.cityName = cityName
     }
     
-    convenience init(city: City) {
+    init(city: City) {
         self.coordinate = city.coordinate
         self.cityName = city.name
     }

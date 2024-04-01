@@ -2,7 +2,7 @@ import SwiftUI
 import Charts
 
 struct WeatherChartView: View {
-    
+
     // MARK: - Properties
 
     let data: [CurrentWeather]
