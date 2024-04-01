@@ -14,9 +14,9 @@ final class CityCardModel: ObservableObject {
         self.cityID = cityID
     }
 
-    convenience init(city: City) {
+    init(city: City) {
         self.cityName = city.name
-        self.cityState = city.state
+        self.cityState = city.state ?? ""
         self.cityCountry = city.country
         self.cityID = city.id
     }

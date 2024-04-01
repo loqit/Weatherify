@@ -27,8 +27,8 @@ class TempGradinetConfigurator {
     }
     
     static func setupGradient(temp: Temperature) -> [Color] {
-        let minTemp = temp.min
-        let maxTemp = temp.max
+        let minTemp = Int(temp.min)
+        let maxTemp = Int(temp.max)
         var colors: [Color] = []
         let range = (minTemp...maxTemp)
         if range ~= (-30)...(-15) {

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CircularProgressBar: View {
-    
+
     // MARK: - Properties
 
     let progress: Double
