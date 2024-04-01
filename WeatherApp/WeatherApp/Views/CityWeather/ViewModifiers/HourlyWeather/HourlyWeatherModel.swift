@@ -13,7 +13,7 @@ final class HourlyWeatherModel: ObservableObject {
     }
 
     init(hourly: CurrentWeather) {
-        self.temp = String(hourly.temp)
+        self.temp = String(Int(hourly.temp))
         self.iconName = hourly.weather[0].icon
         self.time = DateFormatService.timeFromDate(hourly.daytime)
     }

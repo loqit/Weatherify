@@ -43,8 +43,22 @@ struct SearchCityView: View {
                 .onAppear {
                     viewStore.send(.viewLoaded)
                 }
+                .background { backgroundGradient.ignoresSafeArea() }
                 .navigationTitle("Search Weather")
             }
         }
+    }
+
+    // MARK: - Private
+
+    private var backgroundGradient: LinearGradient {
+        LinearGradient(
+            stops: [
+                .init(color: .init(hex: "FEE3BC"), location: 0.01),
+                .init(color: .init(hex: "F39876"), location: 0.8)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
     }
 }

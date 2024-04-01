@@ -18,7 +18,7 @@ struct HourlyWeather: View {
         .frame(width: 60, height: 90)
         .padding()
         .background(.ultraThinMaterial)
-        .cornerRadius(10)
+        .cornerRadius(20)
     }
     
     // MARK: - Private
