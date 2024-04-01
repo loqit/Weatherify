@@ -8,11 +8,9 @@ struct CityWeatherView: View {
 
     let store: StoreOf<CityWeatherReducer>
 
-    let coordinate: CLLocationCoordinate2D
-    let cityName: String
-    
-    @State var offset: CGFloat = 0
-    @State var isChartShown = false
+    @ObservedObject var weatherViewModel: CityWeatherViewModel
+    @State private var offset: CGFloat = 0
+    @State private var isChartShown = false
 
     // MARK: - Body
 
@@ -52,7 +50,7 @@ struct CityWeatherView: View {
                 }
                 .onAppear {
                     print("Appear")
-                    viewStore.send(.requestWeather(coordinate.latitude, coordinate.longitude))
+                    viewStore.send(.requestWeather(weatherViewModel.coordinate.latitude, weatherViewModel.coordinate.longitude))
                 }
                 .sheet(isPresented: $isChartShown) {
                     /// This sheet is temporaly not working. The chart itself working fine
@@ -61,31 +59,31 @@ struct CityWeatherView: View {
             }
         .background(.linearGradient(colors: [.cyan, .blue, .teal], startPoint: .topLeading, endPoint: .bottomTrailing))
     }
-    
+
     // MARK: - Private
-    
+
     private var cityTitle: some View {
         Text(cityName)
             .font(.title)
             .fontWeight(.medium)
     }
-    
+
     private func descriptionTitle(description: String) -> some View {
         Text(description.capitalized)
     }
-    
+
     private func todayTemp(minTemp: Double, maxTemp: Double) -> some View {
         Text("Min: \(Int(minTemp))°C Max: \(Int(maxTemp))°C")
             .font(.headline)
             .fontWeight(.medium)
     }
-    
+
     private func currentTempTitle(currentTemp: Double) -> some View {
         Text("\(Int(currentTemp))°C")
             .font(.largeTitle) // TODO: Make it bigger
             .fontWeight(.medium)
     }
-    
+
     private func uviProgress(progress: Double) -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25)
@@ -108,7 +106,7 @@ struct CityWeatherView: View {
         .padding(.top, 10)
      //   .background(.ultraThinMaterial)
     }
-    
+
     private func currentWeatherView(hourlyWeather: [CurrentWeather]) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
@@ -126,19 +124,17 @@ struct CityWeatherView: View {
             }
             .padding()
         }
-            .padding()
+        .padding()
     }
-    
+
     private func dailyWeatherView(dailyWeather: [DailyWeatherModel],
                                   minWeekly: Double,
                                   maxWeekly: Double) -> some View {
         VStack {
             ForEach(dailyWeather) { daily in
-                DailyWeather(date: daily.daytime,
-                             temp: daily.temp,
-                             iconName: daily.weather[0].icon,
-                             minWeekly: minWeekly,
-                             maxWeekly: maxWeekly)
+                DailyWeather(dailyModel: .init(dailyWeather: daily,
+                                               minWeekly: minWeekly,
+                                               maxWeekly: maxWeekly))
             }
         }
         .padding()

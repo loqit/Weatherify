@@ -9,7 +9,7 @@ struct CountriesView: View {
     let store: StoreOf<CountriesReducer>
 
     @State private var isError = false
-    
+
     // MARK: - Body
 
     var body: some View {
@@ -42,9 +42,9 @@ struct CountriesView: View {
             }
         }
     }
-    
+
     // MARK: - Private
-    
+
     private func countryCard(of coutry: CountryElement) -> some View {
         CountryCard(countryName: coutry.name.common, countryFlag: coutry.flags.png)
     }

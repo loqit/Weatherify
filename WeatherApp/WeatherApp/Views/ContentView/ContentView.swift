@@ -2,13 +2,13 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ContentView: View {
-    
+
     // MARK: - Properties
-    
+
     @State private var selectedTab: RootTab = .first
-    
+
     // MARK: - Body
-    
+
     var body: some View {
         TabView(selection: $selectedTab) {
             SearchCityView(store: Store(initialState: SearchCityReducer.State()) {

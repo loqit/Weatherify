@@ -25,4 +25,30 @@ class TempGradinetConfigurator {
         }
         return colors
     }
+    
+    static func setupGradient(temp: Temperature) -> [Color] {
+        let minTemp = temp.min
+        let maxTemp = temp.max
+        var colors: [Color] = []
+        let range = (minTemp...maxTemp)
+        if range ~= (-30)...(-15) {
+            colors.append(.blue)
+        }
+        if range ~= (-14)...0 {
+            colors.append(.mint)
+        }
+        if range ~= 1...14 {
+            colors.append(.green)
+        }
+        if range ~= 15...20 {
+            colors.append(.yellow)
+        }
+        if range ~= 21...25 {
+            colors.append(.orange)
+        }
+        if range ~= 26...Int.max {
+            colors.append(.red)
+        }
+        return colors
+    }
 }

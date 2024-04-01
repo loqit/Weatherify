@@ -7,7 +7,7 @@ struct WeatherMapView: View {
     // MARK: - Properties
 
     let coordinate: CLLocationCoordinate2D?
-    @State var mapView = MapView()
+    @State private var mapView = MapView()
     
     // MARK: - Body
 

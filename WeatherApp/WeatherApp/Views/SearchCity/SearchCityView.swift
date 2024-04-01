@@ -6,7 +6,7 @@ struct SearchCityView: View {
     // MARK: - Properties
 
     let store: StoreOf<SearchCityReducer>
-    
+
     // MARK: - Body
 
     var body: some View {
@@ -16,11 +16,7 @@ struct SearchCityView: View {
                     LazyVStack {
                         ForEach(viewStore.cities) { city in
                             NavigationLink(value: city.id) {
-                                CityCard(store: store,
-                                         cityName: city.name,
-                                         cityState: city.state ?? "",
-                                         cityCountry: city.country,
-                                         cityID: city.id)
+                                CityCard(store: store, model: .init(city: city))
                             }
                             .padding(EdgeInsets(top: 7, leading: 10, bottom: 3, trailing: 10))
                         }
@@ -28,11 +24,10 @@ struct SearchCityView: View {
                 }
                 .navigationDestination(for: City.ID.self) { cityID in
                     if let city = viewStore.cities.first(where: { $0.id == cityID }) {
-                        CityWeatherView(store: Store(initialState: CityWeatherReducer.State()) {
-                            CityWeatherReducer()
-                        },
-                                        coordinate: city.coordinate,
-                                        cityName: city.name)
+                        CityWeatherView(
+                            store: Store(initialState: CityWeatherReducer.State()) { CityWeatherReducer() },
+                            weatherViewModel: .init(city: city)
+                        )
                     }
                 }
                 .searchable(text: viewStore.binding(get: \.searchQuery,
